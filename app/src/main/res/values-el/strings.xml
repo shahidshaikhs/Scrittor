@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Σχετικά με το Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Το Scrittor σας προσφέρει μια απλή και εύκολη εμπειρία χρήσης. Χωρίς περιττά χαρακτηριστικά που να μπερδεύουν το χρήστη. Προσθέστε σημειώσεις, επιλέξτε μια κατηγορία και είστε έτοιμοι.</string>
+    <string name="changelog">Λίστα ενημερώσεων</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Το Scrittor έχει εξελιχθεί πολύ από την πρώτη του κυκλοφορία. Κάντε κλικ εδώ για να διαβάσετε το σύνολο των ενημερώσεων.</string>
+    <string name="group">Ομάδα</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Σε περίπτωση που επιθυμείτε να συζητήσουμε περισσοτερα για το Scrittor, γίνετε μέλος της ομάδας μας στο telegram</string>
+    <string name="contact">Επικοινωνία</string>
+    <string name="developer_designation">Προγραμματιστής/Σχεδιαστής Android</string>
+    <string name="libraries_used">Βιβλιοθήκες σε χρήση</string>
+    <!--FingerPrint-->
+    <string name="instructions">Τοποθετήστε το αποτύπωμα σας πάνω στον αισθητήρα για να πιστοποιήσετε την ταυτότητά σας</string>
+    <!--Add Notes Activity-->
+    <string name="title">Τίτλος</string>
+    <string name="add_a_note">Προσθέστε μια σημείωση</string>
+    <string name="creation_date">Ημερομηνία δημιουργίας:</string>
+    <string name="today">Σήμερα</string>
+    <string name="category">Κατηγορία:</string>
+    <string name="not_specified">Δεν έχει προσδιοριστεί</string>
+    <string name="word_count">Αριθμός λέξεων:</string>
+    <string name="character_count">Αριθμός χαρακτήρων:</string>
+    <string name="export_as_text_file">Εξαγωγή ως κείμενο αρχείου</string>
+    <string name="share_with_others">Μοιραστείτε με άλλους</string>
+    <!--Billing Activity-->
+    <string name="support_development">Υποστηρίξτε την ανάπτυξη της εφαρμογής</string>
+    <string name="buy_me_some">Πάρτε μου</string>
+    <string name="cookie">Μπισκότο</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Καφέ</string>
+    <string name="cheese_burger">Μπέργκερ</string>
+    <string name="pizza">Πίτσα</string>
+    <string name="full_meal">Πλήρες γεύμα</string>
+    <string name="shirt">Μπλούζα</string>
+    <string name="watch">Ρολόι</string>
+    <string name="or">ή</string>
+    <string name="donate_to_syrian_kids">Κάνετε μια δωρεά για τα παιδιά της Συρίας</string>
+    <string name="donate_syria_desc">Στη Συρία, 7,5 περίπου εκατομμύρια παιδια μεγαλώνουν χωρίς να γνωρίσουν τίποτα άλλο εκτός από πόλεμο. Παρακαλώ κάντε μια δωρεά, για να μην χαθεί μια ολόκληρη γενιά Σύριων παιδιών. Σημαίνει πολλά για μένα, σας ευχαριστώ.</string>
+    <string name="click_here">ΚΑΝΤΕ ΚΛΙΚ ΕΔΩ</string>
+    <!--Categories Activity-->
+    <string name="add_category">Προσθέστε κατηγορία</string>
+    <string name="category_title">Τίτλος κατηγορίας</string>
+    <string name="add_a_category">Προσθέστε μια κατηγορία</string>
+    <!--Password Reset Activity-->
+    <string name="password">Κωδικός</string>
+    <string name="enter_a_4_digit_number">Εισάγετε τον 4ψήφιο αριθμό</string>
+    <string name="pin_requirements">Σιγουρευτείτε οτί θα θυμάστε αυτό το PIN. Σε περίπτωση απώλειας, θα χάσετε την πρόσβασή σας στην εφαρμογή.</string>
+    <!--Settings Activity-->
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="switch_theme">Αλλάξτε θέμα</string>
+    <string name="pin_code">Κωδικός PIN</string>
+    <string name="enable_disable_pin">Να ζητείται PIN κατά την έναρξη της εφαρμογής. Ενεργοποιήστε/Απενεργοποιήστε από το πεδίο στα δεξιά.</string>
+    <string name="pin_desc_more">Αφότου ορίσετε κωδικό PIN, η επιλογή προστασίας δακτυλικού αποτυπώματος θα γίνει διαθέσιμη</string>
+    <string name="fingerprint_authentication">Επαλήθευση δακτυλικού αποτυπώματος</string>
+    <string name="fpa_desc">Χρησιμοποιήστε επαλήθευση δακτυλικού αποτυπώματος, παράλληλα με την προστασία κωδικού PIN</string>
+    <string name="text_limiter">Οριοθέτηση κειμένου</string>
+    <string name="text_limiter_desc">Επιλέξτε τον αριθμό των γραμμών κειμένου, που εμφανίζονται στην αρχική οθόνη (εξαιρουμένου του τίτλου)</string>
+    <string name="export_notes">Εξαγωγή σημειώσεων</string>
+    <string name="export_notes_to_device_storage">Εξαγωγή σημειώσεων στον αποθηκευτικό χώρο της συσκευής</string>
+    <string name="import_notes">Εισάγετε σημειώσεις</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Για να εισάγετε σημειώσεις από διαφορετική συσκευή, αντιγράψτε το φάκελο</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Εισάγετε</string>
+    <string name="fingerprint">Δακτυλικό αποτύπωμα</string>
+    <string name="authentication">Επαλήθευση</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Όνομα κατηγορίας</string>
+    <string name="you_can_add_some_description_here">Προσθέστε εδώ την περιγραφή</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Γεια σας,</string>
+    <string name="rate_and_review">Αξιολογήστε και αφήστε μια κριτική</string>
+    <string name="about">Σχετικά</string>
+    <string name="help_translate">Βοηθήστε στην μετάφραση της εφαρμογής</string>
+    <!--Misc-->
+    <string name="new_category">Νέα κατηγορία</string>
+    <string name="tab_category">Κατηγορίες</string>
+    <string name="tab_notes">Σημειώσεις</string>
+    <string name="tab_starred">Αγαπημένα</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Πολιτική Απορρήτου</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Διαβάστε την πολιτική απορρήτου λεπτομερώς. Επιπλέον εάν έχετε αμφιβολίες σχετικά με αυτή, ενημερώστε με.</string>
+</resources>

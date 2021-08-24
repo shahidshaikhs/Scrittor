@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">關於 Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor 有著簡單易用的介面，沒有多餘的花俏功能讓一切變得更加雜亂。你只需要新增筆記、選取分類，就完成了。</string>
+    <string name="changelog">版本紀錄</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor 自發布以來，進步了許多。點這裡以瀏覽更詳細的版本紀錄。</string>
+    <string name="group">交流群組</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">如果你想知道更多有關接下來的更新，和想參與 Scrittor 的相關討論，歡迎加入 Telegram 群組。</string>
+    <string name="contact">聯絡我</string>
+    <string name="developer_designation">安卓開發人員 / 技術人員</string>
+    <string name="libraries_used">引用的函式庫</string>
+    <!--FingerPrint-->
+    <string name="instructions">輕觸指紋感應以便認證身份</string>
+    <!--Add Notes Activity-->
+    <string name="title">標題</string>
+    <string name="add_a_note">添加新文件</string>
+    <string name="creation_date">創建日期：</string>
+    <string name="today">今天</string>
+    <string name="category">類別：</string>
+    <string name="not_specified">無分類</string>
+    <string name="word_count">字數：</string>
+    <string name="character_count">字母數：</string>
+    <string name="export_as_text_file">匯出成文字檔</string>
+    <string name="share_with_others">使用其他方式分享</string>
+    <!--Billing Activity-->
+    <string name="support_development">支援開發</string>
+    <string name="buy_me_some">贊助我</string>
+    <string name="cookie">餅乾</string>
+    <string name="pepsi">百事可樂</string>
+    <string name="coffee">咖啡</string>
+    <string name="cheese_burger">起司漢堡</string>
+    <string name="pizza">披薩</string>
+    <string name="full_meal">套餐</string>
+    <string name="shirt">T恤</string>
+    <string name="watch">手錶</string>
+    <string name="or">或</string>
+    <string name="donate_to_syrian_kids">捐款給敘利亞兒童</string>
+    <string name="donate_syria_desc">在敘利亞，有將近750萬的孩童在戰火中成長，他們對童年的回憶將只有戰爭。請捐助敘利亞孩童，別讓他們成為流失的世代。你的任何貢獻對我都意義重大，謝謝！</string>
+    <string name="click_here">請按連結</string>
+    <!--Categories Activity-->
+    <string name="add_category">新增分類</string>
+    <string name="category_title">分類標題</string>
+    <string name="add_a_category">新增</string>
+    <!--Password Reset Activity-->
+    <string name="password">密碼</string>
+    <string name="enter_a_4_digit_number">輸入4位數數字</string>
+    <string name="pin_requirements">請記住你的 PIN 碼，一旦遺失，您將無法再次使用本應用程式。</string>
+    <!--Settings Activity-->
+    <string name="settings">設定</string>
+    <string name="switch_theme">更換主題</string>
+    <string name="pin_code">密碼</string>
+    <string name="enable_disable_pin">開啟程式時要求輸入密碼，啟用/停用欄在右側</string>
+    <string name="pin_desc_more">一旦設定好4位數密碼，可至設定中啟用指紋驗證解鎖</string>
+    <string name="fingerprint_authentication">指紋認證</string>
+    <string name="fpa_desc">開啟4位數碼驗證及指紋驗證</string>
+    <string name="text_limiter">字數限制</string>
+    <string name="export_notes">匯出筆記</string>
+    <string name="export_notes_to_device_storage">匯出筆記至設備空間</string>
+    <string name="import_notes">匯入筆記</string>
+    <!--Sign In Activity-->
+    <string name="fingerprint">指紋</string>
+    <string name="authentication">驗證</string>
+    <!--Single Category Activity-->
+    <string name="category_name">分類名稱</string>
+    <string name="you_can_add_some_description_here">你可以在這裡新增描述！</string>
+    <!--Navigation Drawer-->
+    <string name="hello">哈囉，</string>
+    <string name="rate_and_review">打星和評論</string>
+    <string name="about">關於</string>
+    <string name="help_translate">幫助翻譯</string>
+    <!--Misc-->
+    <string name="new_category">新增分類</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">隱私權政策</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">詳細瞭解 Scrittor 的隱私權政策。若有任何疑問歡迎聯絡我。</string>
+</resources>

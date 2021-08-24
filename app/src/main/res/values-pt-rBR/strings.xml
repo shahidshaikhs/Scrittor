@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Sobre o Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">"O Scrittor ajuda com uma interface simples e fácil de usar. Aqui não há funções desnecessárias para tornar tudo complexo demais. Você cria anotações, seleciona uma categoria e pronto. "</string>
+    <string name="changelog">Registro de alterações</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">O Scrittor percorreu um longo caminho desde seu primeiro lançamento. Clique aqui para ver o exaustivo registro de alterações.</string>
+    <string name="group">Grupo</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Entre no grupo do Telegram se quiser saber mais sobre as próximas atualizações e discutir sobre o Scrittor.</string>
+    <string name="contact">Contato</string>
+    <string name="developer_designation">Designer e desenvolvedor Android</string>
+    <string name="libraries_used">Bibliotecas usadas</string>
+    <!--FingerPrint-->
+    <string name="instructions">"Coloque seu dedo no sensor de impressões digitais para verificar sua identidade "</string>
+    <!--Add Notes Activity-->
+    <string name="title">Título</string>
+    <string name="add_a_note">Adicionar uma anotação</string>
+    <string name="creation_date">"Data de criação: "</string>
+    <string name="today">Hoje</string>
+    <string name="category">"Categoria: "</string>
+    <string name="not_specified">Não especificado</string>
+    <string name="word_count">Número de palavras:</string>
+    <string name="character_count">Número de caracteres:</string>
+    <string name="export_as_text_file">"Exportar como arquivo de texto "</string>
+    <string name="share_with_others">Compartilhe com os outros</string>
+    <!--Billing Activity-->
+    <string name="support_development">Desenvolvimento de ajuda</string>
+    <string name="buy_me_some">ME COMPRE ALGUM(A)</string>
+    <string name="cookie">Biscoito</string>
+    <string name="pepsi">Refrigerante</string>
+    <string name="coffee">Café</string>
+    <string name="cheese_burger">Hambúrguer</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Refeição completa</string>
+    <string name="shirt">Camiseta</string>
+    <string name="watch">Relógio</string>
+    <string name="or">OU</string>
+    <string name="donate_to_syrian_kids">Doe às crianças da Síria</string>
+    <string name="donate_syria_desc">"Na Síria, estima-se que 7,5 milhões de crianças estão crescendo conhecendo nada além da guerra. Por favor, doe agora e não deixe que as crianças sírias se tornem uma geração perdida. Isso significaria muito para mim. Obrigado. "</string>
+    <string name="click_here">CLIQUE AQUI</string>
+    <!--Categories Activity-->
+    <string name="add_category">Adicionar Categoria</string>
+    <string name="category_title">Título da Categoria</string>
+    <string name="add_a_category">Adicione uma categoria</string>
+    <!--Password Reset Activity-->
+    <string name="password">Senha</string>
+    <string name="enter_a_4_digit_number">Digite um número de 4 dígitos</string>
+    <string name="pin_requirements">"Tenha certeza de que sempre lembrará desta senha. Uma vez perdida você não será capaz de entrar no aplicativo novamente. "</string>
+    <!--Settings Activity-->
+    <string name="settings">Configurações</string>
+    <string name="switch_theme">Mudar Tema</string>
+    <string name="pin_code">Código PIN</string>
+    <string name="enable_disable_pin">"Solicitar senha quando o aplicativo abrir. Ative/Desative na caixa de seleção ao lado. "</string>
+    <string name="pin_desc_more">"Depois de cadastrada a senha, a opção de proteção por impressão digital estará disponível nas configurações. "</string>
+    <string name="fingerprint_authentication">Autenticação por impressão digital</string>
+    <string name="fpa_desc">"Use a autenticação por impressão digital juntamente com a proteção por senha. "</string>
+    <string name="text_limiter">Limitador de texto</string>
+    <string name="text_limiter_desc">Gerencie a quantidade de linhas de texto a ser mostrada na tela inicial (com exceção do título)</string>
+    <string name="export_notes">Exportar anotações</string>
+    <string name="export_notes_to_device_storage">Exportar anotações para a memória interna</string>
+    <string name="import_notes">Importar anotações</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Para importar de outro dispositivo, copie a pasta</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Digite sua</string>
+    <string name="fingerprint">impressão digital</string>
+    <string name="authentication">Autenticação</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Nome da Categoria</string>
+    <string name="you_can_add_some_description_here">Você pode adicionar uma descrição aqui!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">"Olá, "</string>
+    <string name="rate_and_review">Avaliar e comentar</string>
+    <string name="about">Sobre</string>
+    <string name="help_translate">Ajude a traduzir</string>
+    <!--Misc-->
+    <string name="new_category">Nova Categoria</string>
+    <string name="tab_category">C a t e g o r i a s</string>
+    <string name="tab_notes">A n o t a ç õ e s</string>
+    <string name="tab_starred">F a v o r i t o s</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Políticas de privacidade</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Consulte as Políticas de Privacidade do Scrittor. Além disso, deixe-me saber se você tem alguma dúvida sobre o mesmo.</string>
+</resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">O Scrittor-u</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor pomaže sa jednostavnim sučeljem koje se lako koristi. Nema dodatnih nepotrebnih značajki koje bi sve zakomplicirale. Dodaj bilješke, odaberi kategoriju i gotov si.</string>
+    <string name="changelog">Popis promjena</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor je dogurao daleko od prvog izdanja. Klikni ovdje da bi pročitao umarajuć popis promjena.</string>
+    <string name="group">Grupa</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Pridruži se Telegram grupi ako želiš znati više o nadolazećim ažuriranjima i razgovarati o Scrittor-u</string>
+    <string name="contact">Kontakt</string>
+    <string name="developer_designation">Android Razvijač / Dizajner</string>
+    <string name="libraries_used">Korištene Biblioteke</string>
+    <!--FingerPrint-->
+    <string name="instructions">Stavi vrh svog prsta na čitač da bi potvrdio svoj identitet</string>
+    <!--Add Notes Activity-->
+    <string name="title">Naziv</string>
+    <string name="add_a_note">Dodaj Bilješku</string>
+    <string name="creation_date">Datum Stvaranja :</string>
+    <string name="today">Danas</string>
+    <string name="category">Kategorija :</string>
+    <string name="not_specified">Nije Specificirana</string>
+    <string name="word_count">Broj Riječi:</string>
+    <string name="character_count">Broj Slova:</string>
+    <string name="export_as_text_file">Izvezi kao Tekstualnu Datoteku</string>
+    <string name="share_with_others">Dijeli s drugima</string>
+    <!--Billing Activity-->
+    <string name="support_development">Podrži Razvoj</string>
+    <string name="buy_me_some">KUPI MI</string>
+    <string name="cookie">Kolačić</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Kavu</string>
+    <string name="cheese_burger">Cheese Burger</string>
+    <string name="pizza">Pizzu</string>
+    <string name="full_meal">Puno jelo</string>
+    <string name="shirt">Majcu</string>
+    <string name="watch">Sat</string>
+    <string name="or">ILI</string>
+    <string name="donate_to_syrian_kids">Doniraj Sirijskoj djeci</string>
+    <string name="donate_syria_desc">U Siriji, prosječno 7.5 milijuna djece odrastaju poznajući samo rat. Molim te doniraj sada i ne dopusti da Sirijska djeca postanu izgubljena generacija. Ovo bi mi puno značilo. Hvala ti</string>
+    <string name="click_here">STISNI OVDJE</string>
+    <!--Categories Activity-->
+    <string name="add_category">Dodaj Kategoriju</string>
+    <string name="category_title">Naziv Kategorije</string>
+    <string name="add_a_category">Dodaj kategoriju</string>
+    <!--Password Reset Activity-->
+    <string name="password">Šifra</string>
+    <string name="enter_a_4_digit_number">Unesi četveroznamenkasti broj</string>
+    <string name="pin_requirements">Molim te da zapamtiš ovaj PIN. Ako ga izgubiš, nećeš moći ući u aplikaciju.</string>
+    <!--Settings Activity-->
+    <string name="settings">Postavke</string>
+    <string name="switch_theme">Promjeni Temu</string>
+    <string name="pin_code">PIN-Kod</string>
+    <string name="enable_disable_pin">Traži PIN Kod prilikom paljenja aplikacije. Uključi/ Isključi dodirom na okvir nadesno.</string>
+    <string name="pin_desc_more">Kada je PIN postavljen, opcija za zaštitu otiskom prsta postat će dostupna u postavkama.</string>
+    <string name="fingerprint_authentication">Autentikacija Otiskom Prsta</string>
+    <string name="fpa_desc">Koristi autentikaciju otiskom prsta zajedno sa zaštitom PIN-Kodom.</string>
+    <string name="text_limiter">Limitator Teksta</string>
+    <string name="text_limiter_desc">Upravljaj količinom linija teksta koje se prikazuju na početnom zaslonu (izuzimajući naziv).</string>
+    <string name="export_notes">Izvezi bilješke</string>
+    <string name="export_notes_to_device_storage">Izvezi bilješke u pohranu uređaja</string>
+    <string name="import_notes">Uvezi bilješke</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Da bi uveo bilješke s drugog uređaja, kopiraj mapu</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Unesi svoj</string>
+    <string name="fingerprint">Otisak Prsta</string>
+    <string name="authentication">Autentikacija</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Ime Kategorije</string>
+    <string name="you_can_add_some_description_here">Možeš dodati neki opis ovdje!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Bok,</string>
+    <string name="rate_and_review">Ocijeni i Recenziraj</string>
+    <string name="about">O</string>
+    <string name="help_translate">Pomozi Prevesti</string>
+    <!--Misc-->
+    <string name="new_category">Nova Kategorija</string>
+    <string name="tab_category">K a t e g o r i j e</string>
+    <string name="tab_notes">B i l j e š k e</string>
+    <string name="tab_starred">F a v o r i t i</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Pravila o Privatnosti</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Prođi Scrittor-ova Pravila o Privatnosti detaljno. Obavijesti me ako imaš bilo kakve sumnje u vezi istog.</string>
+</resources>

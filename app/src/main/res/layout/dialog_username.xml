@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="?android:colorPrimary"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:colorPrimary"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="@string/hello"
+            android:textColor="?android:textColor"
+            android:textSize="20sp" />
+
+        <EditText
+            android:inputType="text"
+            android:id="@+id/userNameText"
+            android:maxLength="20"
+            android:padding="6dp"
+            android:background="#1c1c1c"
+            android:layout_marginTop="12dp"
+            android:textColorHint="?android:textColorSecondary"
+            android:textColor="?android:textColorSecondary"
+            android:hint="@string/please_enter_your_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:fontFamily="@font/bold"
+                android:padding="4dp"
+                android:text="@string/done"
+                android:textColor="?android:colorAccent"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/disagree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_toStartOf="@id/agree"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/bold"
+                android:padding="4dp"
+                android:text="@string/later"
+                android:textColor="?android:textColor" />
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

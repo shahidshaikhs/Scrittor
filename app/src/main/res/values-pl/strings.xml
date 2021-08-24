@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">O aplikacji</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor posiada prosty i przejrzysty interfejs. Nie ma w nim zbędnych funkcji, które niepotrzebnie by go skomplikowały. To proste: notujesz, wybierasz kategorię i już!</string>
+    <string name="changelog">Zobacz zmiany w aplikacji</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor przeszedł długą drogę od pierwszej wersji. Tutaj możesz sprawdzić rozszerzoną listę kolejnych zmian.</string>
+    <string name="group">Grupa</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Dołącz do grupy na Telegramie, by być na bieżąco z nadchodzącymi zmianami i dyskutować o aplikacji z innymi użytkownikami.</string>
+    <string name="contact">Kontakt</string>
+    <string name="developer_designation">Projektant/Programista Android</string>
+    <string name="libraries_used">Wykorzystane biblioteki</string>
+    <!--FingerPrint-->
+    <string name="instructions">Przyłóż palec do czytnika linii papilarnych, by zweryfikować Twoją tożsamość.</string>
+    <!--Add Notes Activity-->
+    <string name="title">Tytuł</string>
+    <string name="add_a_note">Dodaj treść notatki</string>
+    <string name="creation_date">"Utworzono: "</string>
+    <string name="today">Dzisiaj</string>
+    <string name="category">"Kategoria: "</string>
+    <string name="not_specified">Nie określono</string>
+    <string name="word_count">"Słowa: "</string>
+    <string name="character_count">"Znaki: "</string>
+    <string name="export_as_text_file">Zapisz do pliku tekstowego</string>
+    <string name="share_with_others">Podziel się z innymi</string>
+    <!--Billing Activity-->
+    <string name="support_development">Wesprzyj mnie</string>
+    <string name="buy_me_some">PODARUJ MI</string>
+    <string name="cookie">Ciastko</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Kawę</string>
+    <string name="cheese_burger">Cheeseburgera</string>
+    <string name="pizza">Pizzę</string>
+    <string name="full_meal">Dwudaniowy obiad</string>
+    <string name="shirt">Koszulkę</string>
+    <string name="watch">Zegarek</string>
+    <string name="or">ALBO</string>
+    <string name="donate_to_syrian_kids">Pomóż dzieciom w Syrii</string>
+    <string name="donate_syria_desc">Na Syrii, około 7.5 miliona dzieci dorasta nie znając nic poza wojną. Przekaż darowiznę teraz i nie pozwól syryjskim dzieciom stać się straconym pokoleniem. To wiele dla mnie znaczy. Dziękuję.</string>
+    <string name="click_here">"KLIKNIJ TUTAJ "</string>
+    <!--Categories Activity-->
+    <string name="add_category">"Dodaj kategorię "</string>
+    <string name="category_title">"Nazwa kategorii "</string>
+    <string name="add_a_category">"Dodaj kategorię "</string>
+    <!--Password Reset Activity-->
+    <string name="password">"Hasło "</string>
+    <string name="enter_a_4_digit_number">Wprowadź 4-cyfrowy kod</string>
+    <string name="pin_requirements">"Nie zapomnij kodu PIN. Po jego stracie, nie będziesz mógł/mogła ponownie wejść do aplikacji. "</string>
+    <!--Settings Activity-->
+    <string name="settings">"Ustawienia "</string>
+    <string name="switch_theme">"Zmień motyw "</string>
+    <string name="pin_code">"Kod PIN "</string>
+    <string name="enable_disable_pin">"Poproś o kod PIN podczas otwierania aplikacji. Włącz/wyłącz pole wyboru po prawej. "</string>
+    <string name="pin_desc_more">"Po wprowadzeniu kodu PIN w ustawieniach zostanie udostępniona opcja weryfikacji poprzez odcisk palca. "</string>
+    <string name="fingerprint_authentication">Weryfikacja przy użyciu odcisku palca</string>
+    <string name="fpa_desc">Używaj weryfikacji przy użyciu palca wraz z kodem PIN.</string>
+    <string name="text_limiter">Ogranicznik tekstu</string>
+    <string name="text_limiter_desc">"Zarządzaj ilością linii tekstu wyświetlanych na ekranie głównym (bez tytułu).
+"</string>
+    <string name="export_notes">Eksportuj notatki</string>
+    <string name="export_notes_to_device_storage">Eksportuj notatki do pamięci urządzenia</string>
+    <string name="import_notes">Importuj notatki</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Aby importować z innego urządzenia, skopiuj folder</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Wprowadź swój</string>
+    <string name="fingerprint">Odcisk palca</string>
+    <string name="authentication">Weryfikacja</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Nazwa Kategorii</string>
+    <string name="you_can_add_some_description_here">Możesz dodać opis tutaj!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Cześć,</string>
+    <string name="rate_and_review">Oceń i zrecenzuj</string>
+    <string name="about">O</string>
+    <string name="help_translate">Pomóż w tłumaczeniu</string>
+    <!--Misc-->
+    <string name="new_category">Nowa kategoria</string>
+    <string name="tab_category">K a t e g o r i e</string>
+    <string name="tab_notes">N o t a t k i</string>
+    <string name="tab_starred">O g w i a z d k o w a n e</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Polityka prywatności</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Prześledź szczegółowo Polityki prywatności Scrittor. Daj mi też znać, jeśli masz jakiekolwiek wątpliwości co do niej.</string>
+</resources>

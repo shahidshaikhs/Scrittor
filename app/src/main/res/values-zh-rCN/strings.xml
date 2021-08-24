@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">关于Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor的用户界面简洁实用，它去掉了多余功能，留下了简单的操作：添加便签，选择分类，大功告成。</string>
+    <string name="changelog">更新日志</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor发布以来，历经风雨，点击此处阅读详尽的更新日志</string>
+    <string name="group">加入我们</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">如果您想了解更多近期更新和Scrittor的信息，请加入我们的Telegram群组</string>
+    <string name="contact">联系方式</string>
+    <string name="developer_designation">安卓开发者/设计师</string>
+    <string name="libraries_used">资源库</string>
+    <!--FingerPrint-->
+    <string name="instructions">将指尖放在指纹传感器上以验证您的身份</string>
+    <!--Add Notes Activity-->
+    <string name="title">标题</string>
+    <string name="add_a_note">新增便签</string>
+    <string name="creation_date">创建日期：</string>
+    <string name="today">今天</string>
+    <string name="category">类别：</string>
+    <string name="not_specified">未指定</string>
+    <string name="word_count">字数：</string>
+    <string name="character_count">字符数：</string>
+    <string name="export_as_text_file">导出到文档文件</string>
+    <string name="share_with_others">其他方式分享</string>
+    <!--Billing Activity-->
+    <string name="support_development">支持开发者</string>
+    <string name="buy_me_some">来一份</string>
+    <string name="cookie">饼干</string>
+    <string name="pepsi">百事可乐</string>
+    <string name="coffee">咖啡</string>
+    <string name="cheese_burger">芝士汉堡</string>
+    <string name="pizza">披萨</string>
+    <string name="full_meal">大餐</string>
+    <string name="shirt">衬衫</string>
+    <string name="watch">手表</string>
+    <string name="or">或者</string>
+    <string name="donate_to_syrian_kids">为叙利亚儿童捐款</string>
+    <string name="donate_syria_desc">在叙利亚境内，约有750万儿童生活在战争之中，您的即时捐赠不会让叙利亚儿童变得迷惘。这对我来说很有意义，十分感谢！</string>
+    <string name="click_here">捐赠入口</string>
+    <!--Categories Activity-->
+    <string name="add_category">新增类别</string>
+    <string name="category_title">类别名称</string>
+    <string name="add_a_category">新增类别</string>
+    <!--Password Reset Activity-->
+    <string name="password">密码</string>
+    <string name="enter_a_4_digit_number">输入4位数字</string>
+    <string name="pin_requirements">确保你已记住此PIN码，一旦丢失，将无法进入此应用</string>
+    <!--Settings Activity-->
+    <string name="settings">设置</string>
+    <string name="switch_theme">切换主题</string>
+    <string name="pin_code">PIN码</string>
+    <string name="enable_disable_pin">打开应用时需输入PIN码。点击复选框以启用/禁用此功能</string>
+    <string name="pin_desc_more">一旦设置了PIN码，指纹保护选项将在设置中启用</string>
+    <string name="fingerprint_authentication">指纹验证</string>
+    <string name="fpa_desc">同时使用指纹验证和PIN码保护</string>
+    <string name="text_limiter">文本限制</string>
+    <string name="text_limiter_desc">在主页上显示的文本行数（不包括标题）</string>
+    <string name="export_notes">导出便签</string>
+    <string name="export_notes_to_device_storage">导出便签至设备</string>
+    <string name="import_notes">导入便签</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">以便从不同的设备导入</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">输入你的</string>
+    <string name="fingerprint">指纹</string>
+    <string name="authentication">验证</string>
+    <!--Single Category Activity-->
+    <string name="category_name">类别名称</string>
+    <string name="you_can_add_some_description_here">你可以在这里添加一些描述！</string>
+    <!--Navigation Drawer-->
+    <string name="hello">你好，</string>
+    <string name="rate_and_review">五星好评</string>
+    <string name="about">关于</string>
+    <string name="help_translate">帮助翻译</string>
+    <!--Misc-->
+    <string name="new_category">新增类别</string>
+    <string name="tab_category">类 别</string>
+    <string name="tab_notes">我 的 便 签</string>
+    <string name="tab_starred">收 藏 夹</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+</resources>

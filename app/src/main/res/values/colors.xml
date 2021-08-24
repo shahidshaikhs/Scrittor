@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Dark-->
+    <!--==============================================================-->
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#1b1b1b</color>
+    <color name="textColorPrimary">#FFF</color>
+    <color name="textColorSecondary">#616161</color>
+    <color name="displayTint1">#0dffffff</color>
+
+    <!--Light-->
+    <!--==============================================================-->
+    <color name="colorPrimary2">#F5F5F5</color>
+    <color name="colorPrimaryDark2">#efefef</color>
+    <color name="textColorPrimary2">#212121</color>
+    <color name="textColorSecondary2">#616161</color>EEEEEE
+    <color name="displayTint2">#EEEEEE</color>
+
+    <!--Amoled-->
+    <!--==============================================================-->
+    <color name="colorPrimary3">#000000</color>
+    <color name="colorPrimaryDark3">#080808</color>
+    <color name="textColorPrimary3">#FFF</color>
+    <color name="textColorSecondary3">#FFF</color>
+    <color name="displayTint3">#0dffffff</color>
+    <color name="drawerColor">#161616</color>
+
+
+    <!--Accent Color-->
+    <color name="colorAccent">#FF505F</color>
+
+    <!--Category colors -->
+    <color name="color1">#EF5350</color>
+    <color name="color2">#6672B0</color>
+    <color name="color3">#6ECFFF</color>
+    <color name="color4">#FFCA28</color>
+    <color name="color5">#9CCC65</color>
+    <color name="color6">#8D6E63</color>
+
+    <!--Divider Color-->
+    <color name="dividerColor">#9E9E9E</color>
+
+    <!--Accent Colors-->
+    <color name="accent1">#5D74F4</color>
+    <color name="accent2">#EF5350</color>
+    <color name="accent3">#4FD2C2</color>
+    <color name="accent4">#F6D621</color>
+    <color name="accent5">#FE9D4F</color>
+    <color name="accent6">#2B94F6</color>
+    <color name="accent7">#2ED19A</color>
+    <color name="accent8">#FB582F</color>
+    <color name="accent9">#8A59F1</color>
+    <color name="accent10">#90A4AE</color>
+
+</resources>

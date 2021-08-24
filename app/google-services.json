@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1090671303603",
+    "firebase_url": "https://scrittor-c928b.firebaseio.com",
+    "project_id": "scrittor-c928b",
+    "storage_bucket": "scrittor-c928b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090671303603:android:177232f1f6cae808",
+        "android_client_info": {
+          "package_name": "com.shahid.nid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090671303603-skkv1ftbt2989ueav8s7cu21qj9o501l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shahid.nid",
+            "certificate_hash": "aa83695bdead0b8356547a6643d1ec1cf2024340"
+          }
+        },
+        {
+          "client_id": "1090671303603-gbr8rq62pn6p6ifv56t4sbk57r1ettjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAErMCQ3PyhN3JCUjfnITUHIZJZJvxjea8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090671303603-gbr8rq62pn6p6ifv56t4sbk57r1ettjj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

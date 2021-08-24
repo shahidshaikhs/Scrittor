@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">عن البرنامج</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">هذا البرنامج يساعد بواجهة بسيطة وسهلة .لا يوجد اي ميزات غير ضرورية لتجعل اي شيء معقدا. انت تضيف الملاحظات و تختلر الاقسام ولقد انتهيت</string>
+    <string name="changelog">سجل التغييرات</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">لقد مر على هذا البرنامج زمن طويل منذ اطلاقه. اضغط هنا لكي تعرف ما تغير فيه</string>
+    <string name="group">مجموعة</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">انضم الى مجوعة التلجرام اذا كنت تتمنى ان تعرف المزيد عن التحديثات القادمة وتناقش عن البرنامج</string>
+    <string name="contact">تواصل</string>
+    <string name="developer_designation">مطور اندرويد</string>
+    <string name="libraries_used">المكتبات التي استخدمت</string>
+    <!--FingerPrint-->
+    <string name="instructions">ضع اصبعك على ماسح البصمات لكي يتم تأكيد هويتك</string>
+    <!--Add Notes Activity-->
+    <string name="title">العنوان</string>
+    <string name="add_a_note">اضف مذكرة</string>
+    <string name="creation_date">وقت الانشاء :</string>
+    <string name="today">اليوم</string>
+    <string name="category">الفئة</string>
+    <string name="not_specified">غير محدد</string>
+    <string name="word_count">عدد الكلمات</string>
+    <string name="character_count">عدد العناصر</string>
+    <string name="export_as_text_file">تصدير كملف نصي</string>
+    <string name="share_with_others">شارك مع الآخرين</string>
+    <!--Billing Activity-->
+    <string name="support_development">ادعم التطوير</string>
+    <string name="buy_me_some">اشتري لي بعضا من</string>
+    <string name="cookie">البسكويت</string>
+    <string name="pepsi">بيبسي</string>
+    <string name="coffee">القهوة</string>
+    <string name="cheese_burger">برجر بالجبنة</string>
+    <string name="pizza">بيتزا</string>
+    <string name="full_meal">وجبة كاملة</string>
+    <string name="shirt">قميص</string>
+    <string name="watch">ساعة</string>
+    <string name="or">او</string>
+    <string name="donate_to_syrian_kids">تبرع للاطفال السوريين</string>
+    <string name="donate_syria_desc">داخل سوريا ، ما يقدر بنحو 7.5 مليون طفل يكبرون وهم لا يعرفون سوى الحرب. يرجى التبرع الآن ولا تدع الأطفال السوريين يصبحون جيلاً ضائعاً. هذا يعني الكثير بالنسبة لي. شكرا لكم</string>
+    <string name="click_here">اضغط هنا</string>
+    <!--Categories Activity-->
+    <string name="add_category">اضافة فئة</string>
+    <string name="category_title">عنوان الفئة</string>
+    <string name="add_a_category">اضف فئة</string>
+    <!--Password Reset Activity-->
+    <string name="password">كلمة السر</string>
+    <string name="enter_a_4_digit_number">ادخل اربعة ارقام فقط</string>
+    <string name="pin_requirements">تأكد من انك ستتذكر هذا الرقم السري دائما. اذا فقدتهلن تستطيع الدخول الى التطبيق مجددا.</string>
+    <!--Settings Activity-->
+    <string name="settings">الإعدادات</string>
+    <string name="switch_theme">"(اختر الشكل (الثيم "</string>
+    <string name="pin_code">الرمز السري</string>
+    <string name="enable_disable_pin">قم بطلب الرمز السري اثناء فتح التطبيق. تفعيل/الغاء التفعيل</string>
+    <string name="pin_desc_more">بمجرد تفعيل الرمز السري . سيتم اضافة خيار البصمة</string>
+    <string name="fingerprint_authentication">التأكيد عن طريق البصمة</string>
+    <string name="fpa_desc">استخدام البصمة والىمز السري معا</string>
+    <string name="text_limiter">محدد النص</string>
+    <string name="text_limiter_desc">قم بإدارة عدد سطور النص التي تعرض في القائمة الرئيسية باستثناء العنوان</string>
+    <string name="export_notes">تصدير الملاحاظات</string>
+    <string name="export_notes_to_device_storage">تصدير الملاحظات الى ذاكرة الجهاز</string>
+    <string name="import_notes">استيراد الملاحظات</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">لكي تقوم بالإستيراد من جهاز اخر انسخ ملفا</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">قم بادخال</string>
+    <string name="fingerprint">بصمة</string>
+    <string name="authentication">المصادقة</string>
+    <!--Single Category Activity-->
+    <string name="category_name">اسم الفئة</string>
+    <string name="you_can_add_some_description_here">يمكنك اضافة وصف هنا</string>
+    <!--Navigation Drawer-->
+    <string name="hello">مرحبا</string>
+    <string name="rate_and_review">قيِّ و راجع</string>
+    <string name="about">عن</string>
+    <string name="help_translate">ساعد في الترجمة</string>
+    <!--Misc-->
+    <string name="new_category">فئة جديدة</string>
+    <string name="tab_category">الفئات</string>
+    <string name="tab_notes">الملاحظات</string>
+    <string name="tab_starred">معلَّم بنجمة</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">قم بالدخول الى سياسة البرنامج بالتفصيل. ايضا دعني اعلم اذا كان لديك اي شكوك</string>
+</resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Über Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor hat eine sehr einfache und selbsterklärende Oberfläche. Es gibt keine unnötigen Funktionen, um nichts zu verkomplizieren. Erstelle eine Notiz, wähle auf Wunsch eine Kategorie aus und du bist fertig.</string>
+    <string name="changelog">Änderungshistorie</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor hat einen langen Weg seit dem ersten Release hinter sich. Klicke hier, um die komplette Historie zu lesen.</string>
+    <string name="group">Gruppe</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Trete der Telegram Gruppe bei, um mehr über folgende Updates zu erfahren und um über Scrittor zu diskutieren.</string>
+    <string name="contact">Kontakt</string>
+    <string name="developer_designation">Android Entwickler / App-Designer</string>
+    <string name="libraries_used">Verwendete Bibliotheken</string>
+    <!--FingerPrint-->
+    <string name="instructions">Finger auf den Sensor legen, um deine Identität zu bestätigen</string>
+    <!--Add Notes Activity-->
+    <string name="title">Titel</string>
+    <string name="add_a_note">Notiz hinzufügen</string>
+    <string name="creation_date">Erstelldatum:</string>
+    <string name="today">Heute</string>
+    <string name="category">Kategorie:</string>
+    <string name="not_specified">Nicht festgelegt</string>
+    <string name="word_count">Benutzte Wörter:</string>
+    <string name="character_count">Benutzte Zeichen:</string>
+    <string name="export_as_text_file">Als Textdatei exportieren</string>
+    <string name="share_with_others">Mit anderen teilen</string>
+    <!--Billing Activity-->
+    <string name="support_development">Entwicklung unterstützen</string>
+    <string name="buy_me_some">Spendiere mir</string>
+    <string name="cookie">einen Keks</string>
+    <string name="pepsi">eine Pepsi</string>
+    <string name="coffee">einen Kaffee</string>
+    <string name="cheese_burger">einen Cheese Burger</string>
+    <string name="pizza">eine Pizza</string>
+    <string name="full_meal">ein Essen</string>
+    <string name="shirt">ein Shirt</string>
+    <string name="watch">eine Uhr</string>
+    <string name="or">ODER</string>
+    <string name="donate_to_syrian_kids">An syrische Kinder spenden</string>
+    <string name="donate_syria_desc">In Syrien wachsen ca. 7,5 Millionen Kinder auf und kennen nichts als Krieg. Bitte spende jetzt um die Kinder in Syrien zu unterstützen. Das würde mir viel bedeuten, Vielen Dank.</string>
+    <string name="click_here">TIPPE HIER</string>
+    <!--Categories Activity-->
+    <string name="add_category">Kategorie hinzufügen</string>
+    <string name="category_title">Titel der Kategorie</string>
+    <string name="add_a_category">eine Kategorie hinzufügen</string>
+    <!--Password Reset Activity-->
+    <string name="password">Passwort</string>
+    <string name="enter_a_4_digit_number">Gib eine 4-stellige Zahl ein</string>
+    <string name="pin_requirements">Merke dir diese PIN sehr gut, wenn du sie vergisst kannst du die App nicht mehr öffnen.</string>
+    <!--Settings Activity-->
+    <string name="settings">Einstellungen</string>
+    <string name="switch_theme">Theme wechseln</string>
+    <string name="pin_code">PIN-Code</string>
+    <string name="enable_disable_pin">Eine PIN für das öffnen der App eingeben. Übe die Checkbox rechts aktivieren/deaktivieren.</string>
+    <string name="pin_desc_more">Fingerabdruck ist verfügbar, sobald eine PIN in den Einstellungen eingerichtet wurde.</string>
+    <string name="fingerprint_authentication">Authentifizieren über Fingerabdruck</string>
+    <string name="fpa_desc">Fingerabdruck und PIN benutzen</string>
+    <string name="text_limiter">Textlimit</string>
+    <string name="text_limiter_desc">Anzahl der Zeilen auf dem Startbildschirm anpassen (Titel nicht inbegriffen).</string>
+    <string name="export_notes">Notizen exportieren</string>
+    <string name="export_notes_to_device_storage">Notizen auf Gerätespeicher exportieren</string>
+    <string name="import_notes">Notizen importieren</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Um Notizen von einem anderen Gerät zu übernehmen, den Ordner kopieren</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Dein Name</string>
+    <string name="fingerprint">Fingerabdruck</string>
+    <string name="authentication">Authentifizierung</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Kategorie</string>
+    <string name="you_can_add_some_description_here">Du kannst hier eine Beschreibung eingeben!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Hallo,</string>
+    <string name="rate_and_review">Bewerten und Rezension erstellen</string>
+    <string name="about">Über</string>
+    <string name="help_translate">Beim übersetzten helfen</string>
+    <!--Misc-->
+    <string name="new_category">Neue Kategorie</string>
+    <string name="tab_category">K a t e g o r i e n</string>
+    <string name="tab_notes">N o t i z e n</string>
+    <string name="tab_starred">M a r k i e r t</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Datenschutz-Bestimmungen</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Lesen sie sich Scrittors Datenschutz-Bestimmungen sorgfältig durch und lassen sie es mich wissen wenn sie Fragen in bezug auf diese haben.</string>
+</resources>

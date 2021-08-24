@@ -1,0 +1,181 @@
+<resources>
+    <string name="app_name" translatable="false">Scrittor</string>
+    <string name="version_value" translatable="false">4.7</string>
+
+    <!--Default Strings-->
+
+    <!--About-->
+    <string name="about_scrittor">About Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor helps with a simple and easy to use interface. There are not extra unnecessary features to make everything super complex. You add notes, select a category and you are done.</string>
+    <string name="changelog">Changelog</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor has come a long way since it was first release. Click here to read the exhaustive changelog.</string>
+    <string name="group">Group</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Join the Telegram group if you wish to know more about the incoming updates and discuss about Scrittor</string>
+    <string name="telegram" translatable="false">TELEGRAM</string>
+    <string name="contact">Contact</string>
+    <string name="Developer_name" translatable="false">Shahid Shaikh</string>
+    <string name="developer_designation">Android Developer/ Designer</string>
+    <string name="libraries_used">Libraries Used</string>
+    <string name="profile_icons" translatable="false">Profile Icons</string>
+    <string name="harsha_kakkeri" translatable="false">Monkik</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Go through Scrittor\'s Privacy Policy in detail. Also let me know if you have any doubts regartding the same.</string>
+    <string name="google_gson">Google Gson</string>
+    <string name="google">Google</string>
+    <string name="circular_imageview">Circular Imageview</string>
+    <string name="henning_dodenhof">Henning Dodenhof</string>
+    <string name="google_drive_api">Google Drive API</string>
+    <string name="special_thanks_to_junaid">Special Thanks to Junaid</string>
+    <string name="junaidDesc">Google Drive integration would not have been possible without his intervention. He is an amazing Android Developer with tons of exceptional applications. You can download them via the link below.</string>
+    <string name="google_play">Google Play</string>
+
+    <!--FingerPrint-->
+    <string name="instructions">Place your fingertip on the fingerprint sensor to verify your identity</string>
+
+    <!--Add Notes Activity-->
+    <string name="title">Title</string>
+    <string name="add_a_note">Add a Note</string>
+    <string name="creation_date">Creation Date :</string>
+    <string name="today">Today</string>
+    <string name="category">Category :</string>
+    <string name="not_specified">Not Specified</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="word_count">Word Count:</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="character_count">Character Count:</string>
+    <string name="export_as_text_file">Export note as a Text File</string>
+    <string name="share_with_others">Share with others</string>
+    <string name="note_statistics">Note Statistics</string>
+
+    <!--Billing Activity-->
+    <string name="support_development">Support Development</string>
+    <string name="buy_me_some">BUY ME SOME</string>
+    <string name="cookie">Cookie</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Coffee</string>
+    <string name="cheese_burger">Cheese Burger</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Full Meal</string>
+    <string name="shirt">Shirt</string>
+    <string name="watch">Watch</string>
+    <string name="or">OR</string>
+    <string name="donate_to_syrian_kids">Donate to Syrian kids</string>
+    <string name="donate_syria_desc">Inside Syria, an estimated 7.5 million children are growing up knowing nothing but war. Please donate now and don\'t let Syrian children become a lost generation. This would mean a lot to me. Thank you</string>
+    <string name="click_here">CLICK HERE</string>
+
+    <!--Categories Activity-->
+    <string name="add_category">Add Category</string>
+    <string name="category_title">Category Title</string>
+    <string name="add_a_category">Add a category</string>
+    <string name="category_exists">Category already exists</string>
+
+    <!--Password Reset Activity-->
+    <string name="password">Password</string>
+    <string name="enter_a_4_digit_number">Enter a 4 digit number</string>
+    <string name="pin_requirements">Make sure you will remember this PIN always. Once lost, you won\'t be able to get into the app again.</string>
+
+    <!--Settings Activity-->
+    <string name="settings">Settings</string>
+    <string name="switch_theme">Switch Theme</string>
+    <string name="pin_code">PIN-Code</string>
+    <string name="enable_disable_pin">Request a Pin Code while opening the app. Enable/ Disable the checkbox on right.</string>
+    <string name="pin_desc_more">Once PIN is setup, fingerprint protection option will be made available in the settings.</string>
+    <string name="fingerprint_authentication">Fingerprint Authentication</string>
+    <string name="fpa_desc">Use finger print authentication along with PIN-Code protection.</string>
+    <string name="text_limiter">Text Limiter</string>
+    <string name="text_limiter_desc">Manage the amount of text lines to be displayed on home screen (excluding the title).</string>
+    <string name="export_notes">Export notes</string>
+    <string name="export_notes_to_device_storage">Export notes to device storage</string>
+    <string name="import_notes">Import notes</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">In order to import from different device, copy folder</string>
+    <string name="change_accent">Change Accent Color</string>
+    <string name="accent_color_desc">You can now change the default accent color in Scrittor.</string>
+    <string name="google_drive_backup">Google Drive Backup</string>
+    <string name="gd_desc">Backup all your notes to your Google Drive\'s Storage space</string>
+    <string name="we_are_trying_to_make_scrittor_usable_for_all_the_people_around_the_world_help_us_out">We are trying to make Scrittor usable for all the people around the world, help us out :)</string>
+    <string name="help_translate">Help Translate</string>
+
+    <!--Accent Color-->
+    <string name="choose_a_color">Choose a Color</string>
+    <string name="more_colors_coming_soon">(More Colors coming soon)</string>
+
+    <!--Sign In Activity-->
+    <string name="enter_your">Enter your</string>
+    <string name="fingerprint">Fingerprint</string>
+    <string name="authentication">Authentication</string>
+
+    <!--Single Category Activity-->
+    <string name="category_name">Category Name</string>
+    <string name="you_can_add_some_description_here">You can add some description here!</string>
+
+    <!--Navigation Drawer-->
+    <string name="hello">Hello :)</string>
+    <string name="rate_and_review">Rate and Review</string>
+    <string name="about">About</string>
+
+
+    <!--Misc-->
+    <string name="new_category">New Category</string>
+    <string name="tab_category">C a t e g o r i e s</string>
+    <string name="tab_notes">N o t e s</string>
+    <string name="tab_starred">S t a r r e d</string>
+    <string name="thank_you">Thank You!</string>
+    <string name="i_really_appreciated_the_love_and_support_this_surely_means_a_lot">I really appreciated the love and support. This surely means a lot :)</string>
+    <string name="awesome">AWESOME</string>
+    <string name="delete_this_note">Delete this Note?</string>
+    <string name="the_note_will_be_deleted_from_the_database_this_action_is_not_reversible">The note will be deleted from the database. This action is not reversible.</string>
+    <string name="agree">AGREE</string>
+    <string name="disagree">DISAGREE</string>
+    <string name="select_the_number_of_lines_to_be_displayed_for_each_note">Select the number of lines to be displayed for each note.</string>
+    <string name="one_line">- One Line</string>
+    <string name="two_lines">- Two Lines</string>
+    <string name="three_lines">- Three Lines</string>
+    <string name="four_lines">- Four Lines</string>
+    <string name="five_lines">- Five Lines</string>
+    <string name="choose_theme">Choose Theme</string>
+    <string name="this_theme_will_be_applied_to_the_entire_application">This theme will be applied to the entire application</string>
+    <string name="dark">- Dark</string>
+    <string name="light">- Light</string>
+    <string name="amoled">- Amoled</string>
+    <string name="please_enter_your_name">Please enter your name!</string>
+    <string name="done">DONE</string>
+    <string name="later">LATER</string>
+
+    <!--Dialog Box Text Limiter-->
+
+    <!--Shared Preferences-->
+    <string name="MY_PREFS_USER_NAME" translatable="false">USER_NAME</string>
+    <string name="MY_PREFS_USER_IMAGE" translatable="false">USER_IMAGE</string>
+    <string name="MY_PREFS_THEME" translatable="false">THEME_CHECK</string>
+    <string name="MY_PREFS_PASSWORD" translatable="false">THEME_CHECK</string>
+    <string name="MY_PREFS_FINGERPRINT" translatable="false">FINGERPRINT_CHECK</string>
+    <string name="MY_PREFS_TEXT_LIMITER" translatable="false">TEXT_LIMITER_INTEGER</string>
+    <string name="MY_PREFS_ACCENT" translatable="false">ACCENT_CHECK</string>
+    <string name="deleted_notes_base_pref" translatable="false">deleted_notes_base_pref</string>
+    <string name="last_edited_base_shared_pref" translatable="false">last_edited_base_shared_pref</string>
+
+
+    <!-- Drive Backup -->
+    <string name="select_folder">Select a folder</string>
+    <string name="select_file">Select file</string>
+    <string name="cloud_auto_backup">Cloud Backup</string>
+    <string name="cloud_auto_backup_desc">Tap to start backing-up notes to cloud. \n\nNote: It will overwrite previous backup</string>
+    <string name="backup">Backup</string>
+    <string name="backup_schedule_desc">Tap to restore notes from cloud backup.</string>
+    <string name="restore_from_cloud">Restore Notes</string>
+    <string name="drive_sign_in_failed">Sign in failed.</string>
+    <string name="init_wait">Initializing, please wait!</string>
+    <string name="init_failed">Initialization failed. Please try again after some time.</string>
+    <string name="drive_sync">Syncing to drive please wait.</string>
+    <string name="drive_backing_up">Backing up data to cloud…</string>
+    <string name="drive_restoring">Restoring data from cloud…</string>
+    <string name="drive_try_again">Try Again</string>
+    <string name="drive_backup_note_complete">Backup complete. Notes backed Up =</string>
+    <string name="drive_backup_categories_complete">Categories backed Up =</string>
+    <string name="drive_restore_notes">Total notes restored =</string>
+    <string name="drive_restore_categories">Total categories restored =</string>
+    <string name="drive_error_occured">Error occured. Please try again.</string>
+    <string name="rewrite_failed">Rewrite Failed</string>
+    <string name="create_failed">Create Failed</string>
+
+</resources>

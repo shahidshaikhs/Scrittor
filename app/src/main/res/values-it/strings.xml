@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Riguardo Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittore ti aiuta con un\'interfaccia semplice ed intuitiva. Non ci sono funzioni superflue che rendono tutto super complicato. Aggiungi una nota, selezioni una categoria e hai fatto.</string>
+    <string name="changelog">Lista dei cambiamenti</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor ha fatto molta strada da quando è stato rilasciato per la prima volta. Clicca qui per leggere i cambiamenti</string>
+    <string name="group">Gruppo</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Unisciti al gruppo Telegram se desideri avere maggiori informazioni sugli aggiornamenti in arrivo o se semplicemente vuoi parlare un po\' di Scrittor</string>
+    <string name="contact">Contatta</string>
+    <string name="developer_designation">Sviluppatore/ Designer</string>
+    <string name="libraries_used">Librerie utilizzate</string>
+    <!--FingerPrint-->
+    <string name="instructions">Posiziona il dito sul sensore per verificare la tua identità</string>
+    <!--Add Notes Activity-->
+    <string name="title">Titolo</string>
+    <string name="add_a_note">Aggiungi una nota</string>
+    <string name="creation_date">Data creazione :</string>
+    <string name="today">Oggi</string>
+    <string name="category">Categoria :</string>
+    <string name="not_specified">"Non specificato "</string>
+    <string name="word_count">Contatore parole:</string>
+    <string name="character_count">Contatore caratteri:</string>
+    <string name="export_as_text_file">Esporta come file di testo</string>
+    <string name="share_with_others">Condividi in un altro modo</string>
+    <!--Billing Activity-->
+    <string name="support_development">Supporta lo sviluppo</string>
+    <string name="buy_me_some">Comprami qualcosa</string>
+    <string name="cookie">Biscotto</string>
+    <string name="pepsi">Una coca</string>
+    <string name="coffee">Caffé</string>
+    <string name="cheese_burger">Panino</string>
+    <string name="pizza">"Pizza "</string>
+    <string name="full_meal">Pasto completo</string>
+    <string name="shirt">Maglietta</string>
+    <string name="watch">Orologio</string>
+    <string name="or">O</string>
+    <string name="donate_to_syrian_kids">Dona per i bambini siriani</string>
+    <string name="donate_syria_desc">"Nel territorio siriano, un numero stimato di 7,5 milioni di bambini sta crescendo conoscendo null\'altro che la guerra. Per favore dona ora e non lasciare che i bambini siriani diventino una generazione perduta. Questo significherebbe molto per me. Grazie "</string>
+    <string name="click_here">CLICCA QUI</string>
+    <!--Categories Activity-->
+    <string name="add_category">Aggiungi categoria</string>
+    <string name="category_title">"Titolo categoria "</string>
+    <string name="add_a_category">Aggiungi una categoria</string>
+    <!--Password Reset Activity-->
+    <string name="password">"Password "</string>
+    <string name="enter_a_4_digit_number">"Inserisci un codice numerico di 4 cifre "</string>
+    <string name="pin_requirements">Sii certo di tenere sempre a mente questo PIN. Una volta perso, non sarai piú in grado di accedere all\'app</string>
+    <!--Settings Activity-->
+    <string name="settings">Impostazioni</string>
+    <string name="switch_theme">"Cambia tema "</string>
+    <string name="pin_code">Codice PIN</string>
+    <string name="enable_disable_pin">"Richiedi il codice PIN all'apertura dell'applicazione. Abilità/ disabilita la casella di spunta sulla destra "</string>
+    <string name="pin_desc_more">Una volta che il PIN sarà impostato, l\'opzione di sblocco tramite impronta verrà resa disponibile nelle impostazioni</string>
+    <string name="fingerprint_authentication">Autenticazione tramite impronta</string>
+    <string name="fpa_desc">Utilizza l\'autenticazione tramite impronta unitamente al codice PIN di protezione</string>
+    <string name="text_limiter">Limite di testo</string>
+    <string name="text_limiter_desc">Gestisci il numero di righe da mostrare nella schermata di home (escluso il titolo)</string>
+    <string name="export_notes">Esporta note</string>
+    <string name="export_notes_to_device_storage">Esporta le note nella memoria interna</string>
+    <string name="import_notes">Importa note</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Per importare da un altro dispositivo, copia la cartella</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Inserisci la tua</string>
+    <string name="fingerprint">Impronta digitale</string>
+    <string name="authentication">Autenticazione</string>
+    <!--Single Category Activity-->
+    <string name="category_name">"Nome categoria "</string>
+    <string name="you_can_add_some_description_here">"Puoi aggiungere una descrizione qui! "</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Ciao,</string>
+    <string name="rate_and_review">Valuta e recensisci</string>
+    <string name="about">Info</string>
+    <string name="help_translate">Aiuta a tradurre</string>
+    <!--Misc-->
+    <string name="new_category">Nuova categoria</string>
+    <string name="tab_category">C a t e g o r i e</string>
+    <string name="tab_notes">N o t e</string>
+    <string name="tab_starred">P r e f e r i t e</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">"Politica della privacy "</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">"Leggi la Politica della privacy di Scrittor nel dettaglio. Non esitare a contattarmi se hai dubbi a riguardo "</string>
+</resources>

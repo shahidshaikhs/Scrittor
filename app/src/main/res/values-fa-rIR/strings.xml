@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">درباره‌ی برنامه</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">اسکریتر با ظاهر ساده و آسونش بهتون کمک می‌کنه تا یادداشت‌هاتون رو اضافه کنید، یه دسته‌بندی براش انتخاب کنید و تمام. قابلیت اضافی که باعث پیچیدگی بیش از حد بشه وجود نداره.</string>
+    <string name="changelog">تغییرات برنامه</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">اسکریتر راه زیادی را برای انتشار اولین نسخه‌اش پشت سر گذاشته است. برای مشاهده‌ی کامل این تغییرات اینجا کلیک کنید.</string>
+    <string name="group">گروه</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">اگر می‌خواهید از آپدیت‌های آیندهٔ اسکریتر با خبر باشید و برای بهتر شدن اسکریتر تصمیم بگیرید عضو گروه تلگرامی شوید.</string>
+    <string name="contact">ارتباط با من</string>
+    <string name="developer_designation">برنامه‌نویس اندروید / طراح</string>
+    <string name="libraries_used">کتابخانه‌های استفاده شده</string>
+    <!--FingerPrint-->
+    <string name="instructions">لطفاً انگشت خود را بر روی حسگر اثر انگشت قرار دهید.</string>
+    <!--Add Notes Activity-->
+    <string name="title">عنوان</string>
+    <string name="add_a_note">اضافه کردن یادداشت</string>
+    <string name="creation_date">"تاریخ ایجاد: "</string>
+    <string name="today">امروز</string>
+    <string name="category">دسته‌بندی</string>
+    <string name="not_specified">تعریف نشده</string>
+    <string name="word_count">"تعداد کلمه: "</string>
+    <string name="character_count">"تعداد حرف‌ها: "</string>
+    <string name="export_as_text_file">ذخیره کردن در فایل متنی</string>
+    <string name="share_with_others">اشتراک‌گذاری با دیگران</string>
+    <!--Billing Activity-->
+    <string name="support_development">حمایت از برنامه</string>
+    <string name="buy_me_some">برای من</string>
+    <string name="cookie">کوکی</string>
+    <string name="pepsi">پپسی</string>
+    <string name="coffee">قهوه</string>
+    <string name="cheese_burger">چیزبرگر</string>
+    <string name="pizza">پیتزا</string>
+    <string name="full_meal">یک وعده‌ی غذایی</string>
+    <string name="shirt">پیراهن</string>
+    <string name="watch">ساعت</string>
+    <string name="or">"بخر یا "</string>
+    <string name="donate_to_syrian_kids">کمک به کودکان سوری</string>
+    <string name="donate_syria_desc">در سوریه، حدود ۷.۵ میلیون کودک در حالی بزرگ می‌شوند که هیچی به جز جنگ نمی‌دانند. لطفاً همین الان کمک کنید. نگذارید کودکان سوری به نسلی تباه شده تبدیل بشوند. این موضوع برای من اهمیت زیادی دارد. ممنون</string>
+    <string name="click_here">اینجا کلیک کنید</string>
+    <!--Categories Activity-->
+    <string name="add_category">اضافه کردن دسته‌بندی</string>
+    <string name="category_title">موضوع دسته‌بندی</string>
+    <string name="add_a_category">اضافه کردن دسته‌بندی</string>
+    <!--Password Reset Activity-->
+    <string name="password">رمز عبور</string>
+    <string name="enter_a_4_digit_number">یک شماره‌ی ۴ رقمی وارد کنید</string>
+    <string name="pin_requirements">مطمئن شوید که این پین برای همیشه به یادتان می‌ماند. در صورت فراموشی، نمی‌توانید دوباره وارد برنامه شوید.</string>
+    <!--Settings Activity-->
+    <string name="settings">تنظیمات</string>
+    <string name="switch_theme">تغییر پوسته</string>
+    <string name="pin_code">کد پین</string>
+    <string name="enable_disable_pin">درخواست پین هنگام اجرای برنامه. چک‌باکس سمت راست را فعال یا غیرفعال کنید.</string>
+    <string name="pin_desc_more">بعد از تنظیم کردن پین، حالت ورود با اثر انگشت در تنظیمات فعال می‌شود.</string>
+    <string name="fingerprint_authentication">ورود با اثر انگشت</string>
+    <string name="fpa_desc">استفاده از ورود با اثر انگشت همراه با کد پین</string>
+    <string name="text_limiter">محدودکننده‌ی متن</string>
+    <string name="text_limiter_desc">تنطیم تعداد خط‌هایی که در صفحه‌ی اصلی نمایش داده می‌شوند. (به غیر از عنوان)</string>
+    <string name="export_notes">" ذخیره‌ی یادداشت‌ها"</string>
+    <string name="export_notes_to_device_storage">ذخیره‌ی یادداشت‌ها بر روی حافظه‌ی دستگاه</string>
+    <string name="import_notes">اضافه کردن یادداشت‌ها</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">برای اضافه کردن از دستگاهی دیگر، پوشه را کپی کنید.</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">وارد کنید</string>
+    <string name="fingerprint">اثر انگشت</string>
+    <string name="authentication">احراز هویت</string>
+    <!--Single Category Activity-->
+    <string name="category_name">اسم دسته‌بندی</string>
+    <string name="you_can_add_some_description_here">اینجا می‌تونی کمی توضیحات اضافه کنی!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">"سلام، "</string>
+    <string name="rate_and_review">بررسی و امتیازدهی</string>
+    <string name="about">درباره</string>
+    <string name="help_translate">کمک به ترجمه‌ی برنامه</string>
+    <!--Misc-->
+    <string name="new_category">دسته‌بندی جدید</string>
+    <string name="tab_category">دسته‌بندی‌ها</string>
+    <string name="tab_notes">یادداشت‌ها</string>
+    <string name="tab_starred">ستاره‌دار</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+</resources>

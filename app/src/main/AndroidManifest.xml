@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.shahid.nid"
+    android:versionName="@string/version_value"
+    tools:ignore="ManifestResource">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".NID"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".Activties.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activties.AddNotesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter android:label="Share with Scrittor">
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Categories.ManageCategories"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".Activties.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Categories.SingleCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activties.SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".Activties.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activties.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activties.PasswordReset"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activties.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activties.BillingActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".Activties.BackupSettingsActivity"
+            android:screenOrientation="locked" />
+    </application>
+
+</manifest>

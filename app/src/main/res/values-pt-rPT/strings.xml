@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Sobre Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor ajuda com a sua interface simples e fácil de usar. Não há muitas funcionalidades extras desnecessárias que faz com que tudo seja super complexo. Tu adicionas notas, selecionas a categoria e está feito</string>
+    <string name="changelog">Mudanças</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor percorreu um longo caminho desde que foi lançado. Carrega aqui para ler a lista de mudanças exaustiva.</string>
+    <string name="group">Grupo</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Junta-te ao grupo do Telegram se queres saber mais sobre as futuras atualizações e debate sobre Scrittor</string>
+    <string name="contact">Contacto</string>
+    <string name="developer_designation">Desenvolvedor/Desenhista Android</string>
+    <string name="libraries_used">Bibliotecas Usadas</string>
+    <!--FingerPrint-->
+    <string name="instructions">Coloque o seu dedo no sensor de impressão digital para verificar a sua identidade</string>
+    <!--Add Notes Activity-->
+    <string name="title">"Título "</string>
+    <string name="add_a_note">Adicionar uma Nota</string>
+    <string name="creation_date">Data de Criação:</string>
+    <string name="today">Hoje</string>
+    <string name="category">Categoria:</string>
+    <string name="not_specified">"Não Especificado "</string>
+    <string name="word_count">Contagem de Palavras:</string>
+    <string name="character_count">Contagem de Caracteres:</string>
+    <string name="export_as_text_file">Exportar como Ficheiro de Texto</string>
+    <string name="share_with_others">Partilhar com outros</string>
+    <!--Billing Activity-->
+    <string name="support_development">Suportar Desenvolvimento</string>
+    <string name="buy_me_some">COMPRA-ME</string>
+    <string name="cookie">Bolacha</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">"Café "</string>
+    <string name="cheese_burger">Hambúrguer com Queijo</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Refeição Completa</string>
+    <string name="shirt">Camisola</string>
+    <string name="watch">"Relógio "</string>
+    <string name="or">OU</string>
+    <string name="donate_to_syrian_kids">"Fazer donativo para as crianças da Síria "</string>
+    <string name="donate_syria_desc">Na Síria, aproximadamente 7.5 milhões de crianças estão a crescer sabendo nada mais que a guerra. Por favor faz uma doação agora e não deixes com que as crianças da Síria se tornem uma geração perdida. Isto significa muito para mim. Obrigado.</string>
+    <string name="click_here">CLICA AQUI</string>
+    <!--Categories Activity-->
+    <string name="add_category">Adicionar categoria</string>
+    <string name="category_title">Título da Categoria</string>
+    <string name="add_a_category">Adicionar uma categoria</string>
+    <!--Password Reset Activity-->
+    <string name="password">Palavra-passe</string>
+    <string name="enter_a_4_digit_number">Coloca um número de 4 dígitos</string>
+    <string name="pin_requirements">Certifica-te que te lembras sempre deste PIN. Uma vez perdido não poderás entrar nesta aplicação de novo.</string>
+    <!--Settings Activity-->
+    <string name="settings">"Definições "</string>
+    <string name="switch_theme">Trocar de Tema</string>
+    <string name="pin_code">Código-PIN</string>
+    <string name="enable_disable_pin">Pedir PIN na abertura da aplicação. Ativar/Desativar o quadrado na direita.</string>
+    <string name="pin_desc_more">Quando o PIN estiver ativado, a proteção de impressão digital estará disponível nas definições.</string>
+    <string name="fingerprint_authentication">Autenticação da Impressão Digital</string>
+    <string name="fpa_desc">Usa a autenticação da Impressão Digital juntamente com a proteção do PIN.</string>
+    <string name="text_limiter">Limite de Texto</string>
+    <string name="text_limiter_desc">Controlar a quantidade de linhas de texto mostradas no menu Inicial (excluindo o título).</string>
+    <string name="export_notes">Exportar Notas</string>
+    <string name="export_notes_to_device_storage">Exportar Notas para o armazenamento do dispositivo</string>
+    <string name="import_notes">Importar notas</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Para importar a partir de um dispositivo diferente, copia a pasta</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Introduz o teu</string>
+    <string name="fingerprint">Impressão Digital</string>
+    <string name="authentication">Autenticação</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Nome da Categoria</string>
+    <string name="you_can_add_some_description_here">Tu podes adicionar alguma descrição aqui!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Olá,</string>
+    <string name="rate_and_review">Avalia e Comenta</string>
+    <string name="about">Sobre</string>
+    <string name="help_translate">Ajuda a Traduzir</string>
+    <!--Misc-->
+    <string name="new_category">Nova Categoria</string>
+    <string name="tab_category">C a t e g o r i a s</string>
+    <string name="tab_notes">N o t a s</string>
+    <string name="tab_starred">M a r c a d o</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Lê detalhadamente a Política de Privacidade do Scrittor. Deixa-me saber se tens alguma dúvida relacionado com esta.</string>
+</resources>

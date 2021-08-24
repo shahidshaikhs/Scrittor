@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Acerca de Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor ayuda con una interfaz simple y fácil de navegar. No hay funciones extras e innecesarias que hagan todo súper complejo. Agregas notas, seleccionas una categoría y ya está.</string>
+    <string name="changelog">Historial de cambios</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor ha tenido una gran historia desde su lanzamiento. Pulsa aquí para leer el exhaustivo historial de cambios.</string>
+    <string name="group">Grupo</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Únete al grupo de Telegram si deseas saber más sobre las futuras actualizaciones y para discutir sobre Scrittor</string>
+    <string name="contact">Contacto</string>
+    <string name="developer_designation">Desarrollador de Android/Diseñador</string>
+    <string name="libraries_used">Librerías usadas</string>
+    <!--FingerPrint-->
+    <string name="instructions">Coloca tu dedo en el lector de huellas para verificar tu identidad</string>
+    <!--Add Notes Activity-->
+    <string name="title">Título</string>
+    <string name="add_a_note">Agregar una nota</string>
+    <string name="creation_date">Día de creación:</string>
+    <string name="today">Hoy</string>
+    <string name="category">Categoría:</string>
+    <string name="not_specified">No especificada</string>
+    <string name="word_count">Recuento de palabras:</string>
+    <string name="character_count">Recuento de caracteres:</string>
+    <string name="export_as_text_file">Exportar como archivo de texto</string>
+    <string name="share_with_others">Compartir con otros</string>
+    <!--Billing Activity-->
+    <string name="support_development">Apoya el desarrollo</string>
+    <string name="buy_me_some">Cómprame algo</string>
+    <string name="cookie">Galleta</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Café</string>
+    <string name="cheese_burger">Hamburguesa de queso</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Comida corrida</string>
+    <string name="shirt">Camisa</string>
+    <string name="watch">Reloj</string>
+    <string name="or">o</string>
+    <string name="donate_to_syrian_kids">Donar para los niños de Siria</string>
+    <string name="donate_syria_desc">"Dentro de Siria, un estimado de 7.5 millones de niños crecen sin saber nada mas que la guerra. Por favor, doma ahora y no dejes que los niños de Siria sean una generación perdida. Esto significaría mucho para mí. 
+Gracias "</string>
+    <string name="click_here">Haz clic aquí</string>
+    <!--Categories Activity-->
+    <string name="add_category">Agregar categoría</string>
+    <string name="category_title">Título de la categoría</string>
+    <string name="add_a_category">Agregar una categoría</string>
+    <!--Password Reset Activity-->
+    <string name="password">Contraseña</string>
+    <string name="enter_a_4_digit_number">Ingresa un número de 4 dígitos</string>
+    <string name="pin_requirements">Asegúrate de que siempre recuerdes este PIN. De lo contrario, no podrás volver a accesar la app de nuevo</string>
+    <!--Settings Activity-->
+    <string name="settings">Ajustes</string>
+    <string name="switch_theme">Cambiar tema</string>
+    <string name="pin_code">Código-PIN</string>
+    <string name="enable_disable_pin">Pedir un código PIN al abrir la app. Habilita/Deshabilita la casilla a la derecha</string>
+    <string name="pin_desc_more">Una vez ingresado el PIN, la opción para la protección con huella digital será habilitada en los ajustes</string>
+    <string name="fingerprint_authentication">Autenticación con huella digital</string>
+    <string name="fpa_desc">"Usa la huella digital junto con protección código-PIN "</string>
+    <string name="text_limiter">Limitador de texto</string>
+    <string name="text_limiter_desc">Mover la cantidad de líneas de texto que serán mostradas en la pantalla principal (excluyendo el título)</string>
+    <string name="export_notes">Exportar notas</string>
+    <string name="export_notes_to_device_storage">Exportar notas al almacenamiento del dispositivo</string>
+    <string name="import_notes">Importar notas</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Para importar de un dispositivo diferente, copia el fólder</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Ingresa tu</string>
+    <string name="fingerprint">Huella digital</string>
+    <string name="authentication">Autenticación</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Nombre de la categoría</string>
+    <string name="you_can_add_some_description_here">¡Agrega una descripción aquí!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Hola,</string>
+    <string name="rate_and_review">Valorar y comentar</string>
+    <string name="about">Acerca</string>
+    <string name="help_translate">Ayuda a traducir</string>
+    <!--Misc-->
+    <string name="new_category">Nueva categoría</string>
+    <string name="tab_category">C a t e g o r í a s</string>
+    <string name="tab_notes">N o t a s</string>
+    <string name="tab_starred">D e s t a c a d o</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">"Políticas de Privacidad "</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">"Ve a las Políticas de Privacidad de \"Scrittor\" para más detalles. También hazme saber si tienes más dudas al respecto sobre lo mismo. "</string>
+</resources>

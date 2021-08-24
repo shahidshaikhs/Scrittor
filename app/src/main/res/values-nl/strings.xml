@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Over Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">"Scrittor helpt met een simpele en makkelijk te gebruiken interface. Het heeft geen onnodige opties en is ongecompliceerd. Je schrijft een notitie, voegt een categorie toe, en klaar. "</string>
+    <string name="changelog">Verander log</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor is erg veranderd sinds de app voor het eerst beschikbaar werd gemaakt. Klik hier om de vele veranderingen door te lezen.</string>
+    <string name="group">Groep</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Neem deel aan de groep op Telegram als je meer wilt weten over de komende updates en over Scrittor discussiëren wilt.</string>
+    <string name="contact">Contact</string>
+    <string name="developer_designation">Android Ontwikkelaar/ Ontwerper</string>
+    <string name="libraries_used">Gebruikte bibliotheken</string>
+    <!--FingerPrint-->
+    <string name="instructions">"Plaats de punt van uw vinger op de vingerprintsensor om uw identiteit te verifiëren "</string>
+    <!--Add Notes Activity-->
+    <string name="title">Titel</string>
+    <string name="add_a_note">Voeg een notitie toe</string>
+    <string name="creation_date">Datum creatie :</string>
+    <string name="today">Vandaag</string>
+    <string name="category">Categorie :</string>
+    <string name="not_specified">Niet gespecificeerd</string>
+    <string name="word_count">Aantal woorden</string>
+    <string name="character_count">Aantal karakters</string>
+    <string name="export_as_text_file">Exporteer als een tekst bestand</string>
+    <string name="share_with_others">Deel met anderen</string>
+    <!--Billing Activity-->
+    <string name="support_development">Ondersteun ontwikkeling</string>
+    <string name="buy_me_some">KOOP MIJ WAT</string>
+    <string name="cookie">Koekje</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Koffie</string>
+    <string name="cheese_burger">Cheeseburger</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Volle maaltijd</string>
+    <string name="shirt">Shirt</string>
+    <string name="watch">Horloge</string>
+    <string name="or">OF</string>
+    <string name="donate_to_syrian_kids">Doneer aan Syrische kinderen</string>
+    <string name="donate_syria_desc">In Syrië, een geschat aantal van 7,5 miljoen kinderen groeien op zonder iets te weten over oorlog. Doneer alstublieft nu een laat de Syrische kinderen geen verloren generatie worden. Dit zou veel voor mij betekenen. Dankuwel</string>
+    <string name="click_here">KLIK HIER</string>
+    <!--Categories Activity-->
+    <string name="add_category">Voeg kategorie toe</string>
+    <string name="category_title">Titel kategorie</string>
+    <string name="add_a_category">Voeg kategorie toe</string>
+    <!--Password Reset Activity-->
+    <string name="password">Wachtwoord</string>
+    <string name="enter_a_4_digit_number">Toets een cijfer van 4 getallen in.</string>
+    <string name="pin_requirements">Zorg ervoor dat je deze PIN altijd zou onthouden. Als het verloren is, kan u de app niet meer binnenkomen.</string>
+    <!--Settings Activity-->
+    <string name="settings">Instellingen</string>
+    <string name="switch_theme">Wissel thema</string>
+    <string name="pin_code">PIN-Code</string>
+    <string name="enable_disable_pin">Vraag een PIN-Code aan terwijl de app wordt geopend. Vink het hokje rechts aan/niet aan.</string>
+    <string name="pin_desc_more">Als de PIN is ingesteld, mogelijkheid voor vingerprint beveiliging wordt dan mogelijk in de instellingen.</string>
+    <string name="fingerprint_authentication">Vingerprint authenticatie</string>
+    <string name="fpa_desc">Gebruik vingerprint authenticatie tegelijkertijd met de PIN-Code beveiliging.</string>
+    <string name="text_limiter">Tekst limiet maker</string>
+    <string name="text_limiter_desc">Beheer de hoeveelheid regels tekst te zien op het thuisscherm (exclusief de titel).</string>
+    <string name="export_notes">Exporteer notities</string>
+    <string name="export_notes_to_device_storage">Exporteer notities naar apparaat opslag</string>
+    <string name="import_notes">Importeer notities</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Om van een ander apparaat te importeren, kopieer de map</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Vul in uw</string>
+    <string name="fingerprint">Vingerprint</string>
+    <string name="authentication">Authenticatie</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Kategorie naam</string>
+    <string name="you_can_add_some_description_here">Hier kunt u een beschrijving toevoegen!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Hallo,</string>
+    <string name="rate_and_review">Geef je mening en beoordeel</string>
+    <string name="about">Over</string>
+    <string name="help_translate">Help vertalen</string>
+    <!--Misc-->
+    <string name="new_category">Nieuwe kategorie</string>
+    <string name="tab_category">C a t e g o r i e ë n</string>
+    <string name="tab_notes">"N o t i t i e s "</string>
+    <string name="tab_starred">"M e t  ster "</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Privacybeleid</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Loop het privacybeleid van Scrittor nauwkeurig door. Laat mij ook weten als je enige twijfel hebt over hetzelfde.</string>
+</resources>

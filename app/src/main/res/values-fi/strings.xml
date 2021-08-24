@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Scrittorista</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor auttaa yksinkertaisen ja helppokäyttöisen käyttöliittymän avulla. Ei ole ylimääräisiä tarpeettomia ominaisuuksia, jotka tekevät kaiken erittäin monimutkaiseksi.  Lisäät muistiinpanoja, valitset luokan ja olet valmis.</string>
+    <string name="changelog">Vaihtoloki</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor on tullut pitkälle kun se julkaistiin ensimmäisen kerran. Klikkaa tästä lueaksesi tyjentävän vaihtolokin.</string>
+    <string name="group">Ryhmä</string>
+    <!--FingerPrint-->
+    <!--Add Notes Activity-->
+    <!--Billing Activity-->
+    <!--Categories Activity-->
+    <!--Password Reset Activity-->
+    <!--Settings Activity-->
+    <!--Sign In Activity-->
+    <!--Single Category Activity-->
+    <!--Navigation Drawer-->
+    <!--Misc-->
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+</resources>

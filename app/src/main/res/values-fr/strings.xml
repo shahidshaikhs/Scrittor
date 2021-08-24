@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">À propos de Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor aide avec une interface simple et facile à utiliser. Il n\'y a pas d\'options superflues pour rendre tout super complexe. Vous ajoutez des notes, sélectionnez une catégorie et avez terminé.</string>
+    <string name="changelog">Historique des versions</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor a fait un long chemin depuis qu\'il a été lancé. Cliquez ici pour découvrir son historique exhaustif.</string>
+    <string name="group">Groupe</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Rejoignez le groupe Telegram si vous voulez en savoir plus sur les améliorations à venir et discuter à propos de Scrittor.</string>
+    <string name="contact">Contact</string>
+    <string name="developer_designation">Endroits de stockage</string>
+    <string name="libraries_used">Endroits de stockage</string>
+    <!--FingerPrint-->
+    <string name="instructions">Mettez votre doigt à l\'emplacement désigné pour vérifier votre identité</string>
+    <!--Add Notes Activity-->
+    <string name="title">Titre</string>
+    <string name="add_a_note">Ajouter une note</string>
+    <string name="creation_date">Date de création</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="category">Catégorie</string>
+    <string name="not_specified">Non spécifié</string>
+    <string name="word_count">Nombre de mots</string>
+    <string name="character_count">Nombre de caractères</string>
+    <string name="export_as_text_file">Exporter en temps que fichier texte</string>
+    <string name="share_with_others">Partager avec les autres</string>
+    <!--Billing Activity-->
+    <string name="support_development">Aider le développement</string>
+    <string name="buy_me_some">Achetez-moi-en</string>
+    <string name="cookie">Cookie</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Café</string>
+    <string name="cheese_burger">Cheesecake Burger</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Repas complet</string>
+    <string name="shirt">T-shirt</string>
+    <string name="watch">Montre</string>
+    <string name="or">Ou</string>
+    <string name="donate_to_syrian_kids">Donnez aux enfants syriens</string>
+    <string name="donate_syria_desc">En Syrie, il est estimé que 7.5 millons d\'enfants grandissent sans rien connaître d\'autre que la guerre. S\'il-vous-plaît faîtes un don et ne laissez pas les enfants syriens devenir un génération perdue. Ça me tient vraiment à cœur. Merci.</string>
+    <string name="click_here">CLIQUEZ ICI</string>
+    <!--Categories Activity-->
+    <string name="add_category">Ajouter une catégorie</string>
+    <string name="category_title">Titre de la catégorie</string>
+    <string name="add_a_category">Ajouter une catégorie</string>
+    <!--Password Reset Activity-->
+    <string name="password">Mot de passe</string>
+    <string name="enter_a_4_digit_number">Entrer un numéro à 4 chiffres</string>
+    <string name="pin_requirements">Assurez-vous de vous rappeler de ce NIP. Une fois perdu, vous ne pourrez plus ouvrir l\'application.</string>
+    <!--Settings Activity-->
+    <string name="settings">Paramètres</string>
+    <string name="switch_theme">Changer de thème</string>
+    <string name="pin_code">Code NIP</string>
+    <string name="enable_disable_pin">Demander un code NIP lorsque on ouvre l\'application. (Activer/Désactiver avec la case à droite)</string>
+    <string name="pin_desc_more">Une fois qu\'un code NIP est activé, l\'option de reconnaissance par empreinte digitale sera accessible.</string>
+    <string name="fingerprint_authentication">Authentification par empreinte digitale</string>
+    <string name="fpa_desc">Utilisez l\'empreinte digitale avec la protection du code NIP.</string>
+    <string name="text_limiter">Limite de texte</string>
+    <string name="text_limiter_desc">Limiter la quantité de lignes de texte visibles sur la page titre (excluant le titre).</string>
+    <string name="export_notes">Exporter les notes</string>
+    <string name="export_notes_to_device_storage">Exporter les notes sur l\'appareil</string>
+    <string name="import_notes">Importer des notes</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Pour pouvoir importer à partir d\'un appareil différent, copiez le fichier</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Inscrivez votre</string>
+    <string name="fingerprint">Empreinte digitale</string>
+    <string name="authentication">Authentification</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Nom de la catégorie</string>
+    <string name="you_can_add_some_description_here">Vous pouvez ajouter une description ici!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Bonjour,</string>
+    <string name="rate_and_review">Noter et Commenter</string>
+    <string name="about">À propos</string>
+    <string name="help_translate">Aider à traduire</string>
+    <!--Misc-->
+    <string name="new_category">Nouvelle Catégorie</string>
+    <string name="tab_category">Catégories</string>
+    <string name="tab_notes">Notes</string>
+    <string name="tab_starred">Étoilé</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Politique de Confidentialité</string>
+</resources>

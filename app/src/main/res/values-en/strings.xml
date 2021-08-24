@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name" translatable="false">Scrittor</string>
+    <string name="version_value" translatable="false">4.1</string>
+
+    <!--Default Strings-->
+
+    <!--About-->
+    <string name="about_scrittor">About Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor helps with a simple and easy to use interface. There are not extra unnecessary features to make everything super complex. You add notes, select a category and you are done.</string>
+    <string name="changelog">Changelog</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor has come a long way since it was first release. Click here to read the exhaustive changelog.</string>
+    <string name="group">Group</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Join the Telegram group if you wish to know more about the incoming updates and discuss about Scrittor</string>
+    <string name="telegram" translatable="false">TELEGRAM</string>
+    <string name="contact">Contact</string>
+    <string name="Developer_name" translatable="false">Shahid Shaikh</string>
+    <string name="developer_designation">Android Developer/ Designer</string>
+    <string name="libraries_used">Libraries Used</string>
+    <string name="profile_icons" translatable="false">Profile Icons</string>
+    <string name="harsha_kakkeri" translatable="false">Monkik</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Go through Scrittor\'s Privacy Policy in detail. Also let me know if you have any doubts regartding the same.</string>
+
+
+    <!--FingerPrint-->
+    <string name="instructions">Place your fingertip on the fingerprint sensor to verify your identity</string>
+
+    <!--Add Notes Activity-->
+    <string name="title">Title</string>
+    <string name="add_a_note">Add a Note</string>
+    <string name="creation_date">Creation Date :</string>
+    <string name="today">Today</string>
+    <string name="category">Category :</string>
+    <string name="not_specified">Not Specified</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="word_count">Word Count:</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="character_count">Character Count:</string>
+    <string name="export_as_text_file">Export note as a Text File</string>
+    <string name="share_with_others">Share with others</string>
+
+    <!--Billing Activity-->
+    <string name="support_development">Support Development</string>
+    <string name="buy_me_some">BUY ME SOME</string>
+    <string name="cookie">Cookie</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Coffee</string>
+    <string name="cheese_burger">Cheese Burger</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Full Meal</string>
+    <string name="shirt">Shirt</string>
+    <string name="watch">Watch</string>
+    <string name="or">OR</string>
+    <string name="donate_to_syrian_kids">Donate to Syrian kids</string>
+    <string name="donate_syria_desc">Inside Syria, an estimated 7.5 million children are growing up knowing nothing but war. Please donate now and don\'t let Syrian children become a lost generation. This would mean a lot to me. Thank you</string>
+    <string name="click_here">CLICK HERE</string>
+
+    <!--Categories Activity-->
+    <string name="add_category">Add Category</string>
+    <string name="category_title">Category Title</string>
+    <string name="add_a_category">Add a category</string>
+
+    <!--Password Reset Activity-->
+    <string name="password">Password</string>
+    <string name="enter_a_4_digit_number">Enter a 4 digit number</string>
+    <string name="pin_requirements">Make sure you will remember this PIN always. Once lost, you won\'t be able to get into the app again.</string>
+
+    <!--Settings Activity-->
+    <string name="settings">Settings</string>
+    <string name="switch_theme">Switch Theme</string>
+    <string name="pin_code">PIN-Code</string>
+    <string name="enable_disable_pin">Request a Pin Code while opening the app. Enable/ Disable the checkbox on right.</string>
+    <string name="pin_desc_more">Once PIN is setup, fingerprint protection option will be made available in the settings.</string>
+    <string name="fingerprint_authentication">Fingerprint Authentication</string>
+    <string name="fpa_desc">Use finger print authentication along with PIN-Code protection.</string>
+    <string name="text_limiter">Text Limiter</string>
+    <string name="text_limiter_desc">Manage the amount of text lines to be displayed on home screen (excluding the title).</string>
+    <string name="export_notes">Export notes</string>
+    <string name="export_notes_to_device_storage">Export notes to device storage</string>
+    <string name="import_notes">Import notes</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">In order to import from different device, copy folder</string>
+    <string name="change_accent">Change Accent Color</string>
+    <string name="accent_color_desc">Change the default accent color in Scrittor.</string>
+
+    <!--Sign In Activity-->
+    <string name="enter_your">Enter your</string>
+    <string name="fingerprint">Fingerprint</string>
+    <string name="authentication">Authentication</string>
+
+    <!--Single Category Activity-->
+    <string name="category_name">Category Name</string>
+    <string name="you_can_add_some_description_here">You can add some description here!</string>
+
+    <!--Navigation Drawer-->
+    <string name="hello">Hello, </string>
+    <string name="rate_and_review">Rate and Review</string>
+    <string name="about">About</string>
+    <string name="help_translate">Help Translate</string>
+
+    <!--Misc-->
+    <string name="new_category">New Category</string>
+    <string name="tab_category">C a t e g o r i e s</string>
+    <string name="tab_notes">N o t e s</string>
+    <string name="tab_starred">S t a r r e d</string>
+
+    <!--Dialog Box Text Limiter-->
+
+    <!--Shared Preferences-->
+    <string name="MY_PREFS_USER_NAME" translatable="false">USER_NAME</string>
+    <string name="MY_PREFS_USER_IMAGE" translatable="false">USER_IMAGE</string>
+    <string name="MY_PREFS_THEME" translatable="false">THEME_CHECK</string>
+    <string name="MY_PREFS_PASSWORD" translatable="false">THEME_CHECK</string>
+    <string name="MY_PREFS_FINGERPRINT" translatable="false">FINGERPRINT_CHECK</string>
+    <string name="MY_PREFS_TEXT_LIMITER" translatable="false">TEXT_LIMITER_INTEGER</string>
+    <string name="MY_PREFS_ACCENT" translatable="false">ACCENT_CHECK</string>
+</resources>

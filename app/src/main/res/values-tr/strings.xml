@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">Scrittor Hakkında</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor sade ve kolay bir arayüz sunar. İşleri karışık hale getirecek gereksiz özellikler bulunmaz. Not ekle, kategori seç ve işlem tamam.</string>
+    <string name="changelog">Değişim Günlüğü</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor ilk sürümünden bu yana epey yol kat etti. Kapsamlı değişim günlüğünü okumak için buraya dokunun.</string>
+    <string name="group">Grup</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Gelecek güncellemelerden haberdar olmak ve Scrittor\'a dair konuşmak için Telegram grubuna katılın.</string>
+    <string name="contact">İletişim</string>
+    <string name="developer_designation">Android Geliştircisi</string>
+    <string name="libraries_used">Kullanılan Kütüphaneler</string>
+    <!--FingerPrint-->
+    <string name="instructions">Kimliğinizi onaylamak için parmak ucunuzu parmak izi sensörüne yerleştirin.</string>
+    <!--Add Notes Activity-->
+    <string name="title">Başlık</string>
+    <string name="add_a_note">Not ekle</string>
+    <string name="creation_date">Oluşturma Tarihi</string>
+    <string name="today">Bugün</string>
+    <string name="category">Kategori:</string>
+    <string name="not_specified">Belirtilmemiş</string>
+    <string name="word_count">Kelime sayısı:</string>
+    <string name="character_count">Karakter sayısı:</string>
+    <string name="export_as_text_file">Metin Dosyası olarak Aktar</string>
+    <string name="share_with_others">Başkalarıyla paylaş</string>
+    <!--Billing Activity-->
+    <string name="support_development">Gelişimi Destekleyin</string>
+    <string name="buy_me_some">BANA ALIN</string>
+    <string name="cookie">Çerez</string>
+    <string name="pepsi">Kola</string>
+    <string name="coffee">Kahve</string>
+    <string name="cheese_burger">Çizburger</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Tam Öğün</string>
+    <string name="shirt">Gömlek</string>
+    <string name="watch">Saat</string>
+    <string name="or">YA DA</string>
+    <string name="donate_to_syrian_kids">Suriyeli çocuklara bağış yapın</string>
+    <string name="donate_syria_desc">Suriye\'de tahmini 7.5 milyon çocuk savaştan başka bir şeyden habersiz büyüyor. Şimdi bağış yapın ve Suriyeli çocukların kayıp bir nesil olmasına engel olun. Benim için çok anlamlı olur. Teşekkürler.</string>
+    <string name="click_here">BURAYA TIKLAYIN</string>
+    <!--Categories Activity-->
+    <string name="add_category">Kategori Ekle</string>
+    <string name="category_title">Kategori Başlığı</string>
+    <string name="add_a_category">Kategori ekle</string>
+    <!--Password Reset Activity-->
+    <string name="password">Şifre</string>
+    <string name="enter_a_4_digit_number">4 haneli bir sayı girin</string>
+    <string name="pin_requirements">Bu PIN\'i unutmayacağınızdan emin olun. Unutulduğunda uygulamaya giriş yapamayacaksınız.</string>
+    <!--Settings Activity-->
+    <string name="settings">Ayarlar</string>
+    <string name="switch_theme">Temayı değiştir</string>
+    <string name="pin_code">PIN-Kodu</string>
+    <string name="enable_disable_pin">Uygulamayı açarken PIN iste. Sağdaki kutucuğu işaretleyin.</string>
+    <string name="pin_desc_more">PIN kodu ayarlandıktan sonra parmak izi seçeneği ayarlarda aktif olacak.</string>
+    <string name="fingerprint_authentication">Parmak İzi Onaylama</string>
+    <string name="fpa_desc">PIN-Koduyla beraber parmak izi onaylama kullan.</string>
+    <string name="text_limiter">Metin Sınırlayıcı</string>
+    <string name="text_limiter_desc">Ana ekranda kaç satır metin görüneceğini seç (başlık hariç).</string>
+    <string name="export_notes">Notları dışa aktar</string>
+    <string name="export_notes_to_device_storage">Notları cihaz hafızasına aktar</string>
+    <string name="import_notes">Uygulamaya not aktar</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Başka bir cihazdan aktarmak için klasörü kopyala</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Girin</string>
+    <string name="fingerprint">Parmakizi</string>
+    <string name="authentication">Onaylama</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Kategori Adı</string>
+    <string name="you_can_add_some_description_here">Buraya açıklama ekleyebilirsiniz.</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Merhaba,</string>
+    <string name="rate_and_review">Değerlendir ve Yorum Yap</string>
+    <string name="about">Hakkında</string>
+    <string name="help_translate">Çeviriye Yardım Et</string>
+    <!--Misc-->
+    <string name="new_category">Yeni Kategori</string>
+    <string name="tab_category">K a t e g o r i l e r</string>
+    <string name="tab_notes">N o t l a r</string>
+    <string name="tab_starred">Y ı l d ı z l ı</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+</resources>

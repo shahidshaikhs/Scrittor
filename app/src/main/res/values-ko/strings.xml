@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">스크리터 소개</string>
+    <string name="changelog">체인지로그</string>
+    <string name="group">그룹</string>
+    <string name="contact">연락하기</string>
+    <string name="developer_designation">안드로이드 개발자/디자이너</string>
+    <!--FingerPrint-->
+    <!--Add Notes Activity-->
+    <string name="title">제목</string>
+    <string name="add_a_note">노트 추가</string>
+    <string name="creation_date">작성 날짜:</string>
+    <string name="today">오늘</string>
+    <string name="category">카테고리:</string>
+    <string name="not_specified">지정되지 않음</string>
+    <string name="word_count">단어 개수:</string>
+    <string name="export_as_text_file">텍스트 파일로 내보내기</string>
+    <!--Billing Activity-->
+    <string name="cookie">쿠키</string>
+    <string name="pepsi">펩시</string>
+    <string name="coffee">커피</string>
+    <string name="cheese_burger">치즈버거</string>
+    <string name="pizza">피자</string>
+    <string name="shirt">셔츠</string>
+    <string name="click_here">여기를 클릭하십시오</string>
+    <!--Categories Activity-->
+    <string name="add_category">카테고리 추가</string>
+    <!--Password Reset Activity-->
+    <string name="password">비밀번호</string>
+    <!--Settings Activity-->
+    <string name="settings">설정</string>
+    <string name="fingerprint_authentication">지문인증</string>
+    <string name="export_notes">노트 내보내기</string>
+    <string name="import_notes">노트 가져오기</string>
+    <!--Sign In Activity-->
+    <!--Single Category Activity-->
+    <!--Navigation Drawer-->
+    <string name="about">소개</string>
+    <string name="help_translate">번역 돕기</string>
+    <!--Misc-->
+    <string name="new_category">새 카테고리</string>
+    <string name="tab_category">카 테 고 리</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">개인정보처리방침</string>
+</resources>

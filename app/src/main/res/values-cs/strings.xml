@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">O aplikaci</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor klade důraz na jednoduché a především přívětivé uživatelské rozhraní. Nenajdete zde žádné zbytečné funkce, které by všechno jenom komplikovaly. Zkrátka přidáte poznámku, vyberete kategorii a je to.</string>
+    <string name="changelog">Seznam změn</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor ušel dlouhou cestu od svého vydání. Klikněte sem pro vyčerpávající seznam změn a novinek.</string>
+    <string name="group">Skupina</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Přidejte se do skupiny na Telegramu, pokud chcete vědět více o nadcházejících novinkách nebo jen diskutovat o Scrittoru.</string>
+    <string name="contact">Kontakt</string>
+    <string name="developer_designation">Android Vývojář / Designer</string>
+    <string name="libraries_used">Použité Knihovny</string>
+    <!--FingerPrint-->
+    <string name="instructions">Pro ověření identity přiložte prst na čtečku otisků</string>
+    <!--Add Notes Activity-->
+    <string name="title">Název</string>
+    <string name="add_a_note">Přidat Poznámku</string>
+    <string name="creation_date">Datum vytvoření :</string>
+    <string name="today">Dnes</string>
+    <string name="category">Kategorie :</string>
+    <string name="not_specified">Nespecifikováno</string>
+    <string name="word_count">Počet slov:</string>
+    <string name="character_count">Počet znaků:</string>
+    <string name="export_as_text_file">Exportovat do Textového Souboru</string>
+    <string name="share_with_others">Sdílet s ostatními</string>
+    <!--Billing Activity-->
+    <string name="support_development">Podpořte vývoj</string>
+    <string name="buy_me_some">NĚCO MI KUPTE</string>
+    <string name="cookie">Sušenku</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Kafe</string>
+    <string name="cheese_burger">Cheeseburger</string>
+    <string name="pizza">Pizzu</string>
+    <string name="full_meal">Velké Jídlo</string>
+    <string name="shirt">Tričko</string>
+    <string name="watch">Hodinky</string>
+    <string name="or">NEBO</string>
+    <string name="donate_to_syrian_kids">Darujte Syrským dětem</string>
+    <string name="donate_syria_desc">Podle odhadů vyrůstá v Sýrii přibližně 7.5 milionů dětí, které neznají nic jiného než válku. Prosíme darujte nyní a nenechte aby se Syrské děti staly ztracenou generací. Moc by to pro mě znamenalo. Děkuji</string>
+    <string name="click_here">KLIKNĚTE ZDE</string>
+    <!--Categories Activity-->
+    <string name="add_category">Přidat Kategorii</string>
+    <string name="category_title">Název Kategorie</string>
+    <string name="add_a_category">Přidat kategorii</string>
+    <!--Password Reset Activity-->
+    <string name="password">Heslo</string>
+    <string name="enter_a_4_digit_number">Zadejte 4-místné číselné heslo</string>
+    <string name="pin_requirements">Ujistěte se, že si budete tento PIN pamatovat. Jakmile ho ztratíte, nebudete se již moci dostat do této aplikace.</string>
+    <!--Settings Activity-->
+    <string name="settings">Nastavení</string>
+    <string name="switch_theme">Změnit Téma</string>
+    <string name="pin_code">PIN-Kód</string>
+    <string name="enable_disable_pin">Požadovat PIN Kód při spuštění aplikace. Pro Vypnutí / Zapnutí klikněte na políčko vpravo.</string>
+    <string name="pin_desc_more">Jakmile si nastavíte PIN, zobrazí se v nastavení možnost ochrany pomocí čtečky otisků prstů.</string>
+    <string name="fingerprint_authentication">Ověření čtečkou otisků prstů</string>
+    <string name="fpa_desc">Používejte ochranu pomocí otisku prstu spolu s PIN-Kódem.</string>
+    <string name="text_limiter">Omezovač Textu</string>
+    <string name="text_limiter_desc">Zvolte si počet zobrazovaných řádků v hlavním menu (kromě názvu)</string>
+    <string name="export_notes">Exportovat poznámky</string>
+    <string name="export_notes_to_device_storage">Exportuje poznámky do úložiště zařízení</string>
+    <string name="import_notes">Importovat poznámky</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Pro import z jiného zařízení, zkopírujte složku</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Zadejte své</string>
+    <string name="fingerprint">Otisk prstu</string>
+    <string name="authentication">Ověření</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Název Kategorie</string>
+    <string name="you_can_add_some_description_here">Zde můžete přidat popis!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Ahoj,</string>
+    <string name="rate_and_review">Ohodnoťte aplikaci</string>
+    <string name="about">O aplikaci</string>
+    <string name="help_translate">Pomozte s překladem</string>
+    <!--Misc-->
+    <string name="new_category">Nová Kategorie</string>
+    <string name="tab_category">K a t e g o r i e</string>
+    <string name="tab_notes">P o z n á m k y</string>
+    <string name="tab_starred">O b l í b e n é</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Zásady ochrany osobních údajů</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Projděte si dopodrobna Zásady ochrany osobních údajů. Dejte mi vědět pokud byste měli pochybnosti nebo připomínky ohledně výše zmíněného dokumentu.</string>
+</resources>

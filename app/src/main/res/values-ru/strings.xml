@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="about_scrittor">О Scrittor</string>
+    <string name="scrittor_helps_with_a_simple_and_easy_to_use_interface_there_are_not_extra_unnecessary_features_to_make_everything_super_complex_you_add_notes_select_a_category_and_you_are_done">Scrittor - это помощник с очень простым и удобным интерфейсом. Здесь нет лишнего функционала для сохранения простоты и элегантности. Вы создаете заметку, выбираете категорию и дело сделано.</string>
+    <string name="changelog">Изменения</string>
+    <string name="scrittor_has_come_a_long_way_since_it_was_first_release_click_here_to_read_the_exhaustive_changelog">Scrittor прошел длинный путь с самого первого своего релиза. Нажми сюда чтобы узнать подробнее об изменениях.</string>
+    <string name="group">Группы</string>
+    <string name="join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor">Присоединяйтесь к группе в Телеграмм если вы хотите узнать больше о следующих обновлениях и обсудить Scrittor</string>
+    <string name="contact">Связаться</string>
+    <string name="developer_designation">Разработчики/дизайнеры Андроид</string>
+    <string name="libraries_used">Использованные библиотеки</string>
+    <!--FingerPrint-->
+    <string name="instructions">Поместите ваш палец на сканер отпечатка пальца для входа</string>
+    <!--Add Notes Activity-->
+    <string name="title">Заголовок</string>
+    <string name="add_a_note">Добавить заметку</string>
+    <string name="creation_date">Дата создания:</string>
+    <string name="today">Сегодня</string>
+    <string name="category">Категория:</string>
+    <string name="not_specified">Не указана</string>
+    <string name="word_count">Количество слов</string>
+    <string name="character_count">Количество символов:</string>
+    <string name="export_as_text_file">Сохранить как текст</string>
+    <string name="share_with_others">Поделиться с другими</string>
+    <!--Billing Activity-->
+    <string name="support_development">Поддержать разработку</string>
+    <string name="buy_me_some">КУПИ МНЕ</string>
+    <string name="cookie">Cookie</string>
+    <string name="pepsi">Пепси</string>
+    <string name="coffee">Кофе</string>
+    <string name="cheese_burger">Чизбургер</string>
+    <string name="pizza">Пиццу</string>
+    <string name="full_meal">Обед</string>
+    <string name="shirt">Рубашку</string>
+    <string name="watch">Часы</string>
+    <string name="or">ИЛИ</string>
+    <string name="donate_to_syrian_kids">Пожертвовать Сирийским детям</string>
+    <string name="donate_syria_desc">В Сирии более 7.5 миллионов детей растут без образования, но в войне. Пожалуйста, сделайте пожертвование и не дайте Сирийским детям стать потерянным поколением. Это значит для меня очень много. Спасибо</string>
+    <string name="click_here">НАЖМИ СЮДА</string>
+    <!--Categories Activity-->
+    <string name="add_category">Добавить категорию</string>
+    <string name="category_title">Название категории</string>
+    <string name="add_a_category">Создать категорию</string>
+    <!--Password Reset Activity-->
+    <string name="password">Пароль</string>
+    <string name="enter_a_4_digit_number">Введите 4-х значный код</string>
+    <string name="pin_requirements">Убедитесь, что вы навсегда запомнили этот код. Однажды забыв, вы больше не сможете войти в приложение.</string>
+    <!--Settings Activity-->
+    <string name="settings">Настройки</string>
+    <string name="switch_theme">Переключить тему</string>
+    <string name="pin_code">ПИН-код</string>
+    <string name="enable_disable_pin">Запрашивать код при открытии приложения. Поставьте/снимите флажок справа.</string>
+    <string name="pin_desc_more">После установки ПИН-кода будет доступна активация входа по отпечатку.</string>
+    <string name="fingerprint_authentication">Авторизация по отпечатку пальца</string>
+    <string name="fpa_desc">Используйте авторизацию по отпечатку пальцев вместе с ПИН-кодом.</string>
+    <string name="text_limiter">Максимальная длина текста</string>
+    <string name="text_limiter_desc">Установите максимальное количество строк текста, отображаемых на главном экране (заголовок не учитывается).</string>
+    <string name="export_notes">Экспортировать заметки</string>
+    <string name="export_notes_to_device_storage">Экспортировать заметки в память устройства</string>
+    <string name="import_notes">Импортировать заметки</string>
+    <string name="in_order_to_import_from_different_device_copy_folder">Для импортирования с другого устройства скопируйте папку</string>
+    <!--Sign In Activity-->
+    <string name="enter_your">Введите ваш</string>
+    <string name="fingerprint">Сканер отпечатков пальцев</string>
+    <string name="authentication">Авторизация</string>
+    <!--Single Category Activity-->
+    <string name="category_name">Название категории</string>
+    <string name="you_can_add_some_description_here">Вы можете добавить сюда описание!</string>
+    <!--Navigation Drawer-->
+    <string name="hello">Здравствуй,</string>
+    <string name="rate_and_review">Поставить оценку и оставить отзыв</string>
+    <string name="about">О нас</string>
+    <string name="help_translate">Помочь с переводом</string>
+    <!--Misc-->
+    <string name="new_category">Новая категория</string>
+    <string name="tab_category">К а т е г о р и и</string>
+    <string name="tab_notes">З а м е т к и</string>
+    <string name="tab_starred">В   и з б р а н н о м</string>
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+    <string name="privacy_policy">Политика приватности</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Просмотрите политику конфиденциальности Scrittor. Прошу сообщить, если что-то вызывает у вас сомнения касаемо ее</string>
+</resources>

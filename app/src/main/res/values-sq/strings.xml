@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<resources>
+    <!--Default Strings-->
+    <!--About-->
+    <string name="developer_designation">Programuesi/Dizajneri per Android</string>
+    <string name="libraries_used">Librarite e Perdorura</string>
+    <!--FingerPrint-->
+    <string name="instructions">Vendosni gishtin tuaj ne sensorin perkates per te verifikuar identitetin tuaj</string>
+    <!--Add Notes Activity-->
+    <string name="title">Titullli</string>
+    <string name="add_a_note">Shto nje Shenim</string>
+    <string name="creation_date">Data e Krijimit :</string>
+    <string name="today">Sot</string>
+    <string name="category">Kategoria :</string>
+    <string name="not_specified">E pa Specifikuar</string>
+    <string name="word_count">Numuri i fjaleve:</string>
+    <string name="character_count">Numuri i Karaktereve:</string>
+    <!--Billing Activity-->
+    <string name="support_development">Mbeshtet Zhvillimin</string>
+    <string name="buy_me_some">BLI PER MUA NJE</string>
+    <string name="cookie">Biskote</string>
+    <string name="pepsi">Pepsi</string>
+    <string name="coffee">Kafe</string>
+    <string name="cheese_burger">Cheese Burger</string>
+    <string name="pizza">Pizza</string>
+    <string name="full_meal">Vaft te Plote</string>
+    <string name="shirt">Kemishe</string>
+    <string name="watch">Ore Dore</string>
+    <string name="or">OSE</string>
+    <string name="donate_to_syrian_kids">Dhuro per femijet Siriane</string>
+    <string name="donate_syria_desc">Ne Siri, rreth 7.5 million femije jane duke u rritur duke mos njohur asgje tjeter vec luftes. Ju lutem dhuroni tani dicka duke mos lejuar femijet Siriane te kthehen ne nje brez te humbur. Kjo do te thote shume per mua. Ju faleminderit</string>
+    <string name="click_here">KLIKO KETU</string>
+    <!--Categories Activity-->
+    <string name="add_category">Shto Kategori te Re</string>
+    <string name="category_title">Emri i Kategorise</string>
+    <string name="add_a_category">Shto nje Kategori</string>
+    <!--Password Reset Activity-->
+    <string name="password">Fjalekalimi</string>
+    <string name="enter_a_4_digit_number">Vendosni nje numur 4 shifror</string>
+    <string name="pin_requirements">Sigurohuni qe ta mbani mend gjithmone kete PIN. Me humbjen e tij, nuk do te mund te aksesoni me kete aplikacion.</string>
+    <!--Settings Activity-->
+    <string name="settings">Parametrizime</string>
+    <string name="switch_theme">Nderro Temen</string>
+    <!--Sign In Activity-->
+    <!--Single Category Activity-->
+    <!--Navigation Drawer-->
+    <!--Misc-->
+    <!--Dialog Box Text Limiter-->
+    <!--Shared Preferences-->
+</resources>
