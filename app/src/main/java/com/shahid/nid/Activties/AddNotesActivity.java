@@ -7,25 +7,14 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.ShareCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -39,19 +28,26 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.shahid.nid.Categories.CategoriesDbHelper;
-import com.shahid.nid.Categories.CategoriesNotesContract;
-import com.shahid.nid.CategoriesDialog.DialogCategoriesDataStructure;
-import com.shahid.nid.CategoriesDialog.DialogCategoriesRecyclerAdapter;
+import com.shahid.nid.Adapters.CategoriesRecyclerAdapter;
+import com.shahid.nid.Categories.Category;
+import com.shahid.nid.Note;
 import com.shahid.nid.NotesContract;
-import com.shahid.nid.NotesDbHelper;
 import com.shahid.nid.R;
+import com.shahid.nid.Utils.DbHelper;
+import com.shahid.nid.interfaces.ItemClickListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,7 +61,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
-public class AddNotesActivity extends AppCompatActivity {
+public class AddNotesActivity extends BaseActivity {
 
     private ImageView cancelButton, doneButton, categoryButton, listButton;
     private EditText titleEditText, descriptionEditText;
@@ -74,13 +70,8 @@ public class AddNotesActivity extends AppCompatActivity {
     private RelativeLayout rootView;
     private TextView wordCountTextView, lastEditedTextView;
     private TextView charCountTextView;
-    private SharedPreferences prefsTheme;
-    private String theme;
     private Dialog categoryDialog;
     public TextView categoryLabelText, categoryIdentifier, categoryLabelColor;
-
-    /*Database Variables*/
-    private SQLiteDatabase dbWrite, dbRead;
 
     /*Integer Variables*/
     private int currentId;
@@ -94,6 +85,7 @@ public class AddNotesActivity extends AppCompatActivity {
     private String formattedDate;
     private String formattedTime;
 
+    private Note note;
     public static String random() {
         Random generator = new Random();
         StringBuilder randomStringBuilder = new StringBuilder();
@@ -122,60 +114,35 @@ public class AddNotesActivity extends AppCompatActivity {
         categoryIdentifier = notesInfoDialog.findViewById(R.id.category_id);
         categoryLabelColor = notesInfoDialog.findViewById(R.id.category_color);
 
-        prefsTheme = getSharedPreferences(getResources().getString(R.string.MY_PREFS_THEME), MODE_PRIVATE);
-        theme = prefsTheme.getString("theme", "not_defined");
-        if(theme.equals("dark")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }else if(theme.equals("light")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorLight, true);
-        }else if(theme.equals("amoled")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorAmoled, true);
-        }else{
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }
-
         setContentView(R.layout.activity_add_notes);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
 
         /*Initializing Views Method*/
         initializeView();
 
-        /*Accessing Helper class*/
-        NotesDbHelper mDbHelper = new NotesDbHelper(this);
-
-        dbWrite = mDbHelper.getWritableDatabase();
-        dbRead = mDbHelper.getReadableDatabase();
-
         /*Getting Current Date*/
         final Calendar c = Calendar.getInstance();
-        System.out.println("Current time => " + c.getTime());
 
         /*This is getting the date, when the note is created*/
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c.getTime());
 
         /*This is the time when the note is created*/
         Calendar cal = Calendar.getInstance();
         Date currentLocalTime = cal.getTime();
-        DateFormat date = new SimpleDateFormat("HH:mm a");
+        DateFormat date = new SimpleDateFormat("HH:mm a", Locale.getDefault());
 
         formattedTime = date.format(currentLocalTime);
 
         if (getIntent().hasExtra("noteId")) {
             currentId = Integer.parseInt(getIntent().getExtras().get("noteId").toString());
                /*This method takes a cursor, and later uses the values from it*/
-            Cursor cursor = dbRead.rawQuery("SELECT * FROM " + NotesContract.mainNotes.TABLE_NAME + " WHERE _id = " + currentId, null);
-            cursor.moveToNext();
+            note = DbHelper.getInstance(getApplication()).fetchNote(NotesContract.MainNotes._ID + " = ?", new String[]{String.valueOf(currentId)});
 
-            getValuesfromDB(cursor);
+            getValuesFromDB();
             rootView.setFocusableInTouchMode(true);
 
         } else {
-
+            note = new Note();
             deleteButton.setVisibility(View.GONE);
             shareButton.setVisibility(View.GONE);
             lastEditedTextView.setVisibility(View.GONE);
@@ -210,13 +177,11 @@ public class AddNotesActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         // Define 'where' part of query.
-                        String selection = NotesContract.mainNotes._ID + " LIKE ?"; // LIKE??? should'nt it be = ?
-                        String[] selectionArgs = {String.valueOf(currentId)};
-                        dbWrite.delete(NotesContract.mainNotes.TABLE_NAME, selection, selectionArgs);
+                        DbHelper.getInstance(getApplication()).deleteNote(note);
                         Toast.makeText(getApplicationContext(), "Your note has been deleted", Toast.LENGTH_LONG).show();
                         getSharedPreferences(getString(R.string.deleted_notes_base_pref), MODE_PRIVATE).edit().putBoolean(currentNoteUniqueId, true).apply();
-                        callParent();
                         isDelete = 1;
+                        finish();
                     }
                 });
 
@@ -391,10 +356,10 @@ public class AddNotesActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String currentText = s.toString();
                 int currentLength = currentText.length();
-                charCountTextView.setText(Integer.toString(currentLength));
+                charCountTextView.setText(String.valueOf(currentLength));
 
                 String[] wc = s.toString().split("\\s+");
-                wordCountTextView.setText(Integer.toString(wc.length));
+                wordCountTextView.setText(String.valueOf(wc.length));
             }
         });
 
@@ -452,9 +417,6 @@ public class AddNotesActivity extends AppCompatActivity {
             case "color1":
                 doneButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.accent1));
                 break;
-            case "color2":
-                doneButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.accent2));
-                break;
 
             case "color3":
                 doneButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.accent3));
@@ -481,6 +443,7 @@ public class AddNotesActivity extends AppCompatActivity {
             case "color10":
                 doneButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.accent10));
                 break;
+
             default:
                 doneButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.accent2));
                 break;
@@ -501,149 +464,88 @@ public class AddNotesActivity extends AppCompatActivity {
     }
 
     public void updateNotesData(int starredVal) {
-
-        String Query = "Select * from " + NotesContract.mainNotes.TABLE_NAME + " where " + NotesContract.mainNotes._ID + " = " + currentId;
-        Cursor cursor = dbWrite.rawQuery(Query, null);
-
-        if (cursor.getCount() <= 0) {
+        if (note.getNoteID() <= 0) {
             currentNoteUniqueId = String.valueOf(Calendar.getInstance().getTimeInMillis());
-            // Create a new map of values, where column names are the keys
-            ContentValues values = new ContentValues();
-            values.put(NotesContract.mainNotes.COLUMN_NAME_TITLE, titleEditText.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_NAME_CONTENT, descriptionEditText.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_DATE, formattedDate + " " + formattedTime);
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY, categoryLabelText.getText().toString());
-            if (categoryIdentifier.getText().toString().equals("1")){
-                CategoriesDbHelper mDbHelper = new CategoriesDbHelper(this);
-                SQLiteDatabase db = mDbHelper.getReadableDatabase();
-                Cursor cursor1 = db.query(CategoriesNotesContract.categoriesContract.TABLE_NAME,
-                        null,
-                        CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY + " = ?",
-                        new String[]{"Not Specified"}, // important.. duplicate entry of category prevent kiya?? nope wo karrrr... just check while adding category whether the name exist or not.. mak
-                        null,
-                        null,
-                        null);
-
-                String catUniqueId = "1";
-                if (cursor1.moveToNext()) {
-                    catUniqueId = cursor1.getString(cursor1.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_CATEGORY_UNIQUE_ID));
-                }
-
-                values.put(NotesContract.mainNotes.COLUMN_CATEGORY_ID, catUniqueId);
-                cursor1.close();
-                db.close();
-                mDbHelper.close();
-            } else {
-                values.put(NotesContract.mainNotes.COLUMN_CATEGORY_ID, categoryIdentifier.getText().toString());
-            }
-
-
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY_COLOR, categoryLabelColor.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_UNIQUE_NOTE_ID, currentNoteUniqueId); // TODO added this.. it will help identify unique notes across devices
-            values.put(NotesContract.mainNotes.COLUMN_LAST_EDITED, String.valueOf(Calendar.getInstance().getTimeInMillis())); // TODO Added this.. so you can now get last edited from this column
+            note.setNoteUniqueId(currentNoteUniqueId);
+            note.setNoteTitle(titleEditText.getText().toString());
+            note.setNoteContent(descriptionEditText.getText().toString());
+            note.setCreationDate(formattedDate + " " + formattedTime);
+            note.setLastEdited(String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
             if (starredVal == 1) {
-                values.put(NotesContract.mainNotes.COLUMN_STARRED_CHECK, "starred");
+                note.setIsStarred("starred");
             } else {
-                values.put(NotesContract.mainNotes.COLUMN_STARRED_CHECK, "notstarred");
+                note.setIsStarred("notstarred");
             }
 
             // Insert the new row, returning the
             // primary key value of the new row
-            currentId = (int) dbWrite.insert(NotesContract.mainNotes.TABLE_NAME, null, values);
+            currentId = DbHelper.getInstance(getApplication()).upsertNote(note);
+            note.setNoteID(currentId);
 
             Toast.makeText(getApplicationContext(), "The note has been added", Toast.LENGTH_SHORT).show();
             doneButton.isHapticFeedbackEnabled();
-            cursor.close();
-            callParent();
+            finish();
         } else {
-            ContentValues values = new ContentValues();
-            values.put(NotesContract.mainNotes.COLUMN_NAME_TITLE, titleEditText.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_NAME_CONTENT, descriptionEditText.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY, categoryLabelText.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY_ID, categoryIdentifier.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY_COLOR, categoryLabelColor.getText().toString());
-            values.put(NotesContract.mainNotes.COLUMN_LAST_EDITED, String.valueOf(Calendar.getInstance().getTimeInMillis()));
+            note.setNoteTitle(titleEditText.getText().toString());
+            note.setNoteContent(descriptionEditText.getText().toString());
+            note.setLastEdited(String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
             if (starredVal == 1) {
-                values.put(NotesContract.mainNotes.COLUMN_STARRED_CHECK, "starred");
+                note.setIsStarred("starred");
             } else {
-                values.put(NotesContract.mainNotes.COLUMN_STARRED_CHECK, "notstarred");
+                note.setIsStarred("notstarred");
             }
 
-            dbWrite.update(NotesContract.mainNotes.TABLE_NAME, values, "_id=" + currentId, null);
-            cursor.close();
-            callParent();
+            Toast.makeText(getApplicationContext(), "The note has been udated", Toast.LENGTH_SHORT).show();
+            DbHelper.getInstance(getApplication()).upsertNote(note);
+            finish();
         }
 
         getSharedPreferences(getString(R.string.last_edited_base_shared_pref), MODE_PRIVATE).edit().putLong(currentNoteUniqueId, Calendar.getInstance().getTimeInMillis()).apply();
     }
 
 
-    public void getValuesfromDB(Cursor cursor) {
-        String title = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_NAME_TITLE));
-        String note = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_NAME_CONTENT));
-        String creationDate = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_DATE));
-        String starredCheckString = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_STARRED_CHECK));
-        String category = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_CATEGORY));
-        String categoryColor = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_CATEGORY_COLOR));
-        String categoryID = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_CATEGORY_ID));
-        currentNoteUniqueId = cursor.getString(
-                cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_UNIQUE_NOTE_ID));
-        String lastEditedDate = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_LAST_EDITED));
-
-        titleEditText.setText(title, TextView.BufferType.EDITABLE);
-        descriptionEditText.setText(note, TextView.BufferType.EDITABLE);
-        creationDateTextView.setText(creationDate);
-        categoryLabelText.setText(category);
-        categoryIdentifier.setText(categoryID);
-        categoryLabelColor.setText(categoryColor);
+    public void getValuesFromDB() {
+        titleEditText.setText(note.getNoteTitle(), TextView.BufferType.EDITABLE);
+        descriptionEditText.setText(note.getNoteContent(), TextView.BufferType.EDITABLE);
+        creationDateTextView.setText(note.getCreationDate());
+        categoryLabelText.setText(note.getCategoryName());
+        categoryIdentifier.setText(note.getCategoryId());
+        categoryLabelColor.setText(note.getCategoryColor());
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.parseLong(lastEditedDate));
+        calendar.setTimeInMillis(Long.parseLong(note.getLastEdited()));
 
         String mMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-        lastEditedTextView.setText("Edited " + mDay + " " + mMonth);
+        lastEditedTextView.setText("Edited " + mDay + " " + mMonth + "\n" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND));
 
         /*This is to get the character count from a string*/
-        charCountTextView.setText(Integer.toString(descriptionEditText.length()));
+        charCountTextView.setText(String.valueOf(descriptionEditText.length()));
 
         String[] wc = descriptionEditText.getText().toString().split("\\s+");
-        wordCountTextView.setText(Integer.toString(wc.length));
-
-
-        if (categoryColor.contains("Not Specified")){
-            categoryColor = "#6ECFFF";
-        }
+        wordCountTextView.setText(String.valueOf(wc.length));
 
         try {
-            categoryLabelText.setTextColor(Color.parseColor(categoryColor.trim()));
-            categoryButton.setColorFilter(Color.parseColor(categoryColor.trim()));
+            categoryLabelText.setTextColor(Color.parseColor(note.getCategoryColor().trim()));
+            categoryButton.setColorFilter(Color.parseColor(note.getCategoryColor().trim()));
         } catch (Exception e){
             categoryLabelText.setTextColor(ContextCompat.getColor(this, R.color.color3));
             categoryButton.setColorFilter(ContextCompat.getColor(this, R.color.color3));
         }
 
-        if (starredCheckString.equals("starred")) {
+        if (note.getIsStarred().equals("starred")) {
             starButton.setImageResource(R.drawable.twotone_star_black_24);
             starButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.color4));
             starredCheck = 1;
-        } else if (starredCheckString.equals("notstarred")) {
+        } else {
             starButton.setImageResource(R.drawable.twotone_star_black_24);
             starButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.dividerColor));
             starredCheck = 0;
         }
-        cursor.close();
     }
 
     public void dismissDialog() {
@@ -671,15 +573,9 @@ public class AddNotesActivity extends AppCompatActivity {
         lastEditedTextView = findViewById(R.id.lastEditedView);
     }
 
-    public void callParent() {
-        finish();
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dbRead.close();
-        dbWrite.close();
     }
 
     @Override
@@ -688,7 +584,7 @@ public class AddNotesActivity extends AppCompatActivity {
         if (titleEditText.getText().toString().trim().length() == 0 && descriptionEditText.getText().toString().trim().length() == 0 ) {
             finish();
         }
-        else if (isDelete ==1){
+        else if (isDelete == 1){
             finish();
         }
         else {
@@ -698,7 +594,6 @@ public class AddNotesActivity extends AppCompatActivity {
 
 
     public void categoryButtonInvoker(){
-
         categoryDialog = new Dialog(AddNotesActivity.this);
         // Include dialog.xml file
         categoryDialog.setContentView(R.layout.custom_dialog_categories);
@@ -707,43 +602,11 @@ public class AddNotesActivity extends AppCompatActivity {
         categoryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         categoryDialog.show();
 
-        RecyclerView recyclerView = null;
+        RecyclerView recyclerView = categoryDialog.findViewById(R.id.categories_dialog_list);
 
-        recyclerView = categoryDialog.findViewById(R.id.categories_dialog_list);
+        CategoriesRecyclerAdapter noteRecyclerAdapter;
 
-        CategoriesDbHelper mDbHelperCat;
-        SQLiteDatabase db;
-
-        DialogCategoriesRecyclerAdapter noteRecyclerAdapter;
-
-        /*Accessing Helper class*/
-        mDbHelperCat = new CategoriesDbHelper(AddNotesActivity.this);
-
-        /*This is from where we are reading all the values*/
-        db = mDbHelperCat.getReadableDatabase();
-
-        Cursor cursor = db.query(
-                CategoriesNotesContract.categoriesContract.TABLE_NAME,                     // The table to query
-                null,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
-        );
-
-        final ArrayList<DialogCategoriesDataStructure> notesList = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            String title = cursor.getString(
-                    cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY));
-            String color = cursor.getString(
-                    cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_COLOR));
-            long categoryId = Long.parseLong(cursor.getString(cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_CATEGORY_UNIQUE_ID)));
-
-            notesList.add(new DialogCategoriesDataStructure(title, color, categoryId));
-
-        }
-        cursor.close();
+        ArrayList<Category> categories = DbHelper.getInstance(getApplication()).fetchAllCategoriesFromDb(null);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(AddNotesActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -753,13 +616,29 @@ public class AddNotesActivity extends AppCompatActivity {
         if (recyclerView != null) {
             recyclerView.setLayoutManager(layoutManager);
         }
-        noteRecyclerAdapter = new DialogCategoriesRecyclerAdapter(notesList, AddNotesActivity.this);
+
+        noteRecyclerAdapter = new CategoriesRecyclerAdapter(categories, AddNotesActivity.this, new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Category category = ((CategoriesRecyclerAdapter)recyclerView.getAdapter()).getItem(position);
+                categoryLabelText.setText(category.getCategoryName());
+                categoryIdentifier.setText(String.valueOf(category.getCategoryUniqueId()));
+                categoryLabelColor.setText(category.getCategoryColor());
+                note.setCategoryName(category.getCategoryName());
+                note.setCategoryId(category.getCategoryUniqueId());
+                note.setCategoryColor(category.getCategoryColor());
+
+                dismissDialog();
+                changeLabelIconColor(category.getCategoryColor());
+            }
+        });
+
         if (recyclerView != null) {
             recyclerView.setAdapter(noteRecyclerAdapter);
         }
     }
 
-    private void saveTextAsFile(String FileName, String Content){
+    private void saveTextAsFile(String FileName, String Content) {
         String fileName = FileName + ".txt";
         File file = new File(Environment.getExternalStorageDirectory() + "/Scrittor_Export/");
 

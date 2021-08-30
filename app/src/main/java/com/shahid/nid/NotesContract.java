@@ -17,7 +17,7 @@ public final class NotesContract {
     /**
      * This is my main notes table
      */
-    public static class mainNotes implements BaseColumns {
+    public static class MainNotes implements BaseColumns {
         public static final String TABLE_NAME = "mainNotes";
         public static final String BACKUP_TABLE_NAME_FOR_UPGRADE_DB = "backupNotes";
         public static final String COLUMN_NAME_TITLE = "noteTitle";

@@ -28,6 +28,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".Activties.DriveBackupActivity"
+            android:screenOrientation="locked"
+            android:exported="true" />
+        <activity
             android:name=".Activties.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -51,10 +55,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Categories.ManageCategories"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".Categories.ManageCategoriesActivity"
             android:parentActivityName=".Activties.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Categories.SingleCategoryActivity"
             android:screenOrientation="portrait" />
@@ -76,8 +80,6 @@
             android:name=".Activties.BillingActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".WebViewActivity" />
-        <activity android:name=".Activties.BackupSettingsActivity"
-            android:screenOrientation="locked" />
     </application>
 
 </manifest>

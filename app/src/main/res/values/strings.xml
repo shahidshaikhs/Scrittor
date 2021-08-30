@@ -174,8 +174,25 @@
     <string name="drive_backup_categories_complete">Categories backed Up =</string>
     <string name="drive_restore_notes">Total notes restored =</string>
     <string name="drive_restore_categories">Total categories restored =</string>
-    <string name="drive_error_occured">Error occured. Please try again.</string>
+    <string name="drive_error_occured">Error occurred. Please try again.</string>
     <string name="rewrite_failed">Rewrite Failed</string>
     <string name="create_failed">Create Failed</string>
-
+    <string name="back_button">Back button</string>
+    <string name="finding_backup_on_drive">Finding backup files on drive…</string>
+    <string name="num_of_backup_files_found">%1$d backup files found!</string>
+    <string name="num_of_notes_category_downloaded">%1$d notes and %2$d categories downloaded! (%3$d/%4$d)</string>
+    <string name="restoring_fetched_data_to_db">Restoring fetched data to database</string>
+    <string name="updating_categories_in_local_db">Updating categories database…</string>
+    <string name="updating_notes_in_local_db">Updating notes database…</string>
+    <string name="db_update_complete">Database update completed! %1$d Notes &amp; %2$d Categories updated.</string>
+    <string name="checking_backup">Checking if previous backup exists!</string>
+    <string name="no_prev_backup_found">No previous backup exists! Creating new backup!</string>
+    <string name="backing_up_notes">Backing up Notes!!! Do not exit the app. It might corrupt your backup!</string>
+    <string name="backing_up_categories">Backing up Categories!!! Do not exit the app. It might corrupt your backup!</string>
+    <string name="backup_complete">Backup complete!</string>
+    <string name="prev_backup_found">Replacing previous backup!</string>
+    <string name="no_backup_found">No backups found!</string>
+    <string name="backup_found">Backup found! Downloading!</string>
+    <string name="downloading_categories">Downloading categories backup...</string>
+    <string name="downloading_notes">Downloading notes backup...</string>
 </resources>

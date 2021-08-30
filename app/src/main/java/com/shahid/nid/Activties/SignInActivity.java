@@ -11,10 +11,6 @@ import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -22,6 +18,9 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 
 import com.shahid.nid.FingerprintHandler;
 import com.shahid.nid.R;
@@ -43,7 +42,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends BaseActivity {
 
     SharedPreferences prefsPassword;
     private EditText password_edit_text;
@@ -59,22 +58,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefsTheme = getSharedPreferences(getResources().getString(R.string.MY_PREFS_THEME), MODE_PRIVATE);
-        String theme = prefsTheme.getString("theme", "not_defined");
-        if(theme.equals("dark")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }else if(theme.equals("light")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorLight, true);
-        }else if(theme.equals("amoled")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorAmoled, true);
-        }else{
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }
-
         setContentView(R.layout.activity_sign_in);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
 
         prefsPassword = getSharedPreferences(getResources().getString(R.string.MY_PREFS_PASSWORD), MODE_PRIVATE);
         final String password = prefsPassword.getString("password", null);

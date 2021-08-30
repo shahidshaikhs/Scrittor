@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,7 +16,7 @@ import com.shahid.nid.R;
 
 
 
-public class PasswordReset extends AppCompatActivity {
+public class PasswordReset extends BaseActivity {
 
     private EditText password_edit_text;
     private SharedPreferences.Editor editorPassword;
@@ -27,22 +25,7 @@ public class PasswordReset extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefsTheme = getSharedPreferences(getResources().getString(R.string.MY_PREFS_THEME), MODE_PRIVATE);
-        String theme = prefsTheme.getString("theme", "not_defined");
-        if(theme.equals("dark")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }else if(theme.equals("light")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorLight, true);
-        }else if(theme.equals("amoled")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorAmoled, true);
-        }else{
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }
-
         setContentView(R.layout.activity_password_reset);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
 
         password_edit_text = findViewById(R.id.app_password_edit_text);
         ImageView save_password_button = findViewById(R.id.save_password_button);

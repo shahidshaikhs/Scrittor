@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class CustomFilter extends Filter{
 
     private NoteRecyclerAdapter adapter;
-    private ArrayList<NoteDataStructure> filterList;
+    private ArrayList<Note> filterList;
 
-    public CustomFilter(ArrayList<NoteDataStructure> filterList,NoteRecyclerAdapter adapter)
+    public CustomFilter(ArrayList<Note> filterList, NoteRecyclerAdapter adapter)
     {
         this.adapter=adapter;
         this.filterList=filterList;
@@ -33,7 +33,7 @@ public class CustomFilter extends Filter{
             //CHANGE TO UPPER
             constraint=constraint.toString().toUpperCase();
             //STORE OUR FILTERED PLAYERS
-            ArrayList<NoteDataStructure> filteredPlayers=new ArrayList<>();
+            ArrayList<Note> filteredPlayers=new ArrayList<>();
 
             for (int i=0;i<filterList.size();i++)
             {
@@ -61,7 +61,7 @@ public class CustomFilter extends Filter{
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
 
-        adapter.list= (ArrayList<NoteDataStructure>) results.values;
+        adapter.list= (ArrayList<Note>) results.values;
 
         //REFRESH
         adapter.notifyDataSetChanged();

@@ -11,9 +11,9 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -38,7 +38,7 @@ import java.util.Objects;
 
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
 
     private CheckBox password_Check, fingerprint_Check;
@@ -52,18 +52,6 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefsTheme = getSharedPreferences(getResources().getString(R.string.MY_PREFS_THEME), MODE_PRIVATE);
-        String theme = prefsTheme.getString("theme", "not_defined");
-        if(theme.equals("dark")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }else if(theme.equals("light")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorLight, true);
-        }else if(theme.equals("amoled")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorAmoled, true);
-        }else{
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }
-
         setContentView(R.layout.activity_settings);
 
         ImageView backButton = findViewById(R.id.back_button);
@@ -75,11 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         password_Check = findViewById(R.id.password_check);
         fingerprint_Check = findViewById(R.id.fingerprint_check);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
 
         backButton.setOnClickListener(view -> {
             finish();
@@ -390,7 +373,7 @@ public class SettingsActivity extends AppCompatActivity {
                 })
                 .check());
 
-        driveBackup.setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, BackupSettingsActivity.class)));
+        driveBackup.setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, DriveBackupActivity.class)));
 
     }
 

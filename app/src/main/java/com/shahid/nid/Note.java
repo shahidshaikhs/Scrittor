@@ -6,7 +6,7 @@ import java.util.Objects;
  * Created by shahi on 9/3/2017.
  */
 
-public class NoteDataStructure {
+public class Note {
 
     private String noteTitle, noteContent, creationDate;
     private String categoryName;
@@ -17,10 +17,10 @@ public class NoteDataStructure {
     private int noteID;
     private String lastEdited;
 
-    public NoteDataStructure() {
+    public Note() {
     }
 
-    public NoteDataStructure(String noteTitle, String noteContent, String creationDate, int noteID) {
+    public Note(String noteTitle, String noteContent, String creationDate, int noteID) {
         this.noteTitle = noteTitle;
         this.noteContent = noteContent;
         this.creationDate = creationDate;
@@ -111,13 +111,12 @@ public class NoteDataStructure {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NoteDataStructure that = (NoteDataStructure) o;
+        Note that = (Note) o;
         return Objects.equals(noteUniqueId, that.noteUniqueId);
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(noteUniqueId);
     }
 }

@@ -4,16 +4,16 @@ package com.shahid.nid.Categories;
  * Created by shahi on 10/9/2017.
  */
 
-public class CategoriesDataStructure {
+public class Category {
 
     private String categoryName, categoryColor;
     private String description;
     private String categoryUniqueId;
 
-    public CategoriesDataStructure() {
+    public Category() {
     }
 
-    public CategoriesDataStructure(String categoryName, String categoryColor) {
+    public Category(String categoryName, String categoryColor) {
         this.categoryName = categoryName;
         this.categoryColor = categoryColor;
     }
@@ -49,4 +49,6 @@ public class CategoriesDataStructure {
     public void setCategoryUniqueId(String categoryUniqueId) {
         this.categoryUniqueId = categoryUniqueId;
     }
+
+
 }

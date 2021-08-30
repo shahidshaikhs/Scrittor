@@ -4,32 +4,32 @@ package com.shahid.nid.Fragments;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.shahid.nid.Categories.CategoriesDataStructure;
-import com.shahid.nid.Categories.CategoriesDbHelper;
-import com.shahid.nid.Categories.CategoriesNotesContract;
-import com.shahid.nid.Categories.CategoriesRecyclerAdapter;
-import com.shahid.nid.Categories.ManageCategories;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.shahid.nid.Adapters.CategoriesRecyclerAdapter;
+import com.shahid.nid.Categories.Category;
+import com.shahid.nid.Categories.ManageCategoriesActivity;
+import com.shahid.nid.Categories.SingleCategoryActivity;
 import com.shahid.nid.R;
+import com.shahid.nid.Utils.DbHelper;
+import com.shahid.nid.interfaces.ItemClickListener;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoriesFragment extends Fragment {
+public class CategoriesFragment extends Fragment implements ItemClickListener {
 
     private View rootview;
     private FloatingActionButton fab;
@@ -79,7 +79,7 @@ public class CategoriesFragment extends Fragment {
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(rootview.getContext(), ManageCategories.class));
+                startActivity(new Intent(rootview.getContext(), ManageCategoriesActivity.class));
             }
         });
         return rootview;
@@ -87,34 +87,7 @@ public class CategoriesFragment extends Fragment {
 
 
     public void setCategoryRecyclerViews() {
-
-        /*Accessing Helper class*/
-        CategoriesDbHelper mDbHelper = new CategoriesDbHelper(rootview.getContext());
-
-        /*This is from where we are reading all the values*/
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        Cursor cursor = db.query(
-                CategoriesNotesContract.categoriesContract.TABLE_NAME,                     // The table to query
-                null,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
-        );
-
-        final ArrayList<CategoriesDataStructure> categoryList = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            String title = cursor.getString(
-                    cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY));
-            String color = cursor.getString(
-                    cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_COLOR));
-
-            categoryList.add(new CategoriesDataStructure(title, color));
-
-        }
-        cursor.close();
+        final ArrayList<Category> categoryList = new ArrayList<>(DbHelper.getInstance(getActivity().getApplication()).fetchAllCategoriesFromDb(null));
 
         recyclerView = rootview.findViewById(R.id.categories_list);
 
@@ -123,7 +96,7 @@ public class CategoriesFragment extends Fragment {
         recyclerView.setLayoutManager(_sGridLayoutManager);
 
         recyclerView.setLayoutManager(_sGridLayoutManager);
-        CategoriesRecyclerAdapter noteRecyclerAdapter = new CategoriesRecyclerAdapter(categoryList, rootview.getContext());
+        CategoriesRecyclerAdapter noteRecyclerAdapter = new CategoriesRecyclerAdapter(categoryList, rootview.getContext(), this);
         recyclerView.setAdapter(noteRecyclerAdapter);
 
         noteRecyclerAdapter.notifyDataSetChanged();
@@ -135,5 +108,12 @@ public class CategoriesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         setCategoryRecyclerViews();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Category category = ((CategoriesRecyclerAdapter)recyclerView.getAdapter()).getItem(position);
+        startActivity(new Intent(getContext(), SingleCategoryActivity.class).putExtra("categoryValue", category.getCategoryName())
+                .putExtra("categoryColorValue", category.getCategoryColor()));
     }
 }

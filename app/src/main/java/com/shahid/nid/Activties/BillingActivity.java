@@ -2,52 +2,33 @@ package com.shahid.nid.Activties;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.shahid.nid.BuildConfig;
 import com.shahid.nid.R;
 
 
 
-public class BillingActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler {
+public class BillingActivity extends BaseActivity implements BillingProcessor.IBillingHandler {
 
     private BillingProcessor bp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        SharedPreferences prefsTheme = getSharedPreferences(getResources().getString(R.string.MY_PREFS_THEME), MODE_PRIVATE);
-        String theme = prefsTheme.getString("theme", "not_defined");
-        if(theme.equals("dark")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }else if(theme.equals("light")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorLight, true);
-        }else if(theme.equals("amoled")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorAmoled, true);
-        }else{
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }
-
         setContentView(R.layout.activity_billing);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
 
         LinearLayout DONATE_COOKIES = findViewById(R.id.donate_cookies);
         LinearLayout DONATE_PEPSI = findViewById(R.id.donate_pepsi);
@@ -61,7 +42,7 @@ public class BillingActivity extends AppCompatActivity implements BillingProcess
         ImageView backButton = findViewById(R.id.back_button);
         ImageView messageButton = findViewById(R.id.message_button);
 
-        bp = new BillingProcessor(this, "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl7Y9hSHFIJDGmiS7MP06+hUGY86jLdJTEdRZvtrj5VzCN8lFe5g+tnKINvJyKTKXXoWCr0aVUsIOH61/cPGUYg0MZqkhUEIgl5fI11QjnRALXv1WGTVJiTpJY2HvwMiqYyrVDXUr7zP4aP9HLg5kLnqWBHBC4UuDsimvRSs9sFwqOP3q7FtD1mq97ocxo/lgqpLRlJaSNxvCEF9Be/dgG3CDZGuFjJVJ0tAEy6LF1Kb4biWKVc5zVgnBpA3//1nrjEfi/axnL1/yY2+n6DDiHPt9jc48tdLRmAgi7glXUW9ro3X3wHnK+3a5fmvlOEr1pVAeQYZSyFExcgyxt36xvQIDAQAB", this);
+        bp = new BillingProcessor(this, BuildConfig.LICENSE_KEY, this);
 
 
         DONATE_COOKIES.setOnClickListener(new View.OnClickListener() {

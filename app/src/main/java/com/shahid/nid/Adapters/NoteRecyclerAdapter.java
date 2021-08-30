@@ -3,7 +3,7 @@ package com.shahid.nid.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +15,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.shahid.nid.Activties.AddNotesActivity;
 import com.shahid.nid.CustomFilter;
-import com.shahid.nid.NoteDataStructure;
+import com.shahid.nid.Note;
 import com.shahid.nid.R;
+import com.shahid.nid.interfaces.ItemClickListener;
 
 import java.util.ArrayList;
 
@@ -29,39 +30,30 @@ import static android.content.Context.MODE_PRIVATE;
 public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.NoteViewHolder> implements Filterable {
 
     private Context context;
-    public ArrayList<NoteDataStructure> list;
-    private ArrayList<NoteDataStructure> filterList;
+    public ArrayList<Note> list;
+    private ArrayList<Note> filterList;
+    private ItemClickListener listener;
 
     private CustomFilter filter;
 
-    Gson gson;
-    public NoteRecyclerAdapter(ArrayList<NoteDataStructure> list , Context context)  {
+    public NoteRecyclerAdapter(ArrayList<Note> list , Context context, ItemClickListener listener)  {
         this.context = context;
         this.list = list;
         this.filterList=list;
-        gson = new Gson();
+        this.listener = listener;
     }
 
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_notes_row, parent, false);
-
-        return new NoteViewHolder(view);
+        return new NoteViewHolder(view, listener);
     }
 
     @Override
     public void onBindViewHolder(final NoteViewHolder holder, final int position) {
-        final NoteDataStructure noteDataStructure = list.get(position);
-        holder.titleText.setText(noteDataStructure.getNoteTitle());
-        holder.textContent.setText(noteDataStructure.getNoteContent());
-
-
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.startActivity(new Intent(context, AddNotesActivity.class).putExtra("noteId", noteDataStructure.getNoteID()));
-            }
-        });
+        final Note note = list.get(position);
+        holder.titleText.setText(note.getNoteTitle());
+        holder.textContent.setText(note.getNoteContent());
     }
 
     @Override
@@ -69,20 +61,39 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         return list.size();
     }
 
-    class NoteViewHolder extends RecyclerView.ViewHolder {
+    public Note getItem(int position){
+        return list.get(position);
+    }
+
+    //RETURN FILTER OBJ
+    @Override
+    public Filter getFilter() {
+        if(filter==null)
+        {
+            filter=new CustomFilter(filterList,this);
+        }
+
+        return filter;
+    }
+
+
+    class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView titleText, textContent;
         LinearLayout container;
+        ItemClickListener listener;
 
-        NoteViewHolder(View itemView) {
+        NoteViewHolder(View itemView, ItemClickListener listener) {
             super(itemView);
-
+            this.listener = listener;
             titleText = itemView.findViewById(R.id.title_text);
             textContent = itemView.findViewById(R.id.note_content);
             container = itemView.findViewById(R.id.note_container);
+            itemView.setOnClickListener(this);
 
-            SharedPreferences textLimiterPrefs = context.getSharedPreferences(context.getResources().getString(R.string.MY_PREFS_TEXT_LIMITER), MODE_PRIVATE);
-            String textLimiterValue = textLimiterPrefs.getString("integer", null);
+            String textLimiterValue = context.getSharedPreferences(context.getResources()
+                    .getString(R.string.MY_PREFS_TEXT_LIMITER), MODE_PRIVATE)
+                    .getString("integer", null);
 
             if(textLimiterValue !=null) {
                 switch (textLimiterValue) {
@@ -107,16 +118,12 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
                 }
             }
         }
-    }
 
-    //RETURN FILTER OBJ
-    @Override
-    public Filter getFilter() {
-        if(filter==null)
-        {
-            filter=new CustomFilter(filterList,this);
+        @Override
+        public void onClick(View v) {
+            if (listener != null){
+                listener.onItemClick(getAdapterPosition());
+            }
         }
-
-        return filter;
     }
 }

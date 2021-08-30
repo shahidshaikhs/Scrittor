@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -40,7 +41,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/twotone_notifications_active_24"
-                android:tint="@color/dividerColor"
+                app:tint="@color/dividerColor"
                 android:visibility="visible" />
 
 
@@ -54,7 +55,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/twotone_star_black_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <ImageView
                 android:id="@+id/category_button"
@@ -66,7 +67,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/twotone_category_24"
-                android:tint="@color/color3" />
+                app:tint="@color/color3" />
 
             <ImageView
                 android:id="@+id/share_note_button"
@@ -78,7 +79,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/twotone_share_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <ImageView
                 android:id="@+id/delete_note_button"
@@ -90,7 +91,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/twotone_delete_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <ImageView
                 android:id="@+id/list_action"
@@ -102,7 +103,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/twotone_list_alt_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
         </LinearLayout>
 
     </LinearLayout>
@@ -117,20 +118,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
+            android:minHeight="56dp"
             android:background="?android:colorPrimary">
 
             <ImageView
                 android:id="@+id/cancelNoteCreation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="16dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/round_clear_black_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <TextView
                 android:id="@+id/lastEditedView"
@@ -138,31 +138,39 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Edited"
+                android:gravity="center"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/addNoteDone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingEnd="12dp"
+                android:paddingStart="6dp"
                 android:layout_alignParentEnd="true"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/twotone_check_circle_24"
-                android:tint="?android:colorAccent" />
+                app:tint="?android:colorAccent" />
 
             <ImageView
                 android:id="@+id/notesInfo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
+                android:layout_height="56dp"
                 android:layout_toStartOf="@id/addNoteDone"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingEnd="6dp"
+                android:paddingStart="6dp"
                 android:src="@drawable/twotone_info_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
         </RelativeLayout>
 
         <LinearLayout
@@ -186,7 +194,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -204,7 +212,7 @@
                     android:textColor="?android:textColorSecondary"
                     android:textColorHint="?android:textColorSecondary"
                     android:textSize="16sp" />
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
