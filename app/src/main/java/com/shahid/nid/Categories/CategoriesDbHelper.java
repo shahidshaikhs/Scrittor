@@ -30,18 +30,18 @@ public class CategoriesDbHelper extends SQLiteOpenHelper {
     /**
      * String to create a table
      */
-    private static final String SQL_CREATE_MAIN_TABLE = "CREATE TABLE " + CategoriesNotesContract.categoriesContract.TABLE_NAME + "(" +
-            CategoriesNotesContract.categoriesContract._ID + " INTEGER PRIMARY KEY," +
-            CategoriesNotesContract.categoriesContract.COLUMN_DESCRIPTION_CATEGORY + " TEXT," +
-            CategoriesNotesContract.categoriesContract.COLUMN_COLOR + " TEXT," +
-            CategoriesNotesContract.categoriesContract.COLUMN_CATEGORY_UNIQUE_ID + " TEXT," +
-            CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY + " TEXT)";
+    private static final String SQL_CREATE_MAIN_TABLE = "CREATE TABLE " + CategoriesNotesContract.CategoriesContract.TABLE_NAME + "(" +
+            CategoriesNotesContract.CategoriesContract._ID + " INTEGER PRIMARY KEY," +
+            CategoriesNotesContract.CategoriesContract.COLUMN_DESCRIPTION_CATEGORY + " TEXT," +
+            CategoriesNotesContract.CategoriesContract.COLUMN_COLOR + " TEXT," +
+            CategoriesNotesContract.CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID + " TEXT," +
+            CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY + " TEXT)";
 
     /**
      * String to delete the table
      */
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + CategoriesNotesContract.categoriesContract.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + CategoriesNotesContract.CategoriesContract.TABLE_NAME;
 
 
     @Override
@@ -69,12 +69,12 @@ public class CategoriesDbHelper extends SQLiteOpenHelper {
      * @param sqLiteDatabase
      */
     private void backupDb(SQLiteDatabase sqLiteDatabase){
-        String query = "INSERT INTO " + CategoriesNotesContract.categoriesContract.CATEGORIES_BACKUP_TABLE_NAME + " SELECT * FROM " + CategoriesNotesContract.categoriesContract.TABLE_NAME;
-        final String SQL_CREATE_BACKUP_TABLE = "CREATE TABLE " + CategoriesNotesContract.categoriesContract.CATEGORIES_BACKUP_TABLE_NAME + "(" +
-                CategoriesNotesContract.categoriesContract._ID + " INTEGER PRIMARY KEY," +
-                CategoriesNotesContract.categoriesContract.COLUMN_DESCRIPTION_CATEGORY + " TEXT," +
-                CategoriesNotesContract.categoriesContract.COLUMN_COLOR + " TEXT," +
-                CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY + " TEXT)";
+        String query = "INSERT INTO " + CategoriesNotesContract.CategoriesContract.CATEGORIES_BACKUP_TABLE_NAME + " SELECT * FROM " + CategoriesNotesContract.CategoriesContract.TABLE_NAME;
+        final String SQL_CREATE_BACKUP_TABLE = "CREATE TABLE " + CategoriesNotesContract.CategoriesContract.CATEGORIES_BACKUP_TABLE_NAME + "(" +
+                CategoriesNotesContract.CategoriesContract._ID + " INTEGER PRIMARY KEY," +
+                CategoriesNotesContract.CategoriesContract.COLUMN_DESCRIPTION_CATEGORY + " TEXT," +
+                CategoriesNotesContract.CategoriesContract.COLUMN_COLOR + " TEXT," +
+                CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY + " TEXT)";
 
         sqLiteDatabase.execSQL(SQL_CREATE_BACKUP_TABLE);
         sqLiteDatabase.execSQL(query);
@@ -88,7 +88,7 @@ public class CategoriesDbHelper extends SQLiteOpenHelper {
     private void restoreDb(SQLiteDatabase sqLiteDatabase){
         // TODO get data from backup using sqlitedb and use cursor to put data
         Cursor cursor = sqLiteDatabase.query(
-                CategoriesNotesContract.categoriesContract.CATEGORIES_BACKUP_TABLE_NAME,                     // The table to query
+                CategoriesNotesContract.CategoriesContract.CATEGORIES_BACKUP_TABLE_NAME,                     // The table to query
                 null,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -100,21 +100,21 @@ public class CategoriesDbHelper extends SQLiteOpenHelper {
         long i = 1;
         while (cursor.moveToNext()) {
             String title = cursor.getString(
-                    cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY));
+                    cursor.getColumnIndexOrThrow(CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY));
 
-            String description = cursor.getString(cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_DESCRIPTION_CATEGORY));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(CategoriesNotesContract.CategoriesContract.COLUMN_DESCRIPTION_CATEGORY));
 
-            String color = cursor.getString(cursor.getColumnIndexOrThrow(CategoriesNotesContract.categoriesContract.COLUMN_COLOR));
+            String color = cursor.getString(cursor.getColumnIndexOrThrow(CategoriesNotesContract.CategoriesContract.COLUMN_COLOR));
 
 
 
             ContentValues values = new ContentValues();
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY, title);
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_DESCRIPTION_CATEGORY, description);
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_COLOR, color);
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_CATEGORY_UNIQUE_ID, String.valueOf(Calendar.getInstance().getTimeInMillis() + i));
+            values.put(CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY, title);
+            values.put(CategoriesNotesContract.CategoriesContract.COLUMN_DESCRIPTION_CATEGORY, description);
+            values.put(CategoriesNotesContract.CategoriesContract.COLUMN_COLOR, color);
+            values.put(CategoriesNotesContract.CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID, String.valueOf(Calendar.getInstance().getTimeInMillis() + i));
 
-            sqLiteDatabase.insert(CategoriesNotesContract.categoriesContract.TABLE_NAME, null, values);
+            sqLiteDatabase.insert(CategoriesNotesContract.CategoriesContract.TABLE_NAME, null, values);
             i++;
         }
 

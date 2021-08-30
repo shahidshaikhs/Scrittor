@@ -2,11 +2,8 @@ package com.shahid.nid.Activties;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,25 +12,11 @@ import android.widget.TextView;
 import com.shahid.nid.R;
 import com.shahid.nid.WebViewActivity;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
-        SharedPreferences prefsTheme = getSharedPreferences(getResources().getString(R.string.MY_PREFS_THEME), MODE_PRIVATE);
-        String theme = prefsTheme.getString("theme", "not_defined");
-        if(theme.equals("dark")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }else if(theme.equals("light")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorLight, true);
-        }else if(theme.equals("amoled")){
-            getTheme().applyStyle(R.style.OverlayPrimaryColorAmoled, true);
-        }else{
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }
-
         setContentView(R.layout.activity_about);
 
         LinearLayout profileIcons = findViewById(R.id.profile_icons);
@@ -49,11 +32,6 @@ public class AboutActivity extends AppCompatActivity {
         LinearLayout circularImageView = findViewById(R.id.circularImage);
         LinearLayout drive = findViewById(R.id.googleDrive);
         TextView junaidClick = findViewById(R.id.junaid);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
 
         junaidClick.setOnClickListener(new View.OnClickListener() {
             @Override

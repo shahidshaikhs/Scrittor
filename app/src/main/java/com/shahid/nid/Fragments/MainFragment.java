@@ -1,27 +1,30 @@
 package com.shahid.nid.Fragments;
 
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.shahid.nid.Activties.AddNotesActivity;
 import com.shahid.nid.Adapters.NoteRecyclerAdapter;
-import com.shahid.nid.NoteDataStructure;
-import com.shahid.nid.NotesContract;
-import com.shahid.nid.NotesDbHelper;
+import com.shahid.nid.Note;
 import com.shahid.nid.R;
+import com.shahid.nid.Utils.DbHelper;
+import com.shahid.nid.interfaces.ItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -32,7 +35,7 @@ public class MainFragment extends Fragment {
     private View rootView;
     private FloatingActionButton fab;
     NoteRecyclerAdapter noteRecyclerAdapter;
-    ArrayList<NoteDataStructure> notesList;
+    ArrayList<Note> notesList;
     private SearchView searchView;
 
     public MainFragment() {
@@ -47,12 +50,12 @@ public class MainFragment extends Fragment {
         fab = getActivity().findViewById(R.id.add_note);
         searchView = getActivity().findViewById(R.id.mSearch);
 
-        EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        EditText searchEditText = searchView.findViewById(R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.textColorSecondary));
         searchEditText.setHintTextColor(getResources().getColor(R.color.textColorSecondary));
 
+        notesList = new ArrayList<>();
         setValues();
-
         return rootView;
     }
 
@@ -62,55 +65,34 @@ public class MainFragment extends Fragment {
         super.onResume();
     }
 
-
     public void setValues() {
-        NotesDbHelper mDbHelper = new NotesDbHelper(rootView.getContext());
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
+        notesList.clear();
+        noteRecyclerAdapter = new NoteRecyclerAdapter(notesList, rootView.getContext(), new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Note note = noteRecyclerAdapter.getItem(position);
+                startActivity(new Intent(getContext(), AddNotesActivity.class).putExtra("noteId", note.getNoteID()));
+            }
+        });
 
-        notesList = new ArrayList<>();
-        noteRecyclerAdapter = new NoteRecyclerAdapter(notesList, rootView.getContext());
-
-        String[] projection = {
-                NotesContract.mainNotes._ID,
-                NotesContract.mainNotes.COLUMN_NAME_TITLE,
-                NotesContract.mainNotes.COLUMN_NAME_CONTENT,
-                NotesContract.mainNotes.COLUMN_DATE
-        };
-
-        Cursor cursor = db.query(
-                NotesContract.mainNotes.TABLE_NAME,                     // The table to query
-                projection,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
-        );
-
-        while (cursor.moveToNext()) {
-            String title = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_NAME_TITLE));
-            String content = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_NAME_CONTENT));
-            String creationDate = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_DATE));
-            int noteID = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(NotesContract.mainNotes._ID));
-
-            notesList.add(new NoteDataStructure(title, content, creationDate, noteID));
-
-        }
-        cursor.close();
+        notesList.addAll(DbHelper.getInstance(getActivity().getApplication()).fetchAllNotesFromDb(null));
+        Collections.sort(notesList, new Comparator<Note>() {
+            @Override
+            public int compare(Note o1, Note o2) {
+                try {
+                    return Long.getLong(o1.getLastEdited()).compareTo(Long.getLong(o2.getLastEdited()));
+                } catch (Exception e){
+                    return 1;
+                }
+            }
+        });
+        Collections.reverse(notesList);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.notes_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-
         recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setAdapter(noteRecyclerAdapter);
 
         noteRecyclerAdapter.notifyDataSetChanged();

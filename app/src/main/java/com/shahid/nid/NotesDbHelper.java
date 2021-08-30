@@ -30,22 +30,22 @@ public class NotesDbHelper extends SQLiteOpenHelper {
     /**
      * String to create a table
      */
-    private static final String SQL_CREATE_MAIN_TABLE = "CREATE TABLE " + NotesContract.mainNotes.TABLE_NAME + "(" +
-            NotesContract.mainNotes._ID + " INTEGER PRIMARY KEY," +
-            NotesContract.mainNotes.COLUMN_NAME_TITLE + " TEXT," +
-            NotesContract.mainNotes.COLUMN_DATE + " TEXT," +
-            NotesContract.mainNotes.COLUMN_CATEGORY + " TEXT," +
-            NotesContract.mainNotes.COLUMN_CATEGORY_COLOR + " TEXT," +
-            NotesContract.mainNotes.COLUMN_CATEGORY_ID + " TEXT," +
-            NotesContract.mainNotes.COLUMN_STARRED_CHECK + " TEXT," +
-            NotesContract.mainNotes.COLUMN_UNIQUE_NOTE_ID + " TEXT," +
-            NotesContract.mainNotes.COLUMN_LAST_EDITED + " TEXT," +
-            NotesContract.mainNotes.COLUMN_NAME_CONTENT + " TEXT)";
+    private static final String SQL_CREATE_MAIN_TABLE = "CREATE TABLE " + NotesContract.MainNotes.TABLE_NAME + "(" +
+            NotesContract.MainNotes._ID + " INTEGER PRIMARY KEY," +
+            NotesContract.MainNotes.COLUMN_NAME_TITLE + " TEXT," +
+            NotesContract.MainNotes.COLUMN_DATE + " TEXT," +
+            NotesContract.MainNotes.COLUMN_CATEGORY + " TEXT," +
+            NotesContract.MainNotes.COLUMN_CATEGORY_COLOR + " TEXT," +
+            NotesContract.MainNotes.COLUMN_CATEGORY_ID + " TEXT," +
+            NotesContract.MainNotes.COLUMN_STARRED_CHECK + " TEXT," +
+            NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID + " TEXT," +
+            NotesContract.MainNotes.COLUMN_LAST_EDITED + " TEXT," +
+            NotesContract.MainNotes.COLUMN_NAME_CONTENT + " TEXT)";
     /**
      * String to delete the table
      */
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + NotesContract.mainNotes.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + NotesContract.MainNotes.TABLE_NAME;
 
     /**
      * Constructor
@@ -77,16 +77,16 @@ public class NotesDbHelper extends SQLiteOpenHelper {
      * @param sqLiteDatabase
      */
     private void backupDb(SQLiteDatabase sqLiteDatabase){
-        String query = "INSERT INTO " + NotesContract.mainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB + " SELECT * FROM " + NotesContract.mainNotes.TABLE_NAME;
-        final String SQL_CREATE_BACKUP_TABLE = "CREATE TABLE " + NotesContract.mainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB + "(" +
-                NotesContract.mainNotes._ID + " INTEGER PRIMARY KEY," +
-                NotesContract.mainNotes.COLUMN_NAME_TITLE + " TEXT," +
-                NotesContract.mainNotes.COLUMN_DATE + " TEXT," +
-                NotesContract.mainNotes.COLUMN_CATEGORY + " TEXT," +
-                NotesContract.mainNotes.COLUMN_CATEGORY_COLOR + " TEXT," +
-                NotesContract.mainNotes.COLUMN_CATEGORY_ID + " TEXT," +
-                NotesContract.mainNotes.COLUMN_STARRED_CHECK + " TEXT," +
-                NotesContract.mainNotes.COLUMN_NAME_CONTENT + " TEXT)";
+        String query = "INSERT INTO " + NotesContract.MainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB + " SELECT * FROM " + NotesContract.MainNotes.TABLE_NAME;
+        final String SQL_CREATE_BACKUP_TABLE = "CREATE TABLE " + NotesContract.MainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB + "(" +
+                NotesContract.MainNotes._ID + " INTEGER PRIMARY KEY," +
+                NotesContract.MainNotes.COLUMN_NAME_TITLE + " TEXT," +
+                NotesContract.MainNotes.COLUMN_DATE + " TEXT," +
+                NotesContract.MainNotes.COLUMN_CATEGORY + " TEXT," +
+                NotesContract.MainNotes.COLUMN_CATEGORY_COLOR + " TEXT," +
+                NotesContract.MainNotes.COLUMN_CATEGORY_ID + " TEXT," +
+                NotesContract.MainNotes.COLUMN_STARRED_CHECK + " TEXT," +
+                NotesContract.MainNotes.COLUMN_NAME_CONTENT + " TEXT)";
 
         sqLiteDatabase.execSQL(SQL_CREATE_BACKUP_TABLE);
         sqLiteDatabase.execSQL(query);
@@ -103,7 +103,7 @@ public class NotesDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase categoryDb = mDbHelper.getReadableDatabase();
 
         Cursor cursor = sqLiteDatabase.query(
-                NotesContract.mainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB,                     // The table to query
+                NotesContract.MainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB,                     // The table to query
                 null,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -115,50 +115,50 @@ public class NotesDbHelper extends SQLiteOpenHelper {
         long i = 0;
         while (cursor.moveToNext()) {
             String title = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_NAME_TITLE));
+                    cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_NAME_TITLE));
             String content = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_NAME_CONTENT));
+                    cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_NAME_CONTENT));
             String creationDate = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_DATE));
+                    cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_DATE));
 
-            String categoryName = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_CATEGORY));
+            String categoryName = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY));
 
-            String categoryColor = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_CATEGORY_COLOR));
+            String categoryColor = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY_COLOR));
 
-            String categoryId = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_CATEGORY_ID));
+            String categoryId = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY_ID));
 
-            String isStarred = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.mainNotes.COLUMN_STARRED_CHECK));
+            String isStarred = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_STARRED_CHECK));
 
-            String whereClause = CategoriesNotesContract.categoriesContract._ID + " = ? AND " + CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY + " = ?";
+            String whereClause = CategoriesNotesContract.CategoriesContract._ID + " = ? AND " + CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY + " = ?";
             String[] whereArguments = new String[] { categoryId, categoryName};
 
-            Cursor categoryCursor = categoryDb.query(CategoriesNotesContract.categoriesContract.TABLE_NAME,
+            Cursor categoryCursor = categoryDb.query(CategoriesNotesContract.CategoriesContract.TABLE_NAME,
                     null,
                     whereClause,
                     whereArguments,
                     null,
                     null,
-                    CategoriesNotesContract.categoriesContract._ID);
+                    CategoriesNotesContract.CategoriesContract._ID);
 
             ContentValues values = new ContentValues();
-            values.put(NotesContract.mainNotes.COLUMN_NAME_TITLE, title);
-            values.put(NotesContract.mainNotes.COLUMN_NAME_CONTENT, content);
-            values.put(NotesContract.mainNotes.COLUMN_DATE, creationDate);
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY, categoryName);
+            values.put(NotesContract.MainNotes.COLUMN_NAME_TITLE, title);
+            values.put(NotesContract.MainNotes.COLUMN_NAME_CONTENT, content);
+            values.put(NotesContract.MainNotes.COLUMN_DATE, creationDate);
+            values.put(NotesContract.MainNotes.COLUMN_CATEGORY, categoryName);
 
             if (categoryCursor.moveToNext()){
-                categoryId = categoryCursor.getString(categoryCursor.getColumnIndex(CategoriesNotesContract.categoriesContract.COLUMN_CATEGORY_UNIQUE_ID));
+                categoryId = categoryCursor.getString(categoryCursor.getColumnIndex(CategoriesNotesContract.CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID));
             }
 
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY_ID, categoryId);
-            values.put(NotesContract.mainNotes.COLUMN_CATEGORY_COLOR, categoryColor);
-            values.put(NotesContract.mainNotes.COLUMN_STARRED_CHECK, isStarred);
+            values.put(NotesContract.MainNotes.COLUMN_CATEGORY_ID, categoryId);
+            values.put(NotesContract.MainNotes.COLUMN_CATEGORY_COLOR, categoryColor);
+            values.put(NotesContract.MainNotes.COLUMN_STARRED_CHECK, isStarred);
             String uniqueId = String.valueOf(Calendar.getInstance().getTimeInMillis() + i);
-            values.put(NotesContract.mainNotes.COLUMN_UNIQUE_NOTE_ID, uniqueId);
-            values.put(NotesContract.mainNotes.COLUMN_LAST_EDITED, uniqueId);
+            values.put(NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID, uniqueId);
+            values.put(NotesContract.MainNotes.COLUMN_LAST_EDITED, uniqueId);
 
             Log.e("Notes Parsed", values.toString());
-            sqLiteDatabase.insert(NotesContract.mainNotes.TABLE_NAME, null, values);
+            sqLiteDatabase.insert(NotesContract.MainNotes.TABLE_NAME, null, values);
             context.getSharedPreferences("last_edited_base_shared_pref", MODE_PRIVATE).edit().putLong(uniqueId, Calendar.getInstance().getTimeInMillis()).commit();
             i++;
         }

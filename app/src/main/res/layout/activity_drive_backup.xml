@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?android:colorPrimary">
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+        app:tint="@color/dividerColor"
+        android:padding="16dp"
+        android:contentDescription="@string/back_button" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_toEndOf="@id/backButton"
+        android:fontFamily="@font/bold"
+        android:text="@string/backup"
+        android:textColor="?android:textColor"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/titleDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:alpha="0.2"
+        android:layout_below="@id/title"
+        android:background="@color/dividerColor" />
+
+    <TextView
+        android:id="@+id/backupTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleDivider"
+        android:padding="24dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/cloud_auto_backup"
+        android:textColor="?android:textColor"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/backupSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="24dp"
+        android:layout_below="@id/backupTitle"
+        android:text="@string/cloud_auto_backup_desc"
+        android:textColor="?android:textColorSecondary"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@id/backupSubtitle"
+        android:alpha="0.2"
+        android:background="@color/dividerColor" />
+
+    <TextView
+        android:id="@+id/restoreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider1"
+        android:padding="24dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/restore_from_cloud"
+        android:textColor="?android:textColor"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/restoreSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="24dp"
+        android:layout_below="@id/restoreTitle"
+        android:text="@string/backup_schedule_desc"
+        android:textColor="?android:textColorSecondary"
+        android:textSize="14sp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/loadingCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/drawerColor">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/loading_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="24dp" />
+
+            <TextView
+                android:id="@+id/loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/init_wait"
+                android:textColor="?android:textColor" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

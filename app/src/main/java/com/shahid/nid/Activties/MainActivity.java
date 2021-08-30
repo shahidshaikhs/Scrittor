@@ -2,26 +2,13 @@ package com.shahid.nid.Activties;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.button.MaterialButton;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -29,18 +16,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.shahid.nid.AccentManager;
 import com.shahid.nid.Adapters.SimpleFragmentPagerAdapter;
 import com.shahid.nid.BottomSheets.BottomSheetDrawer;
-import com.shahid.nid.Categories.CategoriesDbHelper;
-import com.shahid.nid.Categories.CategoriesNotesContract;
+import com.shahid.nid.Categories.Category;
 import com.shahid.nid.R;
+import com.shahid.nid.Utils.DbHelper;
 import com.shahid.nid.Utils.UtilityVariables;
 
 import java.util.Calendar;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomSheetDrawer.BottomSheetListener {
 
     private FloatingActionButton addNotesButton;
@@ -62,18 +60,6 @@ public class MainActivity extends AppCompatActivity
         tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.textColorSecondary);
         tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.colorAccent);
 
-        SharedPreferences prefsTheme = getSharedPreferences(getResources().getString(R.string.MY_PREFS_THEME), MODE_PRIVATE);
-        String theme = prefsTheme.getString("theme", "not_defined");
-        if (theme.equals("dark")) {
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        } else if (theme.equals("light")) {
-            getTheme().applyStyle(R.style.OverlayPrimaryColorLight, true);
-        } else if (theme.equals("amoled")) {
-            getTheme().applyStyle(R.style.OverlayPrimaryColorAmoled, true);
-        } else {
-            getTheme().applyStyle(R.style.OverlayPrimaryColorDark, true);
-        }
-
         editorAccent = getSharedPreferences(getResources().getString(R.string.MY_PREFS_ACCENT), MODE_PRIVATE);
         String accent = editorAccent.getString("accent", "not_defined");
 
@@ -87,20 +73,16 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.MY_PREFS_USER_NAME), MODE_PRIVATE);
 
-        /*Accessing Helper class*/
-        CategoriesDbHelper mDbHelper = new CategoriesDbHelper(MainActivity.this);
-
         /*This code needs to run only for the first time*/
         if (!prefs.getBoolean("firstTime", false)) {
             // <---- run your one time code here
 
-            SQLiteDatabase dbWrite = mDbHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_NAME_CATEGORY, "Not Specified");
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_DESCRIPTION_CATEGORY, "All notes that are not assigned to a specific category are displayed here");
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_COLOR, "#6ECFFF");
-            values.put(CategoriesNotesContract.categoriesContract.COLUMN_CATEGORY_UNIQUE_ID, String.valueOf(Calendar.getInstance().getTimeInMillis()));
-            dbWrite.insert(CategoriesNotesContract.categoriesContract.TABLE_NAME, null, values);
+            Category defaultCategory = new Category();
+            defaultCategory.setCategoryName("Not Specified");
+            defaultCategory.setDescription("All notes that are not assigned to a specific category are displayed here");
+            defaultCategory.setCategoryColor("#6ECFFF");
+            defaultCategory.setCategoryUniqueId(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+            DbHelper.getInstance(getApplication()).insertNewCategory(defaultCategory);
 
             getUserName("");
 
@@ -112,8 +94,6 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
             editor.apply();
-
-            dbWrite.close();
         }
 
         HEADING_TEXT = findViewById(R.id.title_text);
@@ -272,7 +252,7 @@ public class MainActivity extends AppCompatActivity
         cloudIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, BackupSettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, DriveBackupActivity.class));
             }
         });
 

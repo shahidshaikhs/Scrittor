@@ -17,7 +17,7 @@ public class CategoriesNotesContract {
     /**
      * This is my main notes table
      */
-    public static class categoriesContract implements BaseColumns {
+    public static class CategoriesContract implements BaseColumns {
         public static final String TABLE_NAME = "mainCategories";
         public static final String CATEGORIES_BACKUP_TABLE_NAME = "backupCategories";
         public static final String COLUMN_NAME_CATEGORY = "categoryName";
