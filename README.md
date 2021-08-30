@@ -1,5 +1,7 @@
 # Scrittor - A simple note app 👋🏻
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 ### What is this app all about?
 Scrittor was made with the intention of keeping the process of note taking simple yet appealing to the eye. I wish to continue the same approach throughout its journey.
 
