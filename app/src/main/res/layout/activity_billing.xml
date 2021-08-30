@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?android:colorPrimary">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,7 +25,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,7 +45,7 @@
                 android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:src="@drawable/ic_action_hot_air_balloon"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
         </LinearLayout>
 
@@ -92,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_cookie_with_fine_chips"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_soda"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -169,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_coffee"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -202,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_cheeseburger"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -248,7 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_pizza"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -281,7 +282,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_tray"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -325,7 +326,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_shirt"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -358,7 +359,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_apple_watch"
-                    android:tint="@color/dividerColor" />
+                    app:tint="@color/dividerColor" />
 
                 <TextView
                     android:layout_width="wrap_content"

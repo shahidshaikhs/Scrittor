@@ -12,8 +12,8 @@ android {
         applicationId "com.shahid.nid"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 53
-        versionName "4.8"
+        versionCode 54
+        versionName "4.8.1"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
@@ -55,6 +55,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation "com.android.billingclient:billing:4.0.0"
 
     // Play Services And Firebase Libraries
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
@@ -73,7 +74,6 @@ dependencies {
 
     // Third party libraries
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
     implementation 'com.karumi:dexter:4.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 

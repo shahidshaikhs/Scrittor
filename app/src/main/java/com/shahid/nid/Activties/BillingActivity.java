@@ -10,20 +10,47 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
-import com.shahid.nid.BuildConfig;
+import com.android.billingclient.api.AcknowledgePurchaseParams;
+import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ConsumeParams;
+import com.android.billingclient.api.ConsumeResponseListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.shahid.nid.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 
-public class BillingActivity extends BaseActivity implements BillingProcessor.IBillingHandler {
+public class BillingActivity extends BaseActivity implements BillingClientStateListener, PurchasesUpdatedListener {
 
-    private BillingProcessor bp;
+    // IAB v4
+    private BillingClient billingClient;
+    private static final String SKU_COOKIES = "cookies";
+    private static final String SKU_PEPSI = "pepsi";
+    private static final String SKU_COFFEE = "coffee";
+    private static final String SKU_BURGER = "burger";
+    private static final String SKU_PIZZA = "pizza";
+    private static final String SKU_MEAL = "meal";
+    private static final String SKU_SHIRTS = "shirts";
+    private static final String SKU_WATCH = "watch";
+
+    private static final ArrayList<String> skuNameList = new ArrayList<>(Arrays.asList("cookies", "pepsi", "coffee", "burger", "pizza", "meal", "shirts", "watch"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,56 +69,58 @@ public class BillingActivity extends BaseActivity implements BillingProcessor.IB
         ImageView backButton = findViewById(R.id.back_button);
         ImageView messageButton = findViewById(R.id.message_button);
 
-        bp = new BillingProcessor(this, BuildConfig.LICENSE_KEY, this);
+        billingClient = BillingClient.newBuilder(this).setListener(this).enablePendingPurchases().build();
+        billingClient.startConnection(this);
 
 
         DONATE_COOKIES.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "cookies");
+                purchasePack(productsList.get(SKU_COOKIES));
             }
         });
 
         DONATE_PEPSI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "pepsi");
+                purchasePack(productsList.get(SKU_PEPSI));
             }
         });
         DONATE_COFFEE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "coffee");
+                purchasePack(productsList.get(SKU_COFFEE));
             }
         });
         DONATE_BURGER.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "burger");
+
+                purchasePack(productsList.get(SKU_BURGER));
             }
         });
         DONATE_PIZZA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "pizza");
+                purchasePack(productsList.get(SKU_PIZZA));
             }
         });
         DONATE_MEAL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "meal");
+                purchasePack(productsList.get(SKU_MEAL));
             }
         });
         DONATE_SHIRT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "shirts");
+                purchasePack(productsList.get(SKU_SHIRTS));
             }
         });
         DONATE_WATCH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(BillingActivity.this, "watch");
+                purchasePack(productsList.get(SKU_WATCH));
             }
         });
 
@@ -140,7 +169,95 @@ public class BillingActivity extends BaseActivity implements BillingProcessor.IB
     }
 
     @Override
-    public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
+    public void onBillingServiceDisconnected() {
+
+    }
+
+    @Override
+    public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+            // The BillingClient is ready. You can query purchases here.
+            getProductList();
+
+        }
+    }
+
+    private HashMap<String, SkuDetails> productsList = new HashMap<>();
+    private void getProductList() {
+        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+        params.setSkusList(skuNameList).setType(BillingClient.SkuType.INAPP);
+        billingClient.querySkuDetailsAsync(params.build(),
+                new SkuDetailsResponseListener() {
+                    @Override
+                    public void onSkuDetailsResponse(BillingResult billingResult,
+                                                     List<SkuDetails> skuDetailsList) {
+                        // Process the result.
+                        for (SkuDetails sku : skuDetailsList) {
+                            productsList.put(skuNameList.get(skuNameList.indexOf(sku.getSku())), sku);
+                        }
+
+                    }
+                });
+    }
+
+    @Override
+    public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
+        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && list != null) {
+            for (Purchase purchase : list) {
+                handlePurchase(purchase);
+            }
+        } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
+            // Handle an error caused by a user cancelling the purchase flow.
+            Toast.makeText(this, "Purchase Cancelled!", Toast.LENGTH_SHORT).show();
+        } else {
+            // Handle any other error codes.
+            Snackbar
+                    .make(findViewById(android.R.id.content), "An unexpected error occurred. Please try again later.", Snackbar.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    /**
+     * Updates the purchase in app class ionstance too
+     *
+     * @param purchase
+     */
+    private void handlePurchase(Purchase purchase) {
+        billingClient.acknowledgePurchase(AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.getPurchaseToken()).build(), new AcknowledgePurchaseResponseListener() {
+            @Override
+            public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
+                billingClient.consumeAsync(ConsumeParams.newBuilder().setPurchaseToken(purchase.getPurchaseToken()).build(), new ConsumeResponseListener() {
+                    @Override
+                    public void onConsumeResponse(@NonNull BillingResult billingResult, @NonNull String s) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showThankYouDialog("Purchase Complete!", "Thank you for your supporting me in further development of Orphic!");
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    private void purchasePack(SkuDetails sku) {
+        // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+        BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                .setSkuDetails(sku)
+                .build();
+        int responseCode = billingClient.launchBillingFlow(this, billingFlowParams).getResponseCode();
+    }
+
+    // We're being destroyed. It's important to dispose of the helper here!
+    @Override
+    public void onDestroy() {
+        billingClient.endConnection();
+        super.onDestroy();
+    }
+
+
+    public void showThankYouDialog(@NonNull String title, String body) {
         Dialog thankyouDialog = new Dialog(BillingActivity.this);
         thankyouDialog.setContentView(R.layout.dialog_basic);
         thankyouDialog.setTitle(null);
@@ -158,49 +275,4 @@ public class BillingActivity extends BaseActivity implements BillingProcessor.IB
         });
     }
 
-    @Override
-    public void onPurchaseHistoryRestored() {
-
-    }
-
-    @Override
-    public void onBillingError(int errorCode, @Nullable Throwable error) {
-
-    }
-
-    @Override
-    public void onBillingInitialized() {
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (bp != null) {
-            bp.release();
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 }
