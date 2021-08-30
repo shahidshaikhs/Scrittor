@@ -23,8 +23,9 @@ It uses Android SDK and Google Drive for backup.
 - Commit changes and push the new branch.
 - Open and submit a PR.
 
-### Link to the Live App
-https://play.google.com/store/apps/details?id=com.shahid.nid
-
 ### Do you have any questions?
 Please reach out to me via my email "shahid.sk27595@gmail.com"
+
+**Redistributing this app as your own is NOT permitted.**
+
+<a href="https://play.google.com/store/apps/details?id=com.shahid.nid"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="200px"/></a>
