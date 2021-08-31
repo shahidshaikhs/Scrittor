@@ -130,7 +130,7 @@ public class AboutActivity extends BaseActivity {
         privacy_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AboutActivity.this, WebViewActivity.class).putExtra("url", "https://shahidshaikh.com/PrivacyPolicy/index.html"));
+                startActivity(new Intent(AboutActivity.this, WebViewActivity.class).putExtra("url", "https://shahidshaikh.com/PrivacyPolicy"));
             }
         });
     }

@@ -25,6 +25,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         String url_string = getIntent().getStringExtra("url");
 
+        myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.loadUrl(url_string);
 
         backButton.setOnClickListener(new View.OnClickListener() {
