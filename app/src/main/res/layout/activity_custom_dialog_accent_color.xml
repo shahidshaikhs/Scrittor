@@ -16,13 +16,13 @@
         android:paddingBottom="20dp">
 
         <TextView
+            style="@style/ScrittorHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/bold"
             android:gravity="center"
             android:text="@string/choose_a_color"
             android:textColor="?android:textColor"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -44,55 +44,60 @@
                 android:id="@+id/color1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent1"
-                android:focusable="true" />
+                app:tint="@color/accent1"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent2"
-                android:focusable="true" />
+                app:tint="@color/accent2"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent3"
-                android:focusable="true" />
+                app:tint="@color/accent3"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent4"
-                android:focusable="true" />
+                app:tint="@color/accent4"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent5"
-                android:focusable="true" />
+                app:tint="@color/accent5"
+                android:focusable="true"
+                android:padding="4dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -106,55 +111,60 @@
                 android:id="@+id/color6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent6"
-                android:focusable="true" />
+                app:tint="@color/accent6"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent7"
-                android:focusable="true" />
+                app:tint="@color/accent7"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color8"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent8"
-                android:focusable="true" />
+                app:tint="@color/accent8"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color9"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent9"
-                android:focusable="true" />
+                app:tint="@color/accent9"
+                android:focusable="true"
+                android:padding="4dp" />
 
             <ImageView
                 android:id="@+id/color10"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/accent_swatch_background"
                 android:clickable="true"
                 android:src="@drawable/round_fiber_manual_record_white_48"
-                android:tint="@color/accent10"
-                android:focusable="true" />
+                app:tint="@color/accent10"
+                android:focusable="true"
+                android:padding="4dp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

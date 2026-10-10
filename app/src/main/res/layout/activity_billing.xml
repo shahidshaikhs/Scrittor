@@ -16,18 +16,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
+                android:contentDescription="@string/back_button"
+                android:padding="12dp"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
                 app:tint="@color/dividerColor" />
 
             <TextView
+                style="@style/ScrittorHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

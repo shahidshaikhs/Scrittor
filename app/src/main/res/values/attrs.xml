@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Surface for cards that sit on ?android:colorPrimary; must stay distinguishable from it. -->
+    <attr name="cardSurfaceColor" format="color" />
+</resources>

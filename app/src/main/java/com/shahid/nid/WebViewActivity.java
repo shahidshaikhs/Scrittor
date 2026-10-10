@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 
 
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends com.shahid.nid.Activties.BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_view);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        if (actionBar != null) actionBar.hide();
 
         ImageView backButton = findViewById(R.id.back_button);
 
@@ -25,13 +25,17 @@ public class WebViewActivity extends AppCompatActivity {
 
         String url_string = getIntent().getStringExtra("url");
 
-        myWebView.getSettings().setJavaScriptEnabled(true);
+        if (url_string == null || !"https".equalsIgnoreCase(android.net.Uri.parse(url_string).getScheme())) {
+            finish(); return;
+        }
+        myWebView.getSettings().setAllowFileAccess(false);
+        myWebView.getSettings().setAllowContentAccess(false);
         myWebView.loadUrl(url_string);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
     }

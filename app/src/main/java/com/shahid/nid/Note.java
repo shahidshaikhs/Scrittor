@@ -107,6 +107,11 @@ public class Note {
         this.lastEdited = lastEdited;
     }
 
+    public long lastEditedMillis() {
+        try { return Long.parseLong(lastEdited); }
+        catch (NumberFormatException e) { return 0L; }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

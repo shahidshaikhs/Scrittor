@@ -72,12 +72,11 @@
     <string name="hello">Hallo,</string>
     <string name="rate_and_review">Bewerten und Rezension erstellen</string>
     <string name="about">Über</string>
-    <string name="help_translate">Beim übersetzten helfen</string>
     <!--Misc-->
     <string name="new_category">Neue Kategorie</string>
-    <string name="tab_category">K a t e g o r i e n</string>
-    <string name="tab_notes">N o t i z e n</string>
-    <string name="tab_starred">M a r k i e r t</string>
+    <string name="tab_category">Kategorien</string>
+    <string name="tab_notes">Notizen</string>
+    <string name="tab_starred">Markiert</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">Datenschutz-Bestimmungen</string>

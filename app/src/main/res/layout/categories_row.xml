@@ -8,27 +8,29 @@
     app:cardCornerRadius="8dp"
     android:layout_margin="8dp"
     app:cardElevation="0dp"
-    app:cardBackgroundColor="?android:colorPrimaryDark"
+    app:cardBackgroundColor="?attr/cardSurfaceColor"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="16dp">
 
         <ImageView
             android:id="@+id/container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/twotone_label_24" />
 
         <TextView
-            android:gravity="center"
+            android:gravity="start|center_vertical"
             android:id="@+id/category_name"
             android:fontFamily="@font/bold"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:textColor="?android:textColor"
             android:textSize="14sp" />

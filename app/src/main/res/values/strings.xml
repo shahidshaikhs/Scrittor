@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Scrittor</string>
-    <string name="version_value" translatable="false">4.7</string>
+    <string name="version_value" translatable="false">4.8.1</string>
 
     <!--Default Strings-->
 
@@ -19,7 +19,10 @@
     <string name="profile_icons" translatable="false">Profile Icons</string>
     <string name="harsha_kakkeri" translatable="false">Monkik</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Go through Scrittor\'s Privacy Policy in detail. Also let me know if you have any doubts regartding the same.</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Read how Scrittor handles your data in your browser.</string>
+    <string name="twitter_profile">Open @letshahid on X</string>
+    <string name="facebook_profile">Open Facebook profile</string>
+    <string name="no_browser_available">No browser is available to open this link.</string>
     <string name="google_gson">Google Gson</string>
     <string name="google">Google</string>
     <string name="circular_imageview">Circular Imageview</string>
@@ -68,6 +71,13 @@
     <string name="category_title">Category Title</string>
     <string name="add_a_category">Add a category</string>
     <string name="category_exists">Category already exists</string>
+    <string name="notes_in_category">Notes in this category</string>
+    <string name="delete_category">Delete category</string>
+    <string name="accent_color_changed">Accent color changed</string>
+    <string name="pinned_notes_channel">Pinned notes</string>
+    <string name="pinned_notes_channel_description">Notes kept in the notification shade for quick access</string>
+    <string name="note_pinned">Note pinned to notifications</string>
+    <string name="notification_note_requires_content">Add a title and note text before pinning it.</string>
 
     <!--Password Reset Activity-->
     <string name="password">Password</string>
@@ -93,10 +103,10 @@
     <string name="google_drive_backup">Google Drive Backup</string>
     <string name="gd_desc">Backup all your notes to your Google Drive\'s Storage space</string>
     <string name="we_are_trying_to_make_scrittor_usable_for_all_the_people_around_the_world_help_us_out">We are trying to make Scrittor usable for all the people around the world, help us out :)</string>
-    <string name="help_translate">Help Translate</string>
 
     <!--Accent Color-->
     <string name="choose_a_color">Choose a Color</string>
+    <string name="accent_color_option">Accent color %1$d</string>
     <string name="more_colors_coming_soon">(More Colors coming soon)</string>
 
     <!--Sign In Activity-->
@@ -116,9 +126,10 @@
 
     <!--Misc-->
     <string name="new_category">New Category</string>
-    <string name="tab_category">C a t e g o r i e s</string>
-    <string name="tab_notes">N o t e s</string>
-    <string name="tab_starred">S t a r r e d</string>
+    <string name="tab_category">Categories</string>
+    <string name="tab_notes">Notes</string>
+    <string name="tab_starred">Starred</string>
+    <string name="select_category">Select a Category</string>
     <string name="thank_you">Thank You!</string>
     <string name="i_really_appreciated_the_love_and_support_this_surely_means_a_lot">I really appreciated the love and support. This surely means a lot :)</string>
     <string name="awesome">AWESOME</string>
@@ -178,6 +189,7 @@
     <string name="rewrite_failed">Rewrite Failed</string>
     <string name="create_failed">Create Failed</string>
     <string name="back_button">Back button</string>
+    <string name="menu">Menu</string>
     <string name="finding_backup_on_drive">Finding backup files on drive…</string>
     <string name="num_of_backup_files_found">%1$d backup files found!</string>
     <string name="num_of_notes_category_downloaded">%1$d notes and %2$d categories downloaded! (%3$d/%4$d)</string>
@@ -195,4 +207,13 @@
     <string name="backup_found">Backup found! Downloading!</string>
     <string name="downloading_categories">Downloading categories backup...</string>
     <string name="downloading_notes">Downloading notes backup...</string>
+    <string name="version">Version</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="share">Share</string>
+    <string name="toggle_theme">Change theme</string>
+    <string name="user_name">User name</string>
+    <string-array name="text_limiter">
+        <item>Text limit</item><item>One</item><item>Two</item><item>Three</item><item>Four</item><item>Five</item>
+    </string-array>
 </resources>

@@ -22,6 +22,10 @@ public class CustomFilter extends Filter{
 
     }
 
+    private String safeText(String text) {
+        return text == null ? "" : text.toUpperCase(java.util.Locale.ROOT);
+    }
+
     //FILTERING OCURS
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
@@ -31,14 +35,14 @@ public class CustomFilter extends Filter{
         if(constraint != null && constraint.length() > 0)
         {
             //CHANGE TO UPPER
-            constraint=constraint.toString().toUpperCase();
+            constraint=constraint.toString().toUpperCase(java.util.Locale.ROOT);
             //STORE OUR FILTERED PLAYERS
             ArrayList<Note> filteredPlayers=new ArrayList<>();
 
             for (int i=0;i<filterList.size();i++)
             {
                 //CHECK
-                if(filterList.get(i).getNoteTitle().toUpperCase().contains(constraint) || filterList.get(i).getNoteContent().toUpperCase().contains(constraint))
+                if(safeText(filterList.get(i).getNoteTitle()).contains(constraint) || safeText(filterList.get(i).getNoteContent()).contains(constraint))
                 {
                     //ADD PLAYER TO FILTERED PLAYERS
                     filteredPlayers.add(filterList.get(i));

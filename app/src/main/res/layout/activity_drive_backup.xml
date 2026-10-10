@@ -17,13 +17,14 @@
 
     <TextView
         android:id="@+id/title"
+        style="@style/ScrittorHeading"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_toEndOf="@id/backButton"
         android:fontFamily="@font/bold"
         android:text="@string/backup"
         android:textColor="?android:textColor"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:gravity="center_vertical"
         android:textStyle="bold" />
 

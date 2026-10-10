@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,17 +21,21 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/back_button"
+                android:padding="12dp"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <TextView
+                style="@style/ScrittorHeading"
                 android:fontFamily="@font/bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +122,7 @@
 
         <!--Changelog-->
         <LinearLayout
-            android:id="@+id/privacy-policy"
+            android:id="@+id/privacy_policy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:colorPrimary"
@@ -144,56 +149,6 @@
                 android:text="@string/go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:alpha="0.2"
-            android:background="@color/dividerColor" />
-
-        <!--Telegram-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:colorPrimary"
-            android:orientation="vertical"
-            android:padding="24dp">
-
-            <TextView
-                android:fontFamily="@font/bold"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:text="@string/group"
-                android:textColor="?android:textColor"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/join_the_telegram_group_if_you_wish_to_know_more_about_the_incoming_updates_and_discuss_about_scrittor"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/textViewTelegram"
-                android:fontFamily="@font/bold"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="end"
-                android:text="@string/telegram"
-                android:textColor="#2196F3"
-                android:textSize="14sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -266,42 +221,26 @@
                 android:layout_marginTop="18dp">
 
                 <ImageView
-                    android:id="@+id/click_instagram"
-                    android:layout_width="0dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_action_instagram_logo"
-                    android:tint="#795548"
-                    android:visibility="visible" />
-
-                <ImageView
                     android:id="@+id/click_twitter"
                     android:layout_width="0dp"
-                    android:layout_height="24dp"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/twitter_profile"
+                    android:padding="12dp"
                     android:src="@drawable/ic_action_twitter_logo"
-
-                    android:tint="#03A9F4"
-                    android:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/click_google"
-                    android:layout_width="0dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_action_google_plus_logo"
-
-                    android:tint="#F44336"
-                    android:visibility="visible" />
+                    app:tint="#03A9F4" />
 
                 <ImageView
                     android:id="@+id/click_facebook"
                     android:layout_width="0dp"
-                    android:layout_height="24dp"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/facebook_profile"
+                    android:padding="12dp"
                     android:src="@drawable/ic_action_facebook_messenger_logo"
-                    android:tint="#3F51B5"
-                    android:visibility="visible"/>
+                    app:tint="#3F51B5" />
             </LinearLayout>
         </LinearLayout>
 
@@ -313,7 +252,7 @@
             android:alpha="0.2"
             android:background="@color/dividerColor" />
 
-        <!--Telegram-->
+        <!--Contributor credit-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

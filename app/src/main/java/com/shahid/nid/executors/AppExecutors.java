@@ -45,7 +45,7 @@ public class AppExecutors {
         this.mainThread = mainThread;
     }
 
-    public static AppExecutors getInstance() {
+    public static synchronized AppExecutors getInstance() {
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new AppExecutors(Executors.newSingleThreadExecutor(),

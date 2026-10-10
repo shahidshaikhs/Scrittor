@@ -16,7 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
@@ -48,12 +48,14 @@ import java.util.HashMap;
 public class DriveBackupActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int REQUEST_CODE_SIGN_IN = 1;
+    private static final String SNAPSHOT_FILE_NAME = "scrittor_backup_v1.json";
 
     private static final String DRIVE_NOTES_BACKUP_FILE_NAME = "new_scritor_notes_notes_backup";
 
     private static final String DRIVE_CATEGORIES_BACKUP_FILE_NAME = "new_scrittor_categories_backup";
 
     private DriveServiceHelper mDriveServiceHelper;
+    private boolean operationRunning;
 
     private ActivityDriveBackupBinding rootBinding;
 
@@ -79,7 +81,7 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
         rootBinding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
     }
@@ -121,6 +123,7 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
     private void handleSignInResult(Intent result) {
         GoogleSignIn.getSignedInAccountFromIntent(result)
                 .addOnSuccessListener(googleAccount -> {
+                    if (isFinishing() || isDestroyed()) return;
 
                     // Use the authenticated account to sign in to the Drive service.
                     GoogleAccountCredential credential =
@@ -129,7 +132,7 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
                     credential.setSelectedAccount(googleAccount.getAccount());
                     Drive googleDriveService =
                             new Drive.Builder(
-                                    AndroidHttp.newCompatibleTransport(),
+                                    new NetHttpTransport(),
                                     new GsonFactory(),
                                     credential)
                                     .setApplicationName("Scrittor - A simple note app")
@@ -142,93 +145,46 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
                     Snackbar.make(findViewById(android.R.id.content), "Sign-in successful!", Snackbar.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(exception -> {
+                    if (isFinishing() || isDestroyed()) return;
                     rootBinding.loadingCard.setVisibility(View.GONE);
                     Snackbar.make(findViewById(android.R.id.content), "Sign-in failed! Please try again later!", Snackbar.LENGTH_SHORT).show();
                 });
     }
 
+    private HashMap<String, File> findBackupFiles() throws IOException {
+        HashMap<String, File> latest = new HashMap<>();
+        String page = null;
+        do {
+            FileList result = mDriveServiceHelper.queryFiles("nextPageToken, files(id, name, modifiedTime)",
+                    "trashed = false and (name = '" + DRIVE_CATEGORIES_BACKUP_FILE_NAME
+                            + "' or name = '" + DRIVE_NOTES_BACKUP_FILE_NAME + "' or name = '" + SNAPSHOT_FILE_NAME + "')", page);
+            for (File file : result.getFiles()) {
+                File previous = latest.get(file.getName());
+                if (previous == null || (file.getModifiedTime() != null &&
+                        (previous.getModifiedTime() == null || file.getModifiedTime().getValue() > previous.getModifiedTime().getValue()))) {
+                    latest.put(file.getName(), file);
+                }
+            }
+            page = result.getNextPageToken();
+        } while (page != null);
+        return latest;
+    }
+
     private void startBackup() {
         updateProgressUi(getString(R.string.checking_backup), false);
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                FileList files = null;
-                try {
-                    files = mDriveServiceHelper.queryFiles("nextPageToken, files(id, name, modifiedTime)", "name contains '" + DRIVE_CATEGORIES_BACKUP_FILE_NAME + "' or name contains '" + DRIVE_NOTES_BACKUP_FILE_NAME + "'", null);
-                    // If new backup format is not present then check in old backup format
-                    if (files.getFiles().isEmpty()) { // No backup present, create new
-                        updateProgressUi(getString(R.string.no_prev_backup_found), false);
-                        String categoriesId = createFile(DRIVE_CATEGORIES_BACKUP_FILE_NAME);
-                        String notesId = createFile(DRIVE_NOTES_BACKUP_FILE_NAME);
-                        if (categoriesId != null && notesId != null){
-                            String[] noteProjection = {
-                                    NotesContract.MainNotes.COLUMN_CATEGORY,
-                                    NotesContract.MainNotes.COLUMN_CATEGORY_COLOR,
-                                    NotesContract.MainNotes.COLUMN_CATEGORY_ID,
-                                    NotesContract.MainNotes.COLUMN_NAME_CONTENT,
-                                    NotesContract.MainNotes.COLUMN_DATE,
-                                    NotesContract.MainNotes.COLUMN_LAST_EDITED,
-                                    NotesContract.MainNotes.COLUMN_NAME_TITLE,
-                                    NotesContract.MainNotes.COLUMN_STARRED_CHECK,
-                                    NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID
-                            };
-                            updateProgressUi(getString(R.string.backing_up_notes), false);
-                            ArrayList<Note> noteList = DbHelper.getInstance(getApplication()).fetchAllNotesFromDb(noteProjection);
-                            File notesBackupFile = mDriveServiceHelper.saveFile(notesId, DRIVE_NOTES_BACKUP_FILE_NAME, GsonHelper.getInstance().toJson(noteList));
-
-                            updateProgressUi(getString(R.string.backing_up_categories), false);
-                            String[] catgProjection = {
-                                    CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY,
-                                    CategoriesNotesContract.CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID,
-                                    CategoriesNotesContract.CategoriesContract.COLUMN_COLOR,
-                                    CategoriesNotesContract.CategoriesContract.COLUMN_DESCRIPTION_CATEGORY
-                            };
-                            ArrayList<Category> categoryList = DbHelper.getInstance(getApplication()).fetchAllCategoriesFromDb(catgProjection);
-                            File categoriesBackupFile = mDriveServiceHelper.saveFile(categoriesId, DRIVE_CATEGORIES_BACKUP_FILE_NAME, GsonHelper.getInstance().toJson(categoryList));
-
-                            updateProgressUi("", true);
-                            showSnackBar(getString(R.string.backup_complete));
-                        }
-                    } else {
-                        updateProgressUi(getString(R.string.prev_backup_found), false);
-                        for (File file : files.getFiles()){
-//                            mDriveServiceHelper.deleteFile(file.getId());
-                            if (file.getName().equals(DRIVE_NOTES_BACKUP_FILE_NAME)){
-                                String[] noteProjection = {
-                                        NotesContract.MainNotes.COLUMN_CATEGORY,
-                                        NotesContract.MainNotes.COLUMN_CATEGORY_COLOR,
-                                        NotesContract.MainNotes.COLUMN_CATEGORY_ID,
-                                        NotesContract.MainNotes.COLUMN_NAME_CONTENT,
-                                        NotesContract.MainNotes.COLUMN_DATE,
-                                        NotesContract.MainNotes.COLUMN_LAST_EDITED,
-                                        NotesContract.MainNotes.COLUMN_NAME_TITLE,
-                                        NotesContract.MainNotes.COLUMN_STARRED_CHECK,
-                                        NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID
-                                };
-                                updateProgressUi(getString(R.string.backing_up_notes), false);
-                                ArrayList<Note> noteList = DbHelper.getInstance(getApplication()).fetchAllNotesFromDb(noteProjection);
-                                File notesBackupFile = mDriveServiceHelper.saveFile(file.getId(), DRIVE_NOTES_BACKUP_FILE_NAME, GsonHelper.getInstance().toJson(noteList));
-                            } else if (file.getName().equals(DRIVE_CATEGORIES_BACKUP_FILE_NAME)){
-                                updateProgressUi(getString(R.string.backing_up_categories), false);
-                                String[] catgProjection = {
-                                        CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY,
-                                        CategoriesNotesContract.CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID,
-                                        CategoriesNotesContract.CategoriesContract.COLUMN_COLOR,
-                                        CategoriesNotesContract.CategoriesContract.COLUMN_DESCRIPTION_CATEGORY
-                                };
-                                ArrayList<Category> categoryList = DbHelper.getInstance(getApplication()).fetchAllCategoriesFromDb(catgProjection);
-                                File categoriesBackupFile = mDriveServiceHelper.saveFile(file.getId(), DRIVE_CATEGORIES_BACKUP_FILE_NAME, GsonHelper.getInstance().toJson(categoryList));
-                                updateProgressUi("", true);
-                                showSnackBar(getString(R.string.backup_complete));
-                            }
-                        }
-
-                        updateProgressUi("", true);
-                        showSnackBar(getString(R.string.backup_complete));
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        AppExecutors.getInstance().networkIO().execute(() -> {
+            try {
+                HashMap<String, File> files = findBackupFiles();
+                DbHelper db = DbHelper.getInstance(getApplication());
+                String json = com.shahid.nid.Utils.BackupManager.exportJson(db);
+                File snapshot = files.get(SNAPSHOT_FILE_NAME);
+                if (snapshot == null) mDriveServiceHelper.createJsonFile("appDataFolder", SNAPSHOT_FILE_NAME, json);
+                else mDriveServiceHelper.saveFile(snapshot.getId(), SNAPSHOT_FILE_NAME, json);
+                showSnackBar(getString(R.string.backup_complete));
+            } catch (Exception e) {
+                showSnackBar("Backup failed. Please try again.");
+            } finally {
+                updateProgressUi("", true);
             }
         });
     }
@@ -251,38 +207,32 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
 
     private void getBackupFiles() {
         updateProgressUi(getString(R.string.finding_backup_on_drive), false);
-        AppExecutors.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                FileList files = null;
-                try {
-                    files = mDriveServiceHelper.queryFiles("nextPageToken, files(id, name, modifiedTime)", "name contains '" + DRIVE_CATEGORIES_BACKUP_FILE_NAME + "' or name contains '" + DRIVE_NOTES_BACKUP_FILE_NAME + "'", null);
-
-                    // If new backup format is not present then check in old backup format
-                    if (files.getFiles().isEmpty()) {
-                        getOldBackupFiles();
-                        return;
-                    }
-                    updateProgressUi(getString(R.string.backup_found), false);
-
-                    ArrayList<Category> categories = new ArrayList<>();
-                    ArrayList<Note> notes = new ArrayList<>();
-                    for (File file : files.getFiles()) {
-                        if (file.getName().contains(DRIVE_CATEGORIES_BACKUP_FILE_NAME)) {
-                            updateProgressUi(getString(R.string.downloading_categories), false);
-                            categories.addAll(GsonHelper.getInstance().getCategoryListFromJson(mDriveServiceHelper.getFileContentsSynchronously(file.getId())));
-                        } else if (file.getName().contains(DRIVE_NOTES_BACKUP_FILE_NAME)) {
-                            updateProgressUi(getString(R.string.downloading_notes), false);
-                            notes.addAll(GsonHelper.getInstance().getNoteListFromJson(mDriveServiceHelper.getFileContentsSynchronously(file.getId())));
-                        }
-                    }
-
-                    updateProgressUi(getString(R.string.num_of_notes_category_downloaded, notes.size(), categories.size(), (notes.size() + categories.size()), notes.size() + categories.size()), false);
-                    initiateRestoreOnLocalDb(notes, categories);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+        AppExecutors.getInstance().networkIO().execute(() -> {
+            boolean legacy = false;
+            try {
+                HashMap<String, File> files = findBackupFiles();
+                if (files.isEmpty()) {
+                    legacy = true;
+                    getOldBackupFiles();
+                    return;
                 }
+                if (files.containsKey(SNAPSHOT_FILE_NAME)) {
+                    int restored = com.shahid.nid.Utils.BackupManager.importJson(DbHelper.getInstance(getApplication()),
+                            mDriveServiceHelper.getFileContentsSynchronously(files.get(SNAPSHOT_FILE_NAME).getId()));
+                    showSnackBar("Restored " + restored + " notes. Newer local edits were kept.");
+                    return;
+                }
+                if (!files.containsKey(DRIVE_NOTES_BACKUP_FILE_NAME) || !files.containsKey(DRIVE_CATEGORIES_BACKUP_FILE_NAME)) {
+                    throw new IOException("Incomplete backup");
+                }
+                GsonHelper gson = GsonHelper.getInstance();
+                ArrayList<Note> notes = gson.getNoteListFromJson(mDriveServiceHelper.getFileContentsSynchronously(files.get(DRIVE_NOTES_BACKUP_FILE_NAME).getId()));
+                ArrayList<Category> categories = gson.getCategoryListFromJson(mDriveServiceHelper.getFileContentsSynchronously(files.get(DRIVE_CATEGORIES_BACKUP_FILE_NAME).getId()));
+                initiateRestoreOnLocalDb(notes, categories);
+            } catch (Exception e) {
+                showSnackBar("Restore failed. The backup may be incomplete or invalid.");
+            } finally {
+                if (!legacy) updateProgressUi("", true);
             }
         });
     }
@@ -301,7 +251,7 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
                     HashMap<String, String> fileNameIdMap = new HashMap<>();
                     HashMap<String, Long> lastModifiedMap = new HashMap<>();
                     do {
-                        files = mDriveServiceHelper.queryFiles("nextPageToken, files(id, name, modifiedTime)", null, nextPageToken);
+                        files = mDriveServiceHelper.queryFiles("nextPageToken, files(id, name, modifiedTime)", "trashed = false", nextPageToken);
 
                         if (files.getFiles().isEmpty()) {
                             showSnackBar(getString(R.string.no_backup_found));
@@ -339,7 +289,9 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
                     updateProgressUi(getString(R.string.restoring_fetched_data_to_db), false);
                     initiateRestoreOnLocalDb(notes, categories);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    showSnackBar("Restore failed. Please check your backup and try again.");
+                } finally {
+                    updateProgressUi("", true);
                 }
             }
         });
@@ -347,29 +299,16 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
 
     @WorkerThread
     private void initiateRestoreOnLocalDb(ArrayList<Note> notes, ArrayList<Category> categories) {
-        DbHelper dbHelper = DbHelper.getInstance(getApplication());
-        updateProgressUi(getString(R.string.updating_categories_in_local_db), false);
-        int categoriesUpdated = dbHelper.upsertCategoryListBy(categories, CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY + " = ?", null);
-        HashMap<String, Category> updatedCategories = dbHelper.fetchAllCategoriesFromDb(null, CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY);
-        notes.addAll(dbHelper.fetchAllNotesFromDb(null));
-        updateProgressUi(getString(R.string.updating_notes_in_local_db), false);
-        for (Note note : notes) {
-            Log.e("notes", GsonHelper.getInstance().toJson(note));
-            if (note.getCategoryName() == null){
-                note.setCategoryName("Not Specified");
-            }
-            note.setCategoryId(updatedCategories.get(note.getCategoryName()).getCategoryUniqueId());
-            note.setCategoryColor(updatedCategories.get(note.getCategoryName()).getCategoryColor());
-        }
-        int notesUpdated = dbHelper.upsertNotesListByUniqueId(notes);
-        updateProgressUi("", true);
-        showSnackBar(getString(R.string.db_update_complete, notesUpdated, categoriesUpdated));
+        int notesUpdated = com.shahid.nid.Utils.BackupManager.restore(DbHelper.getInstance(getApplication()), notes, categories);
+        showSnackBar(getString(R.string.db_update_complete, notesUpdated, categories.size()));
     }
 
     private void updateProgressUi(@NonNull String msg, boolean isTaskComplete) {
         AppExecutors.getInstance().mainThread().execute(new Runnable() {
             @Override
             public void run() {
+                if (isTaskComplete) operationRunning = false;
+                if (isFinishing() || isDestroyed()) return;
                 if (isTaskComplete) {
                     rootBinding.loadingCard.setVisibility(View.GONE);
                     return;
@@ -382,22 +321,16 @@ public class DriveBackupActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        if (operationRunning) return;
         if (mDriveServiceHelper == null) {
             requestSignIn();
             return;
         }
-        switch (v.getId()) {
-            case R.id.backupTitle:
-            case R.id.backupSubtitle:
-                startBackup();
-                // TODO backup files
-                break;
-
-            case R.id.restoreTitle:
-            case R.id.restoreSubtitle:
-                getBackupFiles();
-                break;
-        }
+        operationRunning = true;
+        int id = v.getId();
+        if (id == R.id.backupTitle || id == R.id.backupSubtitle) startBackup();
+        else if (id == R.id.restoreTitle || id == R.id.restoreSubtitle) getBackupFiles();
+        else operationRunning = false;
     }
 
 

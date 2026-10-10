@@ -2,6 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="cardSurfaceColor">@color/cardSurface</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,9 +12,12 @@
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:windowBackground">?android:colorPrimary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
     <style name="OverlayPrimaryColorDark">
+        <item name="cardSurfaceColor">@color/cardSurface</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -25,6 +29,7 @@
     </style>
 
     <style name="OverlayPrimaryColorLight">
+        <item name="cardSurfaceColor">@color/cardSurface2</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary2</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark2</item>
@@ -36,6 +41,7 @@
     </style>
 
     <style name="OverlayPrimaryColorAmoled">
+        <item name="cardSurfaceColor">@color/cardSurface3</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary3</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark3</item>
@@ -49,6 +55,14 @@
     <style name="Theme_Dialog" parent="android:Theme.Dialog">
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="ScrittorHeading">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">?android:textColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!--Accent Colors-->
@@ -97,6 +111,8 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">?android:colorPrimary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

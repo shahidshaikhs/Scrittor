@@ -73,12 +73,11 @@
     <string name="hello">Cześć,</string>
     <string name="rate_and_review">Oceń i zrecenzuj</string>
     <string name="about">O</string>
-    <string name="help_translate">Pomóż w tłumaczeniu</string>
     <!--Misc-->
     <string name="new_category">Nowa kategoria</string>
-    <string name="tab_category">K a t e g o r i e</string>
-    <string name="tab_notes">N o t a t k i</string>
-    <string name="tab_starred">O g w i a z d k o w a n e</string>
+    <string name="tab_category">Kategorie</string>
+    <string name="tab_notes">Notatki</string>
+    <string name="tab_starred">Ogwiazdkowane</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">Polityka prywatności</string>

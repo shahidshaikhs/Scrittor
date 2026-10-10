@@ -2,82 +2,104 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="?android:colorPrimary"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?android:colorPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:colorPrimary"
         android:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="0dp">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <LinearLayout
+            android:id="@+id/edit_category_details"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/edit_category_details"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:layout_collapseMode="none">
+                android:layout_height="56dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
 
                 <ImageView
                     android:id="@+id/back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:contentDescription="@string/back_button"
+                    android:focusable="true"
+                    android:padding="12dp"
                     android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
-                    android:tint="@color/dividerColor"
-                    android:focusable="true" />
+                    app:tint="@color/dividerColor" />
+
+                <TextView
+                    android:id="@+id/categoryText"
+                    style="@style/ScrittorHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_toStartOf="@id/options_button"
+                    android:layout_toEndOf="@id/back_button"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:text="@string/category_name" />
 
                 <ImageView
                     android:id="@+id/options_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:contentDescription="@string/delete_category"
+                    android:focusable="true"
+                    android:padding="12dp"
                     android:src="@drawable/twotone_delete_24"
-                    android:tint="@color/dividerColor"
-                    android:focusable="true" />
-
-                <LinearLayout
-                    android:layout_toStartOf="@id/options_button"
-                    android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@id/back_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/categoryText"
-                        android:fontFamily="@font/bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/category_name"
-                        android:textSize="18sp"
-                        android:textColor="?android:textColor"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/categoryDescriptionText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/you_can_add_some_description_here"
-                        android:tint="@color/dividerColor"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                    app:tint="@color/dividerColor" />
             </RelativeLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <TextView
+                android:id="@+id/categoryDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="start"
+                android:text="@string/you_can_add_some_description_here"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:alpha="0.2"
+                android:background="@color/dividerColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/bold"
+                android:letterSpacing="0.08"
+                android:text="@string/notes_in_category"
+                android:textAllCaps="true"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="11sp" />
+        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -85,6 +107,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?android:colorPrimary"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,7 @@
 package com.shahid.nid.Activties;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -21,12 +21,9 @@ public class AboutActivity extends BaseActivity {
 
         LinearLayout profileIcons = findViewById(R.id.profile_icons);
         ImageView backButton = findViewById(R.id.back_button);
-        ImageView instagram = findViewById(R.id.click_instagram);
         ImageView twitter = findViewById(R.id.click_twitter);
-        ImageView google = findViewById(R.id.click_google);
         ImageView facebook = findViewById(R.id.click_facebook);
         LinearLayout changelog = findViewById(R.id.changelog);
-        TextView telegramClick = findViewById(R.id.textViewTelegram);
         LinearLayout privacy_policy = findViewById(R.id.privacy_policy);
         LinearLayout linearGson = findViewById(R.id.gson);
         LinearLayout circularImageView = findViewById(R.id.circularImage);
@@ -61,13 +58,6 @@ public class AboutActivity extends BaseActivity {
             }
         });
 
-        google.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGPlus();
-            }
-        });
-
         drive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,31 +75,14 @@ public class AboutActivity extends BaseActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        instagram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri uri = Uri.parse("http://instagram.com/_u/__shahidshaikh");
-                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-
-                likeIng.setPackage("com.instagram.android");
-
-                try {
-                    startActivity(likeIng);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://instagram.com/__shahidshaikh")));
-                }
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
 
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/__shahidshaikh")));
+                openLinks("https://x.com/letshahid");
             }
         });
 
@@ -120,35 +93,19 @@ public class AboutActivity extends BaseActivity {
             }
         });
 
-        telegramClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openLinks("https://t.me/scrittor");
-            }
-        });
-
         privacy_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AboutActivity.this, WebViewActivity.class).putExtra("url", "https://shahidshaikh.com/PrivacyPolicy"));
+                openLinks("https://www.shahidshaikh.com/scrittor-privacy-policy");
             }
         });
     }
 
-
-    public void openGPlus() {
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setClassName("com.com.shahid.nid.GoogleDrive.android.apps.plus",
-                    "com.com.shahid.nid.GoogleDrive.android.apps.plus.phone.UrlGatewayActivity");
-            intent.putExtra("customAppUri", "+SHAHIDSHAIKH27595");
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/u/0/+SHAHIDSHAIKH27595")));
-        }
-    }
-
     public void openLinks(String link) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+        } catch (ActivityNotFoundException exception) {
+            android.widget.Toast.makeText(this, R.string.no_browser_available, android.widget.Toast.LENGTH_SHORT).show();
+        }
     }
 }

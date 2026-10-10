@@ -31,7 +31,7 @@ public class GsonHelper {
     }
 
 
-    public static GsonHelper getInstance(){
+    public static synchronized GsonHelper getInstance(){
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new GsonHelper();

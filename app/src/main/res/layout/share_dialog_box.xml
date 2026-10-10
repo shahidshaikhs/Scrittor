@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/twotone_insert_drive_file_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/twotone_send_24"
-                android:tint="@color/dividerColor" />
+                app:tint="@color/dividerColor" />
 
             <TextView
                 android:layout_width="match_parent"

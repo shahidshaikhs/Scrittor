@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,12 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 import com.shahid.nid.R;
 
 import java.io.File;
@@ -47,6 +40,7 @@ public class SettingsActivity extends BaseActivity {
     private SharedPreferences.Editor textLimiterPrefsEditor;
     private int check = 0;
     private  SharedPreferences prefsPassword;
+    private boolean updatingAuthenticationControls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +92,7 @@ public class SettingsActivity extends BaseActivity {
 
         password_Check.setOnClickListener(view -> {
             if (password_Check.isChecked()) {
-                editorPassword.putString("password_check", "enable");
-                editorPassword.apply();
 
-                fingerprint_Check.setChecked(false);
-                editorFingerPrint.putString("fingerprint_check", "disable");
-                editorFingerPrint.apply();
 
                 startActivity(new Intent(SettingsActivity.this, PasswordReset.class));
 
@@ -124,8 +113,11 @@ public class SettingsActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
+                if (updatingAuthenticationControls) return;
+
                 if (fingerprint_Check.isChecked()) {
                     Toast.makeText(SettingsActivity.this, "Fingerprint Authentication Enabled", Toast.LENGTH_SHORT).show();
+                    ((com.shahid.nid.NID) getApplication()).unlock();
                     editorFingerPrint.putString("fingerprint_check", "enable");
                     editorFingerPrint.apply();
 
@@ -146,8 +138,6 @@ public class SettingsActivity extends BaseActivity {
         SharedPreferences textPref;
         textPref = getSharedPreferences(getResources().getString(R.string.MY_PREFS_TEXT_LIMITER), MODE_PRIVATE);
 
-        String textLimit =  textPref.getString("integer", null);
-
         textLimiter.setOnClickListener(v -> {
 
             Dialog textLimitDialog = new Dialog(SettingsActivity.this,  R.style.Theme_Dialog);
@@ -165,6 +155,7 @@ public class SettingsActivity extends BaseActivity {
             four = textLimitDialog.findViewById(R.id.four);
             five = textLimitDialog.findViewById(R.id.five);
 
+            String textLimit = textPref.getString("integer", "four");
             if(textLimit !=null) {
                 switch (textLimit) {
                     case "one":
@@ -242,253 +233,74 @@ public class SettingsActivity extends BaseActivity {
 
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //Fingerprint API only available on from Android 6.0 (M)
-            FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(Context.FINGERPRINT_SERVICE);
-            if (fingerprintManager != null) {
-                if (!fingerprintManager.isHardwareDetected()) {
-                    fingerPrintBox.setVisibility(View.GONE);
-                } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                    fingerPrintBox.setVisibility(View.GONE);
-                    // User hasn't enrolled any fingerprints to authenticate with
-                }  // Everything is ready for fingerprint authentication
-            }
-        } else {
-            fingerPrintBox.setVisibility(View.GONE);
-        }
+        int biometricStatus = androidx.biometric.BiometricManager.from(this).canAuthenticate(
+                androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK);
+        fingerPrintBox.setVisibility(biometricStatus == androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
+                ? View.VISIBLE : View.GONE);
 
-        exportNotes.setOnClickListener(v -> Dexter.withActivity(SettingsActivity.this)
-                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-
-                        // Create custom dialog object
-                        Dialog deleteDialog = new Dialog(SettingsActivity.this,  R.style.Theme_Dialog);
-                        // Include dialog.xml file
-                        deleteDialog.setContentView(R.layout.dialog_delete_confirmation);
-                        deleteDialog.setTitle(null);
-
-                        TextView agree, disagree, title, content;
-                        agree = deleteDialog.findViewById(R.id.agree);
-                        disagree = deleteDialog.findViewById(R.id.disagree);
-                        title = deleteDialog.findViewById(R.id.title);
-                        content = deleteDialog.findViewById(R.id.textContent);
-
-                        title.setText("Export Notes?");
-                        content.setText("Existing backup notes will be replaced by latest exported notes.");
-
-                        agree.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                //creating a new folder for the database to be backuped to
-                                File direct = new File(Environment.getExternalStorageDirectory() + "/Scrittor_Backup");
-
-                                if (!direct.exists()) {
-                                    if (direct.mkdir()) {
-                                        exportDB();
-                                    } else {
-                                        direct.mkdir();
-                                        exportDB();
-                                    }
-                                }
-                                exportDB();
-                            }
-                        });
-
-                        disagree.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                deleteDialog.dismiss();
-                            }
-                        });
-
-                        deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        deleteDialog.show();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getBaseContext(), "This permission is required so that the app can export database.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                })
-                .check());
-
-        importNotes.setOnClickListener(v -> Dexter.withActivity(SettingsActivity.this)
-                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-
-                        // Create custom dialog object
-                        Dialog deleteDialog = new Dialog(SettingsActivity.this,  R.style.Theme_Dialog);
-                        // Include dialog.xml file
-                        deleteDialog.setContentView(R.layout.dialog_delete_confirmation);
-                        deleteDialog.setTitle(null);
-
-                        TextView agree, disagree, title, content;
-                        agree = deleteDialog.findViewById(R.id.agree);
-                        disagree = deleteDialog.findViewById(R.id.disagree);
-                        title = deleteDialog.findViewById(R.id.title);
-                        content = deleteDialog.findViewById(R.id.textContent);
-
-                        title.setText("Import Notes?");
-                        content.setText("Existing backup notes will be replaced by latest imported notes.");
-
-                        agree.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                importDB();
-                                check = 1;
-                            }
-                        });
-
-                        disagree.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                deleteDialog.dismiss();
-                            }
-                        });
-
-                        deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        deleteDialog.show();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getBaseContext(), "This permission is required so that the app can import database",
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                })
-                .check());
+        exportNotes.setOnClickListener(v -> startActivityForResult(new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE).setType("application/json")
+                .putExtra(Intent.EXTRA_TITLE, "Scrittor-backup.json"), 101));
+        importNotes.setOnClickListener(v -> startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE).setType("*/*"), 102));
 
         driveBackup.setOnClickListener(view -> startActivity(new Intent(SettingsActivity.this, DriveBackupActivity.class)));
 
     }
 
-    //exporting database
-    private void exportDB() {
-        // TODO Auto-generated method stub
-
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-
-            if (sd.canWrite()) {
-                String currentDBPath = "/user/0/com.shahid.nid/databases/FeedReader.db";
-                String currentCategoryDBPath = "/user/0/com.shahid.nid/databases/CategoriesHelper.db";
-
-                String backupDBPath = "/Scrittor_Backup/FeedReader.db";
-                String backupCategoryDBPath = "/Scrittor_Backup/CategoriesHelper.db";
-
-                File currentDB = new File(data, currentDBPath);
-                File currentCategoryDB = new File(data, currentCategoryDBPath);
-
-
-                File backupDB = new File(sd, backupDBPath);
-                File backupCategoryDB = new File(sd, backupCategoryDBPath);
-
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel srcCat = new FileInputStream(currentCategoryDB).getChannel();
-
-
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                FileChannel dstCat = new FileOutputStream(backupCategoryDB).getChannel();
-
-
-                dst.transferFrom(src, 0, src.size());
-                dstCat.transferFrom(srcCat, 0, srcCat.size());
-
-
-                src.close();
-                srcCat.close();
-
-                dst.close();
-                dstCat.close();
-
-                Toast.makeText(getBaseContext(), "Notes database has been exported to : Storage/Scrittor_Backup",
-                        Toast.LENGTH_SHORT).show();
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode != 101 && requestCode != 102) || resultCode != RESULT_OK || data == null || data.getData() == null) return;
+        android.net.Uri uri = data.getData();
+        com.shahid.nid.executors.AppExecutors.getInstance().diskIO().execute(() -> {
+            try {
+                com.shahid.nid.Utils.DbHelper db = com.shahid.nid.Utils.DbHelper.getInstance(getApplication());
+                if (requestCode == 101) {
+                    String json = com.shahid.nid.Utils.BackupManager.exportJson(db);
+                    try (java.io.OutputStream output = getContentResolver().openOutputStream(uri, "wt")) {
+                        if (output == null) throw new java.io.IOException("Cannot open document");
+                        output.write(json.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                    }
+                    showSnackBar("Backup exported.");
+                } else {
+                    try (java.io.InputStream input = getContentResolver().openInputStream(uri)) {
+                        if (input == null) throw new java.io.IOException("Cannot open document");
+                        java.io.ByteArrayOutputStream bytes = new java.io.ByteArrayOutputStream();
+                        byte[] buffer = new byte[8192];
+                        int count;
+                        while ((count = input.read(buffer)) != -1) {
+                            if (bytes.size() + count > 64 * 1024 * 1024) throw new java.io.IOException("Backup too large");
+                            bytes.write(buffer, 0, count);
+                        }
+                        byte[] payload = bytes.toByteArray();
+                        int restored;
+                        if (payload.length >= 16 && new String(payload, 0, 15, java.nio.charset.StandardCharsets.US_ASCII).equals("SQLite format 3")) {
+                            java.io.File temporary = java.io.File.createTempFile("legacy-backup-", ".db", getCacheDir());
+                            try {
+                                try (java.io.OutputStream output = new java.io.FileOutputStream(temporary)) { output.write(payload); }
+                                restored = com.shahid.nid.Utils.LegacyBackupReader.restore(temporary, db);
+                            } finally { temporary.delete(); }
+                        } else {
+                            restored = com.shahid.nid.Utils.BackupManager.importJson(db, bytes.toString("UTF-8"));
+                        }
+                        showSnackBar("Restored " + restored + " notes. Newer local edits were kept.");
+                    }
+                }
+            } catch (Exception e) {
+                showSnackBar("Backup operation failed. Check the selected file and try again.");
             }
-        } catch (Exception e) {
-
-            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG)
-                    .show();
-
-        }
-    }
-
-
-    //importing database
-    private void importDB() {
-        // TODO Auto-generated method stub
-
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-
-            if (sd.canWrite()) {
-                String currentDBPath = "/user/0/com.shahid.nid/databases/FeedReader.db";
-                String currentCategoryDBPath = "/user/0/com.shahid.nid/databases/CategoriesHelper.db";
-
-
-                String backupDBPath = "/Scrittor_Backup/FeedReader.db";
-                String backupCategoryDBPath = "/Scrittor_Backup/CategoriesHelper.db";
-
-                File backupDB = new File(data, currentDBPath);
-                File backupCategoryDB = new File(data, currentCategoryDBPath);
-
-
-                File currentDB = new File(sd, backupDBPath);
-                File currentCategoryDB = new File(sd, backupCategoryDBPath);
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel srcCat = new FileInputStream(currentCategoryDB).getChannel();
-
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                FileChannel dstCat = new FileOutputStream(backupCategoryDB).getChannel();
-
-
-                dst.transferFrom(src, 0, src.size());
-                dstCat.transferFrom(srcCat, 0, srcCat.size());
-
-                src.close();
-                dst.close();
-                srcCat.close();
-                dstCat.close();
-
-                Toast.makeText(getBaseContext(), "Notes have been imported from the previously backed up database.",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "Could not locate the required database to import. Please export notes first.", Toast.LENGTH_SHORT)
-                    .show();
-
-        }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Runtime.getRuntime().gc();
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    protected void handleBackNavigation() {
+        super.handleBackNavigation();
         finish();
 
         if (check == 1) {
@@ -502,6 +314,8 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        updatingAuthenticationControls = true;
+        fingerprint_Check.setChecked("enable".equals(getSharedPreferences(getString(R.string.MY_PREFS_FINGERPRINT), MODE_PRIVATE).getString("fingerprint_check", null)));
         if (Objects.equals(prefsPassword.getString("password", null), "")) {
             password_Check.setChecked(false);
 
@@ -514,5 +328,6 @@ public class SettingsActivity extends BaseActivity {
 
             }
         }
+        updatingAuthenticationControls = false;
     }
 }

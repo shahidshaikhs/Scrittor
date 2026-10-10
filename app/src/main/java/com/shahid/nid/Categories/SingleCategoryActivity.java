@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +41,7 @@ public class SingleCategoryActivity extends BaseActivity {
         categoryValue = getIntent().getStringExtra("categoryValue");
         String categoryColorValue = getIntent().getStringExtra("categoryColorValue");
 
-        RelativeLayout categoryEdit = findViewById(R.id.edit_category_details);
+        View categoryEdit = findViewById(R.id.edit_category_details);
         ImageView optionsButton = findViewById(R.id.options_button);
         ImageView backButton = findViewById(R.id.back_button);
 
@@ -53,7 +52,8 @@ public class SingleCategoryActivity extends BaseActivity {
 
         category = DbHelper.getInstance(getApplication()).getCategoryByName(categoryValue);
 
-        categoryDescriptionTop.setText(category.getCategoryName());
+        if (category == null) { finish(); return; }
+        categoryDescriptionTop.setText(category.getDescription());
 
         if (category.getCategoryName().equals("Not Specified")) {
             optionsButton.setVisibility(View.GONE);
@@ -118,14 +118,14 @@ public class SingleCategoryActivity extends BaseActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    protected void handleBackNavigation() {
+        super.handleBackNavigation();
         finish();
     }
 

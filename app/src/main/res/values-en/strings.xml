@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Scrittor</string>
-    <string name="version_value" translatable="false">4.1</string>
+    <string name="version_value" translatable="false">4.8.1</string>
 
     <!--Default Strings-->
 
@@ -19,7 +19,7 @@
     <string name="profile_icons" translatable="false">Profile Icons</string>
     <string name="harsha_kakkeri" translatable="false">Monkik</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Go through Scrittor\'s Privacy Policy in detail. Also let me know if you have any doubts regartding the same.</string>
+    <string name="go_through_scrittor_s_privacy_policy_in_detail_also_let_me_know_if_you_have_any_doubts_regartding_the_same">Read how Scrittor handles your data in your browser.</string>
 
 
     <!--FingerPrint-->
@@ -95,13 +95,12 @@
     <string name="hello">Hello, </string>
     <string name="rate_and_review">Rate and Review</string>
     <string name="about">About</string>
-    <string name="help_translate">Help Translate</string>
 
     <!--Misc-->
     <string name="new_category">New Category</string>
-    <string name="tab_category">C a t e g o r i e s</string>
-    <string name="tab_notes">N o t e s</string>
-    <string name="tab_starred">S t a r r e d</string>
+    <string name="tab_category">Categories</string>
+    <string name="tab_notes">Notes</string>
+    <string name="tab_starred">Starred</string>
 
     <!--Dialog Box Text Limiter-->
 

@@ -1,42 +1,31 @@
 package com.shahid.nid;
 
+import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
+import android.os.Bundle;
 
-import androidx.multidex.MultiDex;
-
-import com.shahid.nid.Utils.DbHelper;
-
-import java.util.ArrayList;
-
-/**
- * Created by shahid on 10/8/2017.
- */
-
-public class NID extends Application {
-
-    private int runningActivities = 0;
-    @Override
-    public void onCreate() {
+/** Authentication is process-local; an external Intent cannot unlock the app. */
+public class NID extends Application implements Application.ActivityLifecycleCallbacks {
+    private boolean authenticated;
+    private int startedActivities;
+    @Override public void onCreate() {
         super.onCreate();
+        registerActivityLifecycleCallbacks(this);
     }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
+    public boolean isLockEnabled() {
+        return "enable".equals(getSharedPreferences(getString(R.string.MY_PREFS_PASSWORD), MODE_PRIVATE).getString("password_check", null))
+                || "enable".equals(getSharedPreferences(getString(R.string.MY_PREFS_FINGERPRINT), MODE_PRIVATE).getString("fingerprint_check", null));
     }
-
-    public void incrementActivities(){
-        runningActivities++;
+    public boolean isAuthenticated() { return authenticated; }
+    public void unlock() { authenticated = true; }
+    @Override public void onActivityStarted(Activity activity) { startedActivities++; }
+    @Override public void onActivityStopped(Activity activity) {
+        startedActivities--;
+        if (startedActivities == 0 && !activity.isChangingConfigurations()) authenticated = false;
     }
-
-    public void decrementActivities(){
-        runningActivities--;
-        if (runningActivities <= 0){
-            DbHelper.getInstance(this).destroy();
-        }
-    }
-
+    @Override public void onActivityCreated(Activity activity, Bundle state) {}
+    @Override public void onActivityResumed(Activity activity) {}
+    @Override public void onActivityPaused(Activity activity) {}
+    @Override public void onActivitySaveInstanceState(Activity activity, Bundle state) {}
+    @Override public void onActivityDestroyed(Activity activity) {}
 }

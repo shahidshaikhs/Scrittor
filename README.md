@@ -2,6 +2,27 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+### Building the maintained version
+
+Use Android Studio with **JDK 25** selected as the Gradle JVM. The project now uses Gradle **9.3.1** and Android Gradle Plugin **9.1.1**, so the old Java 25 incompatibility is resolved. Sync the project after opening it.
+
+Install Android SDK Platform **37** and Build Tools **36.0.0** through SDK Manager if prompted. The app targets API **36** and supports Android **6.0 (API 23)** and newer; the minimum increased from API 21 for the updated billing library.
+
+For a command-line build on macOS using Android Studio's bundled JDK:
+
+```sh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:assembleRelease
+```
+
+Verified on 21 September 2026: debug and unsigned release builds pass, 39 tests pass, and lint has zero errors (314 legacy warnings remain).
+
+The debug APK is generated at `app/build/outputs/apk/debug/app-debug.apk`. Release builds are unsigned. Google Drive sign-in needs OAuth configuration for this package and your signing certificate; Play purchases need a Play test account and configured products. Ordinary local note-taking does not require those services.
+
+Export/import now uses the Android file picker. New backups are versioned JSON. To recover an old local backup, select its `FeedReader.db`; notes and their category names/colors are merged without replacing the live database. The independent category descriptions in `CategoriesHelper.db` are not recovered through this path. Existing Drive backup formats remain readable.
+
+See [the project audit](docs/PROJECT_AUDIT.md) for the original code rating, repaired bugs, test coverage, and remaining limitations.
+
 ### What is this app all about?
 Scrittor was made with the intention of keeping the process of note taking simple yet appealing to the eye. I wish to continue the same approach throughout its journey.
 

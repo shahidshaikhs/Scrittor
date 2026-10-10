@@ -6,24 +6,27 @@
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#1b1b1b</color>
     <color name="textColorPrimary">#FFF</color>
-    <color name="textColorSecondary">#616161</color>
+    <color name="textColorSecondary">#BDBDBD</color>
     <color name="displayTint1">#0dffffff</color>
+    <color name="cardSurface">#333333</color>
 
     <!--Light-->
     <!--==============================================================-->
     <color name="colorPrimary2">#F5F5F5</color>
     <color name="colorPrimaryDark2">#efefef</color>
     <color name="textColorPrimary2">#212121</color>
-    <color name="textColorSecondary2">#616161</color>EEEEEE
+    <color name="textColorSecondary2">#616161</color>
     <color name="displayTint2">#EEEEEE</color>
+    <color name="cardSurface2">#E2E2E2</color>
 
     <!--Amoled-->
     <!--==============================================================-->
     <color name="colorPrimary3">#000000</color>
     <color name="colorPrimaryDark3">#080808</color>
     <color name="textColorPrimary3">#FFF</color>
-    <color name="textColorSecondary3">#FFF</color>
+    <color name="textColorSecondary3">#BDBDBD</color>
     <color name="displayTint3">#0dffffff</color>
+    <color name="cardSurface3">#1E1E1E</color>
     <color name="drawerColor">#161616</color>
 
 

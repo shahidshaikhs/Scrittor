@@ -72,12 +72,11 @@
     <string name="hello">Hallo,</string>
     <string name="rate_and_review">Geef je mening en beoordeel</string>
     <string name="about">Over</string>
-    <string name="help_translate">Help vertalen</string>
     <!--Misc-->
     <string name="new_category">Nieuwe kategorie</string>
-    <string name="tab_category">C a t e g o r i e ë n</string>
-    <string name="tab_notes">"N o t i t i e s "</string>
-    <string name="tab_starred">"M e t  ster "</string>
+    <string name="tab_category">Categorieën</string>
+    <string name="tab_notes">Notities</string>
+    <string name="tab_starred">Met ster</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">Privacybeleid</string>

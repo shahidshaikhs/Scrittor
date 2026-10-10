@@ -72,12 +72,11 @@
     <string name="hello">"Olá, "</string>
     <string name="rate_and_review">Avaliar e comentar</string>
     <string name="about">Sobre</string>
-    <string name="help_translate">Ajude a traduzir</string>
     <!--Misc-->
     <string name="new_category">Nova Categoria</string>
-    <string name="tab_category">C a t e g o r i a s</string>
-    <string name="tab_notes">A n o t a ç õ e s</string>
-    <string name="tab_starred">F a v o r i t o s</string>
+    <string name="tab_category">Categorias</string>
+    <string name="tab_notes">Anotações</string>
+    <string name="tab_starred">Favoritos</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">Políticas de privacidade</string>

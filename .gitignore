@@ -7,3 +7,8 @@
 /build
 /captures
 .externalNativeBuild
+
+/app/build/
+
+# Firebase / Google Services config (contains API keys)
+/app/google-services.json

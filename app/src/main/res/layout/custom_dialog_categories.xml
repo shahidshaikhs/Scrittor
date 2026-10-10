@@ -14,14 +14,14 @@
         android:orientation="vertical">
 
     <TextView
+        style="@style/ScrittorHeading"
         android:layout_marginLeft="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:fontFamily="@font/bold"
-        android:text="Select a Category"
+        android:text="@string/select_category"
         android:textColor="?android:textColor"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_marginTop="8dp"
@@ -33,5 +33,4 @@
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
-
 

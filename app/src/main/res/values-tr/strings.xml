@@ -72,12 +72,11 @@
     <string name="hello">Merhaba,</string>
     <string name="rate_and_review">Değerlendir ve Yorum Yap</string>
     <string name="about">Hakkında</string>
-    <string name="help_translate">Çeviriye Yardım Et</string>
     <!--Misc-->
     <string name="new_category">Yeni Kategori</string>
-    <string name="tab_category">K a t e g o r i l e r</string>
-    <string name="tab_notes">N o t l a r</string>
-    <string name="tab_starred">Y ı l d ı z l ı</string>
+    <string name="tab_category">Kategoriler</string>
+    <string name="tab_notes">Notlar</string>
+    <string name="tab_starred">Yıldızlı</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
 </resources>

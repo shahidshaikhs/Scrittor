@@ -72,12 +72,11 @@
     <string name="hello">Ahoj,</string>
     <string name="rate_and_review">Ohodnoťte aplikaci</string>
     <string name="about">O aplikaci</string>
-    <string name="help_translate">Pomozte s překladem</string>
     <!--Misc-->
     <string name="new_category">Nová Kategorie</string>
-    <string name="tab_category">K a t e g o r i e</string>
-    <string name="tab_notes">P o z n á m k y</string>
-    <string name="tab_starred">O b l í b e n é</string>
+    <string name="tab_category">Kategorie</string>
+    <string name="tab_notes">Poznámky</string>
+    <string name="tab_starred">Oblíbené</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">Zásady ochrany osobních údajů</string>

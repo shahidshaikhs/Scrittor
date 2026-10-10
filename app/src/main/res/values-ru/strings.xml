@@ -72,12 +72,11 @@
     <string name="hello">Здравствуй,</string>
     <string name="rate_and_review">Поставить оценку и оставить отзыв</string>
     <string name="about">О нас</string>
-    <string name="help_translate">Помочь с переводом</string>
     <!--Misc-->
     <string name="new_category">Новая категория</string>
-    <string name="tab_category">К а т е г о р и и</string>
-    <string name="tab_notes">З а м е т к и</string>
-    <string name="tab_starred">В   и з б р а н н о м</string>
+    <string name="tab_category">Категории</string>
+    <string name="tab_notes">Заметки</string>
+    <string name="tab_starred">В избранном</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">Политика приватности</string>

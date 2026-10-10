@@ -72,12 +72,11 @@
     <string name="hello">你好，</string>
     <string name="rate_and_review">五星好评</string>
     <string name="about">关于</string>
-    <string name="help_translate">帮助翻译</string>
     <!--Misc-->
     <string name="new_category">新增类别</string>
-    <string name="tab_category">类 别</string>
-    <string name="tab_notes">我 的 便 签</string>
-    <string name="tab_starred">收 藏 夹</string>
+    <string name="tab_category">类别</string>
+    <string name="tab_notes">我的便签</string>
+    <string name="tab_starred">收藏夹</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
 </resources>

@@ -44,7 +44,7 @@ public class DbHelper {
         categoriesDb = mCategoryDbHelper.getWritableDatabase();
     }
 
-    public static DbHelper getInstance(Application applicationContext) {
+    public static synchronized DbHelper getInstance(Application applicationContext) {
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new DbHelper(applicationContext);
@@ -53,11 +53,12 @@ public class DbHelper {
         return sInstance;
     }
 
-    public void destroy() {
+    public synchronized void destroy() {
         notesDb.close();
         categoriesDb.close();
         mNotesDbHelper.close();
         mCategoryDbHelper.close();
+        synchronized (DbHelper.class) { sInstance = null; }
     }
 
     // -------- NOTES SECTION ----------
@@ -69,7 +70,7 @@ public class DbHelper {
      * @param projection
      * @return
      */
-    public ArrayList<Note> fetchAllNotesFromDb(@Nullable String[] projection) {
+    public synchronized ArrayList<Note> fetchAllNotesFromDb(@Nullable String[] projection) {
         ArrayList<Note> notes = new ArrayList<>();
         Cursor cursor = notesDb.query(
                 MainNotes.TABLE_NAME,                     // The table to query
@@ -78,7 +79,7 @@ public class DbHelper {
                 null,                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
-                MainNotes.COLUMN_LAST_EDITED                                 // The sort order
+                "CAST(" + MainNotes.COLUMN_LAST_EDITED + " AS INTEGER) ASC" // Numeric timestamp order
         );
 
         List<String> selectedColumns = projection != null ? Arrays.asList(projection) : new ArrayList<>();
@@ -90,11 +91,11 @@ public class DbHelper {
             }
             if (selectedColumns.isEmpty() || selectedColumns.contains(MainNotes.COLUMN_NAME_TITLE)) {
                 note.setNoteTitle(cursor.getString(
-                        cursor.getColumnIndex(MainNotes.COLUMN_NAME_TITLE)));
+                        cursor.getColumnIndexOrThrow(MainNotes.COLUMN_NAME_TITLE)));
             }
             if (selectedColumns.isEmpty() || selectedColumns.contains(MainNotes.COLUMN_NAME_CONTENT)) {
                 note.setNoteContent(cursor.getString(
-                        cursor.getColumnIndex(MainNotes.COLUMN_NAME_CONTENT)));
+                        cursor.getColumnIndexOrThrow(MainNotes.COLUMN_NAME_CONTENT)));
             }
 
             if (selectedColumns.isEmpty() || selectedColumns.contains(MainNotes.COLUMN_DATE)) {
@@ -147,7 +148,7 @@ public class DbHelper {
      * @param projection
      * @return
      */
-    public ArrayList<Note> fetchNotesBy(@Nullable String[] projection, String selection, String[] selectionArgs) {
+    public synchronized ArrayList<Note> fetchNotesBy(@Nullable String[] projection, String selection, String[] selectionArgs) {
         ArrayList<Note> notes = new ArrayList<>();
         Cursor cursor = notesDb.query(
                 MainNotes.TABLE_NAME,                     // The table to query
@@ -156,7 +157,7 @@ public class DbHelper {
                 selectionArgs,                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
-                MainNotes.COLUMN_LAST_EDITED                                 // The sort order
+                "CAST(" + MainNotes.COLUMN_LAST_EDITED + " AS INTEGER) ASC" // Numeric timestamp order
         );
 
         List<String> selectedColumns = projection != null ? Arrays.asList(projection) : new ArrayList<>();
@@ -168,11 +169,11 @@ public class DbHelper {
             }
             if (selectedColumns.isEmpty() || selectedColumns.contains(MainNotes.COLUMN_NAME_TITLE)) {
                 note.setNoteTitle(cursor.getString(
-                        cursor.getColumnIndex(MainNotes.COLUMN_NAME_TITLE)));
+                        cursor.getColumnIndexOrThrow(MainNotes.COLUMN_NAME_TITLE)));
             }
             if (selectedColumns.isEmpty() || selectedColumns.contains(MainNotes.COLUMN_NAME_CONTENT)) {
                 note.setNoteContent(cursor.getString(
-                        cursor.getColumnIndex(MainNotes.COLUMN_NAME_CONTENT)));
+                        cursor.getColumnIndexOrThrow(MainNotes.COLUMN_NAME_CONTENT)));
             }
 
             if (selectedColumns.isEmpty() || selectedColumns.contains(MainNotes.COLUMN_DATE)) {
@@ -226,7 +227,7 @@ public class DbHelper {
      * @param whereArgs - the ? in fetch by will be replaced by these args
      * @return - First note object matching the query
      */
-    public Note fetchNote(String fetchBy, String[] whereArgs) {
+    public synchronized Note fetchNote(String fetchBy, String[] whereArgs) {
         Cursor cursor = notesDb.query(MainNotes.TABLE_NAME, null, fetchBy, whereArgs, null, null, null);
         if (cursor.moveToNext()) {
             Note note = new Note();
@@ -234,9 +235,9 @@ public class DbHelper {
             note.setNoteID(cursor.getInt(
                     cursor.getColumnIndexOrThrow(MainNotes._ID)));
             note.setNoteTitle(cursor.getString(
-                    cursor.getColumnIndex(MainNotes.COLUMN_NAME_TITLE)));
+                    cursor.getColumnIndexOrThrow(MainNotes.COLUMN_NAME_TITLE)));
             note.setNoteContent(cursor.getString(
-                    cursor.getColumnIndex(MainNotes.COLUMN_NAME_CONTENT)));
+                    cursor.getColumnIndexOrThrow(MainNotes.COLUMN_NAME_CONTENT)));
             note.setCreationDate(cursor.getString(
                     cursor.getColumnIndexOrThrow(MainNotes.COLUMN_DATE)));
             note.setCategoryId(cursor.getString(
@@ -254,6 +255,7 @@ public class DbHelper {
             cursor.close();
             return note;
         }
+        cursor.close();
         return new Note();
     }
 
@@ -261,8 +263,10 @@ public class DbHelper {
      * @param list
      * @return
      */
-    public int upsertNotesListByUniqueId(ArrayList<Note> list) {
+    public synchronized int upsertNotesListByUniqueId(ArrayList<Note> list) {
         int count = 0;
+        notesDb.beginTransaction();
+        try {
         for (Note note : list) {
             String whereClause = MainNotes.COLUMN_UNIQUE_NOTE_ID + " = ?";
             String[] whereValues = new String[]{note.getNoteUniqueId()};
@@ -279,7 +283,7 @@ public class DbHelper {
             values.put(MainNotes.COLUMN_LAST_EDITED, note.getLastEdited());
 
             if (notesDb.update(MainNotes.TABLE_NAME, values, whereClause, whereValues) <= 0) {
-                if (notesDb.insert(MainNotes.TABLE_NAME, null, values) != -1) {
+                if (notesDb.insertOrThrow(MainNotes.TABLE_NAME, null, values) != -1) {
                     count++;
                 }
             } else {
@@ -287,7 +291,11 @@ public class DbHelper {
             }
         }
 
-        return list.size();
+        notesDb.setTransactionSuccessful();
+        return count;
+        } finally {
+            notesDb.endTransaction();
+        }
     }
 
     /**
@@ -295,11 +303,12 @@ public class DbHelper {
      * @param selectionArgs
      * @return
      */
-    public Cursor runNotesRawQuery(String query, String[] selectionArgs) {
+    public synchronized Cursor runNotesRawQuery(String query, String[] selectionArgs) {
         return notesDb.rawQuery(query, selectionArgs);
     }
 
-    public int upsertNote(Note note) {
+    public synchronized int upsertNote(Note note) {
+        if (note.getNoteUniqueId() == null || note.getNoteUniqueId().isEmpty()) note.setNoteUniqueId(java.util.UUID.randomUUID().toString());
         String whereClause = MainNotes.COLUMN_UNIQUE_NOTE_ID + " = ?";
         String[] whereValues = new String[]{note.getNoteUniqueId()};
 
@@ -337,10 +346,12 @@ public class DbHelper {
         if (notesDb.update(MainNotes.TABLE_NAME, values, whereClause, whereValues) <= 0) {
             return (int) notesDb.insert(MainNotes.TABLE_NAME, null, values);
         }
-        return 1;
+        try (Cursor row = notesDb.query(MainNotes.TABLE_NAME, new String[]{MainNotes._ID}, whereClause, whereValues, null, null, null)) {
+            return row.moveToFirst() ? row.getInt(0) : -1;
+        }
     }
 
-    public void deleteNote(Note note) {
+    public synchronized void deleteNote(Note note) {
         String selection = NotesContract.MainNotes._ID + " = ?"; // LIKE??? should'nt it be = ?
         String[] selectionArgs = {String.valueOf(note.getNoteID())};
         notesDb.delete(NotesContract.MainNotes.TABLE_NAME, selection, selectionArgs);
@@ -354,7 +365,7 @@ public class DbHelper {
      * @param projection - Columns to be selected. null selects all columns.
      * @return - ArrayList of categories.
      */
-    public ArrayList<Category> fetchAllCategoriesFromDb(@Nullable String[] projection) {
+    public synchronized ArrayList<Category> fetchAllCategoriesFromDb(@Nullable String[] projection) {
         ArrayList<Category> categories = new ArrayList<>();
         Cursor cursor = categoriesDb.query(
                 CategoriesContract.TABLE_NAME,                     // The table to query
@@ -376,12 +387,12 @@ public class DbHelper {
 
             if (selectedColumns.isEmpty() || selectedColumns.contains(CategoriesContract.COLUMN_NAME_CATEGORY)) {
                 category.setCategoryName(cursor.getString(
-                        cursor.getColumnIndex(CategoriesContract.COLUMN_NAME_CATEGORY)));
+                        cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_NAME_CATEGORY)));
             }
 
             if (selectedColumns.isEmpty() || selectedColumns.contains(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)) {
                 category.setDescription(cursor.getString(
-                        cursor.getColumnIndex(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)));
+                        cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)));
             }
 
             if (selectedColumns.isEmpty() || selectedColumns.contains(CategoriesContract.COLUMN_COLOR)) {
@@ -404,8 +415,9 @@ public class DbHelper {
      * @param columnAsKey - Which column should be used as key
      * @return - ArrayList of categories.
      */
-    public HashMap<String, Category> fetchAllCategoriesFromDb(@Nullable List<String> projection, String columnAsKey) {
+    public synchronized HashMap<String, Category> fetchAllCategoriesFromDb(@Nullable List<String> projection, String columnAsKey) {
         HashMap<String, Category> categories = new HashMap<>();
+        if (projection != null) projection = new ArrayList<>(projection);
         if (projection != null && !projection.contains(columnAsKey)) {
             projection.add(columnAsKey);
         }
@@ -429,12 +441,12 @@ public class DbHelper {
 
             if (projection == null || projection.contains(CategoriesContract.COLUMN_NAME_CATEGORY)) {
                 category.setCategoryName(cursor.getString(
-                        cursor.getColumnIndex(CategoriesContract.COLUMN_NAME_CATEGORY)));
+                        cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_NAME_CATEGORY)));
             }
 
             if (projection == null || projection.contains(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)) {
                 category.setDescription(cursor.getString(
-                        cursor.getColumnIndex(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)));
+                        cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)));
             }
 
             if (projection == null || projection.contains(CategoriesContract.COLUMN_COLOR)) {
@@ -442,7 +454,7 @@ public class DbHelper {
                         cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_COLOR)));
             }
 
-            categories.put(category.getCategoryName(), category);
+            categories.put(cursor.getString(cursor.getColumnIndexOrThrow(columnAsKey)), category);
         }
 
         cursor.close();
@@ -457,40 +469,56 @@ public class DbHelper {
      *                  based on single arg instead of value of individual object.
      * @return
      */
-    public int upsertCategoryListBy(ArrayList<Category> list, String whereClause, @Nullable ArrayList<String> whereArgs) {
+    public synchronized int upsertCategoryListBy(ArrayList<Category> list, String whereClause, @Nullable ArrayList<String> whereArgs) {
         int count = 0;
+        categoriesDb.beginTransaction();
+        try {
         for (Category category : list) {
             String[] whereValues = whereArgs != null ? whereArgs.toArray(new String[]{}) : new String[]{getCategoryWhereArg(whereClause, category)};
             ContentValues values = parseCategoryToContentValues(category);
             if (categoriesDb.update(CategoriesContract.TABLE_NAME, values, whereClause, whereValues) <= 0) { // find by name first, if not found then find by unique ID
-                if (categoriesDb.insert(CategoriesContract.TABLE_NAME, null, values) != -1) {
+                if (categoriesDb.insertOrThrow(CategoriesContract.TABLE_NAME, null, values) != -1) {
                     count++;
                 }
             } else {
                 count++;
             }
         }
+        categoriesDb.setTransactionSuccessful();
         return count;
-    }
-
-    public Category getCategoryByName(String name) {
-        Cursor cursor = findCategories(null, CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY + " = ?", new String[]{name});
-        if (cursor.moveToNext()) {
-            return parseCursorToCategory(cursor);
+        } finally {
+            categoriesDb.endTransaction();
         }
-        return null;
     }
 
-    public Category getCategoryById(String categoryId) {
-        Cursor cursor = findCategories(null, CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID + " = ?", new String[]{categoryId});
-        if (cursor.moveToNext()) {
-            return parseCursorToCategory(cursor);
+    public synchronized Category getCategoryByName(String name) {
+        if (name == null) return null;
+        try (Cursor cursor = findCategories(null, CategoriesContract.COLUMN_NAME_CATEGORY + " = ?", new String[]{name})) {
+            return cursor.moveToFirst() ? parseCursorToCategory(cursor) : null;
         }
-        return null;
-
     }
 
-    public Cursor findCategories(String[] projection, String selection, String[] selectionArgs) {
+    public synchronized Category getCategoryById(String id) {
+        if (id == null) return null;
+        try (Cursor cursor = findCategories(null, CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID + " = ?", new String[]{id})) {
+            return cursor.moveToFirst() ? parseCursorToCategory(cursor) : null;
+        }
+    }
+
+    public synchronized Category ensureDefaultCategory() {
+        Category category = getCategoryByName("Not Specified");
+        if (category == null) {
+            category = new Category();
+            category.setCategoryName("Not Specified");
+            category.setDescription("All notes that are not assigned to a specific category are displayed here");
+            category.setCategoryColor("#6ECFFF");
+            category.setCategoryUniqueId(java.util.UUID.randomUUID().toString());
+            categoriesDb.insertOrThrow(CategoriesContract.TABLE_NAME, null, parseCategoryToContentValues(category));
+        }
+        return category;
+    }
+
+    public synchronized Cursor findCategories(String[] projection, String selection, String[] selectionArgs) {
         return categoriesDb.query(CategoriesContract.TABLE_NAME,
                 projection,
                 selection,
@@ -500,13 +528,12 @@ public class DbHelper {
                 null);
     }
 
-    public void deleteCategory(String categoryId) {
+    public synchronized void deleteCategory(String categoryId) {
         String whereClause = CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID + "= ?";
         String[] whereArgs = new String[]{categoryId};
 
-        categoriesDb.delete(CategoriesContract.TABLE_NAME, whereClause, whereArgs);
-
-        Category defaultCategory = getCategoryByName("Not Specified");
+        Category defaultCategory = ensureDefaultCategory();
+        if (defaultCategory.getCategoryUniqueId().equals(categoryId)) return;
 
         ContentValues values = new ContentValues();
         values.put(NotesContract.MainNotes.COLUMN_CATEGORY, defaultCategory.getCategoryName());
@@ -514,14 +541,20 @@ public class DbHelper {
         values.put(NotesContract.MainNotes.COLUMN_CATEGORY_COLOR, defaultCategory.getCategoryColor());
 
         notesDb.update(NotesContract.MainNotes.TABLE_NAME, values, NotesContract.MainNotes.COLUMN_CATEGORY_ID.concat(" = ?"), new String[]{categoryId});
+        categoriesDb.delete(CategoriesContract.TABLE_NAME, whereClause, whereArgs);
     }
 
-    public int insertNewCategory(Category category) {
+    public synchronized int insertNewCategory(Category category) {
         return (int) categoriesDb.insert(CategoriesContract.TABLE_NAME, null, parseCategoryToContentValues(category));
     }
 
-    public int updateCategory(Category category) {
-        return upsertCategoryListBy(new ArrayList<>(Collections.singletonList(category)), CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID + " = ?", null);
+    public synchronized int updateCategory(Category category) {
+        int count = upsertCategoryListBy(new ArrayList<>(Collections.singletonList(category)), CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID + " = ?", null);
+        ContentValues values = new ContentValues();
+        values.put(MainNotes.COLUMN_CATEGORY, category.getCategoryName());
+        values.put(MainNotes.COLUMN_CATEGORY_COLOR, category.getCategoryColor());
+        notesDb.update(MainNotes.TABLE_NAME, values, MainNotes.COLUMN_CATEGORY_ID + " = ?", new String[]{category.getCategoryUniqueId()});
+        return count;
     }
 
     private ContentValues parseCategoryToContentValues(Category category) {
@@ -547,9 +580,9 @@ public class DbHelper {
 
 
         category.setCategoryName(cursor.getString(
-                cursor.getColumnIndex(CategoriesContract.COLUMN_NAME_CATEGORY)));
+                cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_NAME_CATEGORY)));
         category.setDescription(cursor.getString(
-                cursor.getColumnIndex(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)));
+                cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_DESCRIPTION_CATEGORY)));
         category.setCategoryColor(cursor.getString(
                 cursor.getColumnIndexOrThrow(CategoriesContract.COLUMN_COLOR)));
 

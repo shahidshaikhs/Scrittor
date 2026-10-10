@@ -1,9 +1,7 @@
 package com.shahid.nid.Activties;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -24,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,12 +32,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 import com.shahid.nid.Adapters.CategoriesRecyclerAdapter;
 import com.shahid.nid.Categories.Category;
 import com.shahid.nid.Note;
@@ -134,10 +125,12 @@ public class AddNotesActivity extends BaseActivity {
         formattedTime = date.format(currentLocalTime);
 
         if (getIntent().hasExtra("noteId")) {
-            currentId = Integer.parseInt(getIntent().getExtras().get("noteId").toString());
+            currentId = getIntent().getIntExtra("noteId", -1);
                /*This method takes a cursor, and later uses the values from it*/
             note = DbHelper.getInstance(getApplication()).fetchNote(NotesContract.MainNotes._ID + " = ?", new String[]{String.valueOf(currentId)});
 
+            if (note.getNoteID() <= 0) { isDelete = 1; finish(); return; }
+            currentNoteUniqueId = note.getNoteUniqueId();
             getValuesFromDB();
             rootView.setFocusableInTouchMode(true);
 
@@ -148,6 +141,13 @@ public class AddNotesActivity extends BaseActivity {
             lastEditedTextView.setVisibility(View.GONE);
         }
 
+        if (savedInstanceState != null) {
+            Note savedNote = com.shahid.nid.Utils.GsonHelper.getInstance().getNoteObject(savedInstanceState.getString("draft"));
+            if (savedNote != null) { note = savedNote; currentId = note.getNoteID(); }
+            starredCheck = savedInstanceState.getInt("starred");
+            pendingExportText = savedInstanceState.getString("exportText");
+        }
+
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +155,6 @@ public class AddNotesActivity extends BaseActivity {
                     Toast.makeText(getApplicationContext(), "There is nothing to save. Kindly, write something.", Toast.LENGTH_SHORT).show();
                 } else {
                     updateNotesData(starredCheck);
-                    isDelete =1;
                 }
             }
         });
@@ -216,31 +215,10 @@ public class AddNotesActivity extends BaseActivity {
             LinearLayout textExportNote = dialogShare.findViewById(R.id.text_export_txt);
             LinearLayout shareNote = dialogShare.findViewById(R.id.share_notes);
 
-            textExportNote.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Dexter.withActivity(AddNotesActivity.this).withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            .withListener(new PermissionListener() {
-                                @Override
-                                public void onPermissionGranted(PermissionGrantedResponse response) {
-                                    saveTextAsFile(titleEditText.getText().toString().trim(), titleEditText.getText().toString().trim() + " - " + descriptionEditText.getText().toString().trim());
-                                }
-
-                                @Override
-                                public void onPermissionDenied(PermissionDeniedResponse response) {
-                                    Toast.makeText(getBaseContext(), "This permission is required so that the app can export database.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-
-                                @Override
-                                public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                                    token.continuePermissionRequest();
-                                }
-                            })
-                            .check();
-
-                }
+            textExportNote.setOnClickListener(v -> {
+                dialogShare.dismiss();
+                saveTextAsFile(titleEditText.getText().toString().trim(),
+                        titleEditText.getText().toString() + "\n\n" + descriptionEditText.getText().toString());
             });
 
             shareNote.setOnClickListener(v -> {
@@ -273,8 +251,7 @@ public class AddNotesActivity extends BaseActivity {
 
 
         /*Notification Intent*/
-        final Intent intent = new Intent(this, AddNotesActivity.class);
-        intent.putExtra("noteId", currentId);
+
 
         /*Notification Code*/
         addNotification.setOnClickListener(new View.OnClickListener() {
@@ -283,23 +260,29 @@ public class AddNotesActivity extends BaseActivity {
 
                 if (titleEditText.getText().toString().trim().length() == 0 || descriptionEditText.getText().toString().trim().length() == 0) {
 
-                    Toast.makeText(getApplicationContext(), "Please write something to add note to the notification area.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.notification_note_requires_content, Toast.LENGTH_SHORT).show();
                 } else {
 
-                    RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);
-                    contentView.setTextViewText(R.id.title, titleEditText.getText().toString());
-                    contentView.setTextViewText(R.id.text, descriptionEditText.getText().toString());
-
+                    if (!saveNote(starredCheck)) return;
+                    if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
+                            != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 201);
+                        return;
+                    }
+                    Intent intent = new Intent(AddNotesActivity.this, AddNotesActivity.class).putExtra("noteId", currentId);
                     NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    String NOTIFICATION_CHANNEL_ID = random();
+                    String NOTIFICATION_CHANNEL_ID = "pinned_notes";
 
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+                        NotificationChannel notificationChannel = new NotificationChannel(
+                                NOTIFICATION_CHANNEL_ID,
+                                getString(R.string.pinned_notes_channel),
+                                NotificationManager.IMPORTANCE_DEFAULT);
 
                         // Configure the notification channel.
-                        notificationChannel.setDescription("Channel description");
-                        notificationChannel.setLightColor(Color.RED);
+                        notificationChannel.setDescription(getString(R.string.pinned_notes_channel_description));
+                        notificationChannel.setLightColor(ContextCompat.getColor(AddNotesActivity.this, R.color.colorAccent));
                         notificationChannel.setShowBadge(false);
                         notificationChannel.setSound(null, null);
                         notificationChannel.enableVibration(false);
@@ -312,18 +295,27 @@ public class AddNotesActivity extends BaseActivity {
 
                     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(AddNotesActivity.this, NOTIFICATION_CHANNEL_ID);
 
-                    notificationBuilder.setAutoCancel(true)
-                            .setDefaults(Notification.DEFAULT_ALL)
+                    String noteTitle = titleEditText.getText().toString().trim();
+                    String noteText = descriptionEditText.getText().toString().trim();
+                    notificationBuilder.setAutoCancel(false)
+                            .setOnlyAlertOnce(true)
                             .setWhen(System.currentTimeMillis())
                             .setSmallIcon(R.drawable.twotone_notifications_active_24)
-                            .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
-                            .setContent(contentView);
+                            .setColor(ContextCompat.getColor(AddNotesActivity.this, com.shahid.nid.AccentManager.getColorResource(
+                                    com.shahid.nid.AccentManager.getSelectedColor(AddNotesActivity.this))))
+                            .setContentTitle(noteTitle)
+                            .setContentText(noteText)
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(noteText))
+                            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setContentIntent(PendingIntent.getActivity(getApplicationContext(), currentId, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE))
+                            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE);
 
-                    Unique_Integer_Number = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+                    Unique_Integer_Number = currentId;
                     if (notificationManager != null) {
                         notificationManager.notify(/*notification id*/Unique_Integer_Number, notificationBuilder.build());
                     }
-                    Toast.makeText(getApplicationContext(), "The note has been added to the notification area", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.note_pinned, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -337,7 +329,6 @@ public class AddNotesActivity extends BaseActivity {
                     finish();
                 } else {
                     updateNotesData(starredCheck);
-                    isDelete =1;
                 }
             }
         });
@@ -405,8 +396,8 @@ public class AddNotesActivity extends BaseActivity {
 
         ShareCompat.IntentReader intentReader =
                 ShareCompat.IntentReader.from(this);
-        if (intentReader.isShareIntent()) {
-            String text = intentReader.getHtmlText();
+        if (savedInstanceState == null && intentReader.isShareIntent()) {
+            CharSequence text = intentReader.getText();
             descriptionEditText.setText(text);
         }
 
@@ -453,58 +444,64 @@ public class AddNotesActivity extends BaseActivity {
 
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (TextUtils.isEmpty(titleEditText.getText().toString().trim()) && TextUtils.isEmpty(descriptionEditText.getText().toString().trim())) {
+    protected void handleBackNavigation() {
+        if (titleEditText.getText().toString().trim().isEmpty() && descriptionEditText.getText().toString().trim().isEmpty()) {
             finish();
         } else {
             updateNotesData(starredCheck);
-            isDelete=1;
         }
     }
 
     public void updateNotesData(int starredVal) {
-        if (note.getNoteID() <= 0) {
-            currentNoteUniqueId = String.valueOf(Calendar.getInstance().getTimeInMillis());
-            note.setNoteUniqueId(currentNoteUniqueId);
-            note.setNoteTitle(titleEditText.getText().toString());
-            note.setNoteContent(descriptionEditText.getText().toString());
-            note.setCreationDate(formattedDate + " " + formattedTime);
-            note.setLastEdited(String.valueOf(Calendar.getInstance().getTimeInMillis()));
-
-            if (starredVal == 1) {
-                note.setIsStarred("starred");
-            } else {
-                note.setIsStarred("notstarred");
-            }
-
-            // Insert the new row, returning the
-            // primary key value of the new row
-            currentId = DbHelper.getInstance(getApplication()).upsertNote(note);
-            note.setNoteID(currentId);
-
-            Toast.makeText(getApplicationContext(), "The note has been added", Toast.LENGTH_SHORT).show();
-            doneButton.isHapticFeedbackEnabled();
-            finish();
-        } else {
-            note.setNoteTitle(titleEditText.getText().toString());
-            note.setNoteContent(descriptionEditText.getText().toString());
-            note.setLastEdited(String.valueOf(Calendar.getInstance().getTimeInMillis()));
-
-            if (starredVal == 1) {
-                note.setIsStarred("starred");
-            } else {
-                note.setIsStarred("notstarred");
-            }
-
-            Toast.makeText(getApplicationContext(), "The note has been udated", Toast.LENGTH_SHORT).show();
-            DbHelper.getInstance(getApplication()).upsertNote(note);
+        if (saveNote(starredVal)) {
+            isDelete = 1;
             finish();
         }
-
-        getSharedPreferences(getString(R.string.last_edited_base_shared_pref), MODE_PRIVATE).edit().putLong(currentNoteUniqueId, Calendar.getInstance().getTimeInMillis()).apply();
     }
 
+    private boolean saveNote(int starredVal) {
+        if (note == null || isDelete == 1 || !isContentAccessible()) return false;
+        String title = titleEditText.getText().toString();
+        String content = descriptionEditText.getText().toString();
+        if (title.trim().isEmpty() && content.trim().isEmpty() && note.getNoteID() <= 0) return false;
+        if (note.getNoteUniqueId() == null || note.getNoteUniqueId().isEmpty()) note.setNoteUniqueId(java.util.UUID.randomUUID().toString());
+        if (note.getCreationDate() == null) note.setCreationDate(formattedDate + " " + formattedTime);
+        if (note.getCategoryId() == null) {
+            Category category = DbHelper.getInstance(getApplication()).ensureDefaultCategory();
+            note.setCategoryId(category.getCategoryUniqueId());
+            note.setCategoryName(category.getCategoryName());
+            note.setCategoryColor(category.getCategoryColor());
+        }
+        Note stored = DbHelper.getInstance(getApplication()).fetchNote(NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID + " = ?", new String[]{note.getNoteUniqueId()});
+        if (stored.getNoteID() > 0 && java.util.Objects.equals(title, stored.getNoteTitle())
+                && java.util.Objects.equals(content, stored.getNoteContent())
+                && java.util.Objects.equals(note.getCategoryId(), stored.getCategoryId())
+                && java.util.Objects.equals(starredVal == 1 ? "starred" : "notstarred", stored.getIsStarred())) return true;
+        note.setNoteTitle(title);
+        note.setNoteContent(content);
+        note.setIsStarred(starredVal == 1 ? "starred" : "notstarred");
+        note.setLastEdited(String.valueOf(System.currentTimeMillis()));
+        try {
+            int id = DbHelper.getInstance(getApplication()).upsertNote(note);
+            if (id <= 0) throw new IllegalStateException("Note could not be saved");
+            currentId = id;
+            note.setNoteID(id);
+            currentNoteUniqueId = note.getNoteUniqueId();
+            getIntent().putExtra("noteId", id);
+            return true;
+        } catch (RuntimeException e) {
+            Toast.makeText(this, "Could not save your note. Please try again.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        state.putString("draft", com.shahid.nid.Utils.GsonHelper.getInstance().toJson(note));
+        state.putInt("starred", starredCheck);
+        state.putString("exportText", pendingExportText);
+        super.onSaveInstanceState(state);
+    }
 
     public void getValuesFromDB() {
         titleEditText.setText(note.getNoteTitle(), TextView.BufferType.EDITABLE);
@@ -515,7 +512,7 @@ public class AddNotesActivity extends BaseActivity {
         categoryLabelColor.setText(note.getCategoryColor());
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.parseLong(note.getLastEdited()));
+        calendar.setTimeInMillis(note.lastEditedMillis());
 
         String mMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -537,7 +534,7 @@ public class AddNotesActivity extends BaseActivity {
             categoryButton.setColorFilter(ContextCompat.getColor(this, R.color.color3));
         }
 
-        if (note.getIsStarred().equals("starred")) {
+        if ("starred".equals(note.getIsStarred())) {
             starButton.setImageResource(R.drawable.twotone_star_black_24);
             starButton.setColorFilter(ContextCompat.getColor(AddNotesActivity.this, R.color.color4));
             starredCheck = 1;
@@ -580,18 +577,9 @@ public class AddNotesActivity extends BaseActivity {
 
     @Override
     protected void onPause() {
+        if (isDelete == 0 && titleEditText != null && note != null && isContentAccessible()) saveNote(starredCheck);
         super.onPause();
-        if (titleEditText.getText().toString().trim().length() == 0 && descriptionEditText.getText().toString().trim().length() == 0 ) {
-            finish();
-        }
-        else if (isDelete == 1){
-            finish();
-        }
-        else {
-            updateNotesData(starredCheck);
-        }
     }
-
 
     public void categoryButtonInvoker(){
         categoryDialog = new Dialog(AddNotesActivity.this);
@@ -638,28 +626,29 @@ public class AddNotesActivity extends BaseActivity {
         }
     }
 
-    private void saveTextAsFile(String FileName, String Content) {
-        String fileName = FileName + ".txt";
-        File file = new File(Environment.getExternalStorageDirectory() + "/Scrittor_Export/");
+    private String pendingExportText;
 
-        if (!file.exists()) {
-            file.mkdir();
-        }
+    private void saveTextAsFile(String fileName, String content) {
+        pendingExportText = content;
+        startActivityForResult(new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE).setType("text/plain")
+                .putExtra(Intent.EXTRA_TITLE, (fileName.isEmpty() ? "Note" : fileName.replaceAll("[/\\\\]", "_")) + ".txt"), 200);
+    }
 
-        try {
-            FileOutputStream fos = new FileOutputStream(file +File.separator+ fileName);
-            fos.write(Content.getBytes());
-            fos.close();
-            Toast.makeText(AddNotesActivity.this, "Text file has been exported to Scrittor_Export folder", Toast.LENGTH_SHORT).show();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(AddNotesActivity.this, "File not Found", Toast.LENGTH_SHORT).show();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-            Toast.makeText(AddNotesActivity.this, "Error Saving!", Toast.LENGTH_SHORT).show();
-        }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != 200 || resultCode != RESULT_OK || data == null || data.getData() == null || pendingExportText == null) return;
+        final String text = pendingExportText;
+        final android.net.Uri uri = data.getData();
+        com.shahid.nid.executors.AppExecutors.getInstance().diskIO().execute(() -> {
+            try (java.io.OutputStream output = getContentResolver().openOutputStream(uri, "wt")) {
+                if (output == null) throw new IOException("Cannot open document");
+                output.write(text.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                showSnackBar("Note exported.");
+            } catch (IOException e) {
+                showSnackBar("Could not export note. Please try again.");
+            }
+        });
     }
 }
-

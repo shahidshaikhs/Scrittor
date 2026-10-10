@@ -77,12 +77,7 @@ public class MainActivity extends BaseActivity
         if (!prefs.getBoolean("firstTime", false)) {
             // <---- run your one time code here
 
-            Category defaultCategory = new Category();
-            defaultCategory.setCategoryName("Not Specified");
-            defaultCategory.setDescription("All notes that are not assigned to a specific category are displayed here");
-            defaultCategory.setCategoryColor("#6ECFFF");
-            defaultCategory.setCategoryUniqueId(String.valueOf(Calendar.getInstance().getTimeInMillis()));
-            DbHelper.getInstance(getApplication()).insertNewCategory(defaultCategory);
+            DbHelper.getInstance(getApplication()).ensureDefaultCategory();
 
             getUserName("");
 
@@ -183,63 +178,11 @@ public class MainActivity extends BaseActivity
             return false;
         });
 
-        if (accent.equals("color1")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent1);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent1));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent1));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent1), PorterDuff.Mode.SRC_OVER);
-
-        } else if (accent.equals("color2")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent2);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent2));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent2));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent2), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color3")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent3);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent3));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent3));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent3), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color4")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent4);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent4));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent4));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent4), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color5")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent5);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent5));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent5));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent5), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color6")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent6);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent6));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent6));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent6), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color7")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent7);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent7));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent7));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent7), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color8")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent8);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent8));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent2));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent8), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color9")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent9);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent9));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent9));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent9), PorterDuff.Mode.SRC_OVER);
-        } else if (accent.equals("color10")) {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.accent10);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.accent10));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.accent10));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.accent10), PorterDuff.Mode.SRC_OVER);
-        } else {
-            tabIconColor1 = ContextCompat.getColor(MainActivity.this, R.color.colorAccent);
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
-            addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorAccent));
-            categoryButton.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_OVER);
-        }
+        int accentColorResource = AccentManager.getColorResource(accent);
+        tabIconColor1 = ContextCompat.getColor(this, accentColorResource);
+        tabLayout.setSelectedTabIndicatorColor(tabIconColor1);
+        addNotesButton.setBackgroundTintList(ContextCompat.getColorStateList(this, accentColorResource));
+        categoryButton.setBackgroundTintList(ContextCompat.getColorStateList(this, accentColorResource));
 
         tabLayout.getTabAt(0).setIcon(ICONS[0]);
         tabLayout.getTabAt(1).setIcon(ICONS[1]);
@@ -263,12 +206,12 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onBackPressed() {
+    protected void handleBackNavigation() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            super.handleBackNavigation();
         }
     }
 
@@ -276,42 +219,6 @@ public class MainActivity extends BaseActivity
     protected void onPause() {
         super.onPause();
         searchIcon.setIconified(true);
-    }
-
-    public void passwordCheckMethod() {
-        SharedPreferences prefsPassword = getSharedPreferences(getResources().getString(R.string.MY_PREFS_PASSWORD), MODE_PRIVATE);
-        String password_check = prefsPassword.getString("password_check", null);
-
-        /*Fingerprint Preferences*/
-        SharedPreferences prefsFingerPrint = getSharedPreferences(getResources().getString(R.string.MY_PREFS_FINGERPRINT), MODE_PRIVATE);
-        String fingerprint_check = prefsFingerPrint.getString("fingerprint_check", null);
-
-        if (password_check != null) {
-            if (!password_check.equals("enable")) {
-
-                Intent intent = getIntent();
-                if (intent.hasExtra("check")) {
-
-                } else {
-
-                    if (fingerprint_check != null) {
-                        if (fingerprint_check.equals("enable")) {
-                            startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                            finish();
-                        }
-                    }
-                }
-
-            } else {
-                Intent intent = getIntent();
-                if (intent.hasExtra("check")) {
-                    Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_LONG).show();
-                } else {
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                    finish();
-                }
-            }
-        }
     }
 
     public void getUserName(String present) {
@@ -357,18 +264,8 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        UtilityVariables utilityVariables = new UtilityVariables();
-        if (utilityVariables.getSomeVariable() == 1) {
-            /*This method checks when to display the SignInActivity*/
-            passwordCheckMethod();
-        }
-    }
-
-    @Override
     protected void onDestroy() {
-        viewPager.addOnPageChangeListener(null);
+        if (viewPager != null) viewPager.clearOnPageChangeListeners();
         super.onDestroy();
     }
 
@@ -390,7 +287,7 @@ public class MainActivity extends BaseActivity
                     startActivity(goToMarket);
                 } catch (ActivityNotFoundException e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.com.shahid.nid.GoogleDrive.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
                 }
                 break;
             case "about":
@@ -398,9 +295,6 @@ public class MainActivity extends BaseActivity
                 break;
             case "donate":
                 startActivity(new Intent(MainActivity.this, BillingActivity.class));
-                break;
-            case "translate":
-                openLinks("https://scrittor.oneskyapp.com/collaboration/project?id=146657");
                 break;
             case "accent":
                 Dialog colorDialog = new Dialog(MainActivity.this,  R.style.Theme_Dialog);
@@ -410,98 +304,26 @@ public class MainActivity extends BaseActivity
                 colorDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 colorDialog.show();
 
-                ImageView color1 = colorDialog.findViewById(R.id.color1);
-                ImageView color2 = colorDialog.findViewById(R.id.color2);
-                ImageView color3 = colorDialog.findViewById(R.id.color3);
-                ImageView color4 = colorDialog.findViewById(R.id.color4);
-                ImageView color5 = colorDialog.findViewById(R.id.color5);
-                ImageView color6 = colorDialog.findViewById(R.id.color6);
-                ImageView color7 = colorDialog.findViewById(R.id.color7);
-                ImageView color8 = colorDialog.findViewById(R.id.color8);
-                ImageView color9 = colorDialog.findViewById(R.id.color9);
-                ImageView color10 = colorDialog.findViewById(R.id.color10);
-
+                ImageView[] colorOptions = {
+                        colorDialog.findViewById(R.id.color1), colorDialog.findViewById(R.id.color2),
+                        colorDialog.findViewById(R.id.color3), colorDialog.findViewById(R.id.color4),
+                        colorDialog.findViewById(R.id.color5), colorDialog.findViewById(R.id.color6),
+                        colorDialog.findViewById(R.id.color7), colorDialog.findViewById(R.id.color8),
+                        colorDialog.findViewById(R.id.color9), colorDialog.findViewById(R.id.color10)
+                };
                 AccentManager accentManager = new AccentManager();
-
-                color1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color1");
+                String selectedColor = editorAccent.getString("accent", "color1");
+                for (int index = 0; index < colorOptions.length; index++) {
+                    ImageView colorOption = colorOptions[index];
+                    String colorName = "color" + (index + 1);
+                    colorOption.setSelected(colorName.equals(selectedColor));
+                    colorOption.setContentDescription(getString(R.string.accent_color_option, index + 1));
+                    colorOption.setOnClickListener(view -> {
+                        accentManager.checkColor(MainActivity.this, colorName);
+                        colorDialog.dismiss();
                         recreate();
-                    }
-                });
-
-                color2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color2");
-                        recreate();
-                    }
-                });
-
-                color3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color3");
-                        recreate();
-                    }
-                });
-
-                color4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color4");
-                        recreate();
-                    }
-                });
-
-                color5.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color5");
-                        recreate();
-                    }
-                });
-
-                color6.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color6");
-                        recreate();
-                    }
-                });
-
-                color7.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color7");
-                        recreate();
-                    }
-                });
-
-                color8.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color8");
-                        recreate();
-                    }
-                });
-
-                color9.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color9");
-                        recreate();
-                    }
-                });
-
-                color10.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        accentManager.checkColor(MainActivity.this, "color10");
-                        recreate();
-                    }
-                });
+                    });
+                }
                 break;
         }
     }

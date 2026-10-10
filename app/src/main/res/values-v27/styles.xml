@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="OverlayPrimaryColorLight">
+        <item name="cardSurfaceColor">@color/cardSurface2</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary2</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark2</item>
@@ -14,6 +15,7 @@
     </style>
 
     <style name="OverlayPrimaryColorAmoled">
+        <item name="cardSurfaceColor">@color/cardSurface3</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary3</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark3</item>
@@ -26,6 +28,7 @@
     </style>
 
     <style name="OverlayPrimaryColorDark">
+        <item name="cardSurfaceColor">@color/cardSurface</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -38,6 +41,7 @@
     </style>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="cardSurfaceColor">@color/cardSurface</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -48,5 +52,6 @@
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

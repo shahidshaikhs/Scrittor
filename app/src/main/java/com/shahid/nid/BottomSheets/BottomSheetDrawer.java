@@ -45,7 +45,6 @@ public class BottomSheetDrawer extends BottomSheetDialogFragment {
         RelativeLayout rateLayout = view.findViewById(R.id.nav_rate);
         RelativeLayout aboutLayout = view.findViewById(R.id.nav_about);
         RelativeLayout donateLayout = view.findViewById(R.id.nav_donate);
-        RelativeLayout translateLayout = view.findViewById(R.id.nav_translate);
         RelativeLayout themeLayout = view.findViewById(R.id.themeToggle);
         RelativeLayout accentLayout = view.findViewById(R.id.accentToggle);
         RelativeLayout displayTint = view.findViewById(R.id.displayTint);
@@ -183,13 +182,6 @@ public class BottomSheetDrawer extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 bottomSheetListener.onButtonClickDrawer("donate");
-            }
-        });
-
-        translateLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetListener.onButtonClickDrawer("translate");
             }
         });
 

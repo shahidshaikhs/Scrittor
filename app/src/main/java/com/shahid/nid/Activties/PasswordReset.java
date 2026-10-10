@@ -36,9 +36,7 @@ public class PasswordReset extends BaseActivity {
 
 
         backButton.setOnClickListener(view -> {
-            editorPassword.putString("password_check", "disable");
-            editorPassword.putString("password_check", null);
-            editorPassword.apply();
+
             finish();
         });
 
@@ -82,8 +80,16 @@ public class PasswordReset extends BaseActivity {
 
 
                 } else {
-                    editorPassword.putString("password", password_edit_text.getText().toString());
+                    try {
+                        com.shahid.nid.Utils.PinStore.save(getSharedPreferences(getString(R.string.MY_PREFS_PASSWORD), MODE_PRIVATE), password_edit_text.getText().toString());
+                    } catch (RuntimeException e) {
+                        Toast.makeText(PasswordReset.this, "Could not save PIN. Please try again.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    getSharedPreferences(getString(R.string.MY_PREFS_FINGERPRINT), MODE_PRIVATE).edit().putString("fingerprint_check", "disable").apply();
+                    editorPassword.putString("password_check", "enable");
                     editorPassword.apply();
+                    ((com.shahid.nid.NID) getApplication()).unlock();
                     Toast.makeText(getApplicationContext(), "The changes have been saved", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(PasswordReset.this, SettingsActivity.class));
                     finish();
@@ -94,10 +100,8 @@ public class PasswordReset extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        editorPassword.putString("password_check", "disable");
-        editorPassword.putString("password_check", null);
-        editorPassword.apply();
-        super.onBackPressed();
+    protected void handleBackNavigation() {
+
+        super.handleBackNavigation();
     }
 }

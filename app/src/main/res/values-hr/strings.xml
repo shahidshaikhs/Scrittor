@@ -72,12 +72,11 @@
     <string name="hello">Bok,</string>
     <string name="rate_and_review">Ocijeni i Recenziraj</string>
     <string name="about">O</string>
-    <string name="help_translate">Pomozi Prevesti</string>
     <!--Misc-->
     <string name="new_category">Nova Kategorija</string>
-    <string name="tab_category">K a t e g o r i j e</string>
-    <string name="tab_notes">B i l j e š k e</string>
-    <string name="tab_starred">F a v o r i t i</string>
+    <string name="tab_category">Kategorije</string>
+    <string name="tab_notes">Bilješke</string>
+    <string name="tab_starred">Favoriti</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">Pravila o Privatnosti</string>

@@ -60,6 +60,11 @@ public class DriveServiceHelper {
     }
 
 
+    public String createJsonFile(String parent, String name, String json) throws IOException {
+        File metadata = new File().setParents(Collections.singletonList(parent)).setName(name).setMimeType("application/json");
+        return mDriveService.files().create(metadata, ByteArrayContent.fromString("application/json", json)).execute().getId();
+    }
+
     public void deleteFile(String fileId) throws IOException {
         mDriveService.files().delete(fileId).execute();
     }
@@ -75,8 +80,8 @@ public class DriveServiceHelper {
         String name = metadata.getName();
 
         // Stream the file contents to a String.
-        InputStream is = mDriveService.files().get(fileId).executeMediaAsInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        try (InputStream is = mDriveService.files().get(fileId).executeMediaAsInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8))) {
         StringBuilder stringBuilder = new StringBuilder();
         String line;
 
@@ -86,6 +91,7 @@ public class DriveServiceHelper {
         String contents = stringBuilder.toString();
 
         return Pair.create(name, contents);
+        }
 
     }
 
@@ -176,7 +182,7 @@ public class DriveServiceHelper {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mDriveService.files().get(fileId)
                 .executeMediaAndDownloadTo(outputStream);
-        return outputStream.toString();
+        return outputStream.toString("UTF-8");
 
     }
 

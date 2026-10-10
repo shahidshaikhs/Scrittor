@@ -38,10 +38,9 @@
     <!--Single Category Activity-->
     <!--Navigation Drawer-->
     <string name="about">소개</string>
-    <string name="help_translate">번역 돕기</string>
     <!--Misc-->
     <string name="new_category">새 카테고리</string>
-    <string name="tab_category">카 테 고 리</string>
+    <string name="tab_category">카테고리</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">개인정보처리방침</string>

@@ -73,12 +73,11 @@ Gracias "</string>
     <string name="hello">Hola,</string>
     <string name="rate_and_review">Valorar y comentar</string>
     <string name="about">Acerca</string>
-    <string name="help_translate">Ayuda a traducir</string>
     <!--Misc-->
     <string name="new_category">Nueva categoría</string>
-    <string name="tab_category">C a t e g o r í a s</string>
-    <string name="tab_notes">N o t a s</string>
-    <string name="tab_starred">D e s t a c a d o</string>
+    <string name="tab_category">Categorías</string>
+    <string name="tab_notes">Notas</string>
+    <string name="tab_starred">Destacado</string>
     <!--Dialog Box Text Limiter-->
     <!--Shared Preferences-->
     <string name="privacy_policy">"Políticas de Privacidad "</string>

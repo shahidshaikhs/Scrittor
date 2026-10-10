@@ -50,7 +50,7 @@ public class MainFragment extends Fragment {
         fab = getActivity().findViewById(R.id.add_note);
         searchView = getActivity().findViewById(R.id.mSearch);
 
-        EditText searchEditText = searchView.findViewById(R.id.search_src_text);
+        EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.textColorSecondary));
         searchEditText.setHintTextColor(getResources().getColor(R.color.textColorSecondary));
 
@@ -76,17 +76,7 @@ public class MainFragment extends Fragment {
         });
 
         notesList.addAll(DbHelper.getInstance(getActivity().getApplication()).fetchAllNotesFromDb(null));
-        Collections.sort(notesList, new Comparator<Note>() {
-            @Override
-            public int compare(Note o1, Note o2) {
-                try {
-                    return Long.getLong(o1.getLastEdited()).compareTo(Long.getLong(o2.getLastEdited()));
-                } catch (Exception e){
-                    return 1;
-                }
-            }
-        });
-        Collections.reverse(notesList);
+        Collections.sort(notesList, (a, b) -> Long.compare(b.lastEditedMillis(), a.lastEditedMillis()));
 
         RecyclerView recyclerView = rootView.findViewById(R.id.notes_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
@@ -109,6 +99,7 @@ public class MainFragment extends Fragment {
             }
         });
 
+        noteRecyclerAdapter.getFilter().filter(searchView.getQuery());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

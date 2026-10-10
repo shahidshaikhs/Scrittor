@@ -63,110 +63,54 @@ public class NotesDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) { // so I don't have to worry about export and import? nope.. though i just saw one issue
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
-        backupDb(sqLiteDatabase);  // TODO FIRST BACKUP OLD TABLE TO A BACKUP TABLE
-        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES); // TODO DELETE MAIN TABLE
-        onCreate(sqLiteDatabase); // TODO CREATE MAIN TABLE WITH NEW SCHEMA
-        restoreDb(sqLiteDatabase); // TODO RESTORE DATA TO NEW MAIN TABLE FROM BACKUP TABLE
-    }
-
-    /**
-     * Creates a backup table and Copies data from main Notes table to this backup table.
-     * @param sqLiteDatabase
-     */
-    private void backupDb(SQLiteDatabase sqLiteDatabase){
-        String query = "INSERT INTO " + NotesContract.MainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB + " SELECT * FROM " + NotesContract.MainNotes.TABLE_NAME;
-        final String SQL_CREATE_BACKUP_TABLE = "CREATE TABLE " + NotesContract.MainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB + "(" +
-                NotesContract.MainNotes._ID + " INTEGER PRIMARY KEY," +
-                NotesContract.MainNotes.COLUMN_NAME_TITLE + " TEXT," +
-                NotesContract.MainNotes.COLUMN_DATE + " TEXT," +
-                NotesContract.MainNotes.COLUMN_CATEGORY + " TEXT," +
-                NotesContract.MainNotes.COLUMN_CATEGORY_COLOR + " TEXT," +
-                NotesContract.MainNotes.COLUMN_CATEGORY_ID + " TEXT," +
-                NotesContract.MainNotes.COLUMN_STARRED_CHECK + " TEXT," +
-                NotesContract.MainNotes.COLUMN_NAME_CONTENT + " TEXT)";
-
-        sqLiteDatabase.execSQL(SQL_CREATE_BACKUP_TABLE);
-        sqLiteDatabase.execSQL(query);
-    }
-
-    /**
-     * Restore data from backup Table to newly created Main Table with new schema .. (Change it accordingly in future table schema upgrades
-     * @param sqLiteDatabase
-     */
-    @SuppressLint("ApplySharedPref")
-    private void restoreDb(SQLiteDatabase sqLiteDatabase){
-        // TODO get data from backup using sqlitedb and use cursor to put data
-        CategoriesDbHelper mDbHelper = new CategoriesDbHelper(context);
-        SQLiteDatabase categoryDb = mDbHelper.getReadableDatabase();
-
-        Cursor cursor = sqLiteDatabase.query(
-                NotesContract.MainNotes.BACKUP_TABLE_NAME_FOR_UPGRADE_DB,                     // The table to query
-                null,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
-        );
-
-        long i = 0;
-        while (cursor.moveToNext()) {
-            String title = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_NAME_TITLE));
-            String content = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_NAME_CONTENT));
-            String creationDate = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_DATE));
-
-            String categoryName = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY));
-
-            String categoryColor = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY_COLOR));
-
-            String categoryId = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY_ID));
-
-            String isStarred = cursor.getString(cursor.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_STARRED_CHECK));
-
-            String whereClause = CategoriesNotesContract.CategoriesContract._ID + " = ? AND " + CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY + " = ?";
-            String[] whereArguments = new String[] { categoryId, categoryName};
-
-            Cursor categoryCursor = categoryDb.query(CategoriesNotesContract.CategoriesContract.TABLE_NAME,
-                    null,
-                    whereClause,
-                    whereArguments,
-                    null,
-                    null,
-                    CategoriesNotesContract.CategoriesContract._ID);
-
-            ContentValues values = new ContentValues();
-            values.put(NotesContract.MainNotes.COLUMN_NAME_TITLE, title);
-            values.put(NotesContract.MainNotes.COLUMN_NAME_CONTENT, content);
-            values.put(NotesContract.MainNotes.COLUMN_DATE, creationDate);
-            values.put(NotesContract.MainNotes.COLUMN_CATEGORY, categoryName);
-
-            if (categoryCursor.moveToNext()){
-                categoryId = categoryCursor.getString(categoryCursor.getColumnIndex(CategoriesNotesContract.CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID));
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if (oldVersion < 4) {
+            addTextColumn(db, NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID);
+            addTextColumn(db, NotesContract.MainNotes.COLUMN_LAST_EDITED);
+            // Old notes referenced category row IDs. Preserve those IDs during the
+            // category migration, then translate the references to stable IDs.
+            try (CategoriesDbHelper helper = new CategoriesDbHelper(context)) {
+                SQLiteDatabase categories = helper.getReadableDatabase();
+                try (Cursor rows = db.query(NotesContract.MainNotes.TABLE_NAME, null,
+                        null, null, null, null, null)) {
+                    while (rows.moveToNext()) {
+                        ContentValues values = new ContentValues();
+                        String id = rows.getString(rows.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID));
+                        if (id == null || id.isEmpty()) {
+                            values.put(NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID, java.util.UUID.randomUUID().toString());
+                        }
+                        String edited = rows.getString(rows.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_LAST_EDITED));
+                        if (edited == null || edited.isEmpty()) {
+                            values.put(NotesContract.MainNotes.COLUMN_LAST_EDITED, String.valueOf(System.currentTimeMillis()));
+                        }
+                        String categoryId = rows.getString(rows.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY_ID));
+                        String name = rows.getString(rows.getColumnIndexOrThrow(NotesContract.MainNotes.COLUMN_CATEGORY));
+                        if (categoryId != null && name != null) {
+                        try (Cursor category = categories.query(CategoriesNotesContract.CategoriesContract.TABLE_NAME, null,
+                                "_id = ? AND " + CategoriesNotesContract.CategoriesContract.COLUMN_NAME_CATEGORY + " = ?",
+                                new String[]{categoryId, name}, null, null, null)) {
+                            if (category.moveToFirst()) {
+                                values.put(NotesContract.MainNotes.COLUMN_CATEGORY_ID, category.getString(category.getColumnIndexOrThrow(
+                                        CategoriesNotesContract.CategoriesContract.COLUMN_CATEGORY_UNIQUE_ID)));
+                            }
+                        }
+                        }
+                        if (values.size() > 0) {
+                            db.update(NotesContract.MainNotes.TABLE_NAME, values, "_id = ?",
+                                    new String[]{rows.getString(rows.getColumnIndexOrThrow("_id"))});
+                        }
+                    }
+                }
             }
-
-            values.put(NotesContract.MainNotes.COLUMN_CATEGORY_ID, categoryId);
-            values.put(NotesContract.MainNotes.COLUMN_CATEGORY_COLOR, categoryColor);
-            values.put(NotesContract.MainNotes.COLUMN_STARRED_CHECK, isStarred);
-            String uniqueId = String.valueOf(Calendar.getInstance().getTimeInMillis() + i);
-            values.put(NotesContract.MainNotes.COLUMN_UNIQUE_NOTE_ID, uniqueId);
-            values.put(NotesContract.MainNotes.COLUMN_LAST_EDITED, uniqueId);
-
-            Log.e("Notes Parsed", values.toString());
-            sqLiteDatabase.insert(NotesContract.MainNotes.TABLE_NAME, null, values);
-            context.getSharedPreferences("last_edited_base_shared_pref", MODE_PRIVATE).edit().putLong(uniqueId, Calendar.getInstance().getTimeInMillis()).commit();
-            i++;
         }
-
-        cursor.close();
     }
 
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
+    private void addTextColumn(SQLiteDatabase db, String name) {
+        try (Cursor columns = db.rawQuery("PRAGMA table_info(" + NotesContract.MainNotes.TABLE_NAME + ")", null)) {
+            while (columns.moveToNext()) {
+                if (name.equals(columns.getString(columns.getColumnIndexOrThrow("name")))) return;
+            }
+        }
+        db.execSQL("ALTER TABLE " + NotesContract.MainNotes.TABLE_NAME + " ADD COLUMN " + name + " TEXT");
     }
 }

@@ -112,6 +112,7 @@ public class ManageCategoriesActivity extends BaseActivity {
         if (getIntent().hasExtra("noteId")) {
             category = DbHelper.getInstance(getApplication()).getCategoryById(getIntent().getStringExtra("noteId"));
 
+            if (category == null) { finish(); return; }
             categoryTitle.setText(category.getCategoryName());
             categoryDescription.setText(category.getDescription());
             ChangeDividerColor(category.getCategoryColor());
@@ -124,7 +125,7 @@ public class ManageCategoriesActivity extends BaseActivity {
                     if (categoryTitle.getText().toString().trim().length() == 0) {
                         Toast.makeText(getApplicationContext(), "There is nothing to save. Kindly, write something.", Toast.LENGTH_SHORT).show();
                     } else {
-                        updateCategoryMethod(Long.parseLong(category.getCategoryUniqueId()));
+                        updateCategoryMethod();
                     }
 
                 }
@@ -141,27 +142,35 @@ public class ManageCategoriesActivity extends BaseActivity {
         });
     }
 
+    private boolean categoryNameExists(String name) {
+        for (Category existing : DbHelper.getInstance(getApplication()).fetchAllCategoriesFromDb(null)) {
+            if (existing.getCategoryName().trim().equalsIgnoreCase(name)
+                    && !java.util.Objects.equals(existing.getCategoryUniqueId(), category.getCategoryUniqueId())) return true;
+        }
+        return false;
+    }
+
     public void addCategoryMethod() {
-        if (categoryNamesPresentList.contains(categoryTitle.getText().toString().trim().toLowerCase())) {
+        if (categoryNameExists(categoryTitle.getText().toString().trim())) {
             Snackbar.make(findViewById(android.R.id.content), R.string.category_exists, Snackbar.LENGTH_INDEFINITE).show();
             return;
         }
 
-        category.setCategoryName(categoryTitle.getText().toString());
+        category.setCategoryName(categoryTitle.getText().toString().trim());
         category.setDescription(categoryDescription.getText().toString().trim());
         category.setCategoryColor(colorValue);
-        category.setCategoryUniqueId(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        category.setCategoryUniqueId(java.util.UUID.randomUUID().toString());
         DbHelper.getInstance(getApplication()).insertNewCategory(category);
         Toast.makeText(getApplicationContext(), categoryTitle.getText().toString() + " category has been added", Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    public void updateCategoryMethod(long categoryId) {
-        if (categoryNamesPresentList.contains(categoryTitle.getText().toString().trim().toLowerCase())) {
+    public void updateCategoryMethod() {
+        if (categoryNameExists(categoryTitle.getText().toString().trim())) {
             Snackbar.make(findViewById(android.R.id.content), R.string.category_exists, Snackbar.LENGTH_INDEFINITE).show();
             return;
         }
-        category.setCategoryName(categoryTitle.getText().toString());
+        category.setCategoryName(categoryTitle.getText().toString().trim());
         category.setDescription(categoryDescription.getText().toString().trim());
         category.setCategoryColor(colorValue);
         DbHelper.getInstance(getApplication()).updateCategory(category);
@@ -175,8 +184,8 @@ public class ManageCategoriesActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    protected void handleBackNavigation() {
+        super.handleBackNavigation();
         finish();
     }
 

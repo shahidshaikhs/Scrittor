@@ -1,6 +1,7 @@
 package com.shahid.nid.Activties;
 
 import android.app.Dialog;
+import com.android.billingclient.api.*;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,19 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.billingclient.api.AcknowledgePurchaseParams;
-import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.BillingResult;
-import com.android.billingclient.api.ConsumeParams;
-import com.android.billingclient.api.ConsumeResponseListener;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.SkuDetails;
-import com.android.billingclient.api.SkuDetailsParams;
-import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.shahid.nid.R;
 
@@ -69,7 +57,8 @@ public class BillingActivity extends BaseActivity implements BillingClientStateL
         ImageView backButton = findViewById(R.id.back_button);
         ImageView messageButton = findViewById(R.id.message_button);
 
-        billingClient = BillingClient.newBuilder(this).setListener(this).enablePendingPurchases().build();
+        billingClient = BillingClient.newBuilder(this).setListener(this).enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
+                .enableAutoServiceReconnection().build();
         billingClient.startConnection(this);
 
 
@@ -135,7 +124,7 @@ public class BillingActivity extends BaseActivity implements BillingClientStateL
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
 
@@ -182,21 +171,25 @@ public class BillingActivity extends BaseActivity implements BillingClientStateL
         }
     }
 
-    private HashMap<String, SkuDetails> productsList = new HashMap<>();
+    private HashMap<String, ProductDetails> productsList = new HashMap<>();
     private void getProductList() {
-        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-        params.setSkusList(skuNameList).setType(BillingClient.SkuType.INAPP);
-        billingClient.querySkuDetailsAsync(params.build(),
-                new SkuDetailsResponseListener() {
-                    @Override
-                    public void onSkuDetailsResponse(BillingResult billingResult,
-                                                     List<SkuDetails> skuDetailsList) {
-                        // Process the result.
-                        for (SkuDetails sku : skuDetailsList) {
-                            productsList.put(skuNameList.get(skuNameList.indexOf(sku.getSku())), sku);
-                        }
-
+        ArrayList<QueryProductDetailsParams.Product> products = new ArrayList<>();
+        for (String id : skuNameList) products.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(id).setProductType(BillingClient.ProductType.INAPP).build());
+        billingClient.queryProductDetailsAsync(QueryProductDetailsParams.newBuilder().setProductList(products).build(),
+                (result, details) -> {
+                    if (result.getResponseCode() != BillingClient.BillingResponseCode.OK) {
+                        showSnackBar("Products are unavailable. Please try again later."); return;
                     }
+                    runOnUiThread(() -> {
+                        productsList.clear();
+                        for (ProductDetails product : details.getProductDetailsList()) productsList.put(product.getProductId(), product);
+                    });
+                });
+        billingClient.queryPurchasesAsync(QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build(),
+                (result, purchases) -> {
+                    if (result.getResponseCode() == BillingClient.BillingResponseCode.OK)
+                        for (Purchase purchase : purchases) handlePurchase(purchase);
                 });
     }
 
@@ -222,37 +215,42 @@ public class BillingActivity extends BaseActivity implements BillingClientStateL
      *
      * @param purchase
      */
+    private final java.util.Set<String> processingTokens = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
+
     private void handlePurchase(Purchase purchase) {
-        billingClient.acknowledgePurchase(AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.getPurchaseToken()).build(), new AcknowledgePurchaseResponseListener() {
-            @Override
-            public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
-                billingClient.consumeAsync(ConsumeParams.newBuilder().setPurchaseToken(purchase.getPurchaseToken()).build(), new ConsumeResponseListener() {
-                    @Override
-                    public void onConsumeResponse(@NonNull BillingResult billingResult, @NonNull String s) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showThankYouDialog("Purchase Complete!", "Thank you for your supporting me in further development of Orphic!");
-                            }
+        if (purchase.getPurchaseState() != Purchase.PurchaseState.PURCHASED) return;
+        if (java.util.Collections.disjoint(purchase.getProducts(), skuNameList)) return;
+        if (!processingTokens.add(purchase.getPurchaseToken())) return;
+        // Consumption also acknowledges a consumable purchase. Never consume pending payments.
+        billingClient.consumeAsync(ConsumeParams.newBuilder().setPurchaseToken(purchase.getPurchaseToken()).build(),
+                (result, token) -> {
+                    processingTokens.remove(token);
+                    if (result.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        runOnUiThread(() -> {
+                            if (!isFinishing() && !isDestroyed()) showThankYouDialog("Purchase complete!", "Thank you for supporting Scrittor!");
                         });
+                    } else {
+                        showSnackBar("Purchase confirmation failed. It will be retried when you reopen this screen.");
                     }
                 });
-            }
-        });
     }
 
-    private void purchasePack(SkuDetails sku) {
-        // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
-        BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
-                .setSkuDetails(sku)
-                .build();
-        int responseCode = billingClient.launchBillingFlow(this, billingFlowParams).getResponseCode();
+    private void purchasePack(ProductDetails product) {
+        if (!billingClient.isReady() || product == null) {
+            showSnackBar("Products are still loading or unavailable. Please try again."); return;
+        }
+        BillingFlowParams.ProductDetailsParams.Builder item = BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(product);
+        ProductDetails.OneTimePurchaseOfferDetails offer = product.getOneTimePurchaseOfferDetails();
+        if (offer != null && offer.getOfferToken() != null && !offer.getOfferToken().isEmpty()) item.setOfferToken(offer.getOfferToken());
+        BillingFlowParams params = BillingFlowParams.newBuilder().setProductDetailsParamsList(java.util.Collections.singletonList(item.build())).build();
+        if (billingClient.launchBillingFlow(this, params).getResponseCode() != BillingClient.BillingResponseCode.OK)
+            showSnackBar("Unable to start purchase. Please try again later.");
     }
 
     // We're being destroyed. It's important to dispose of the helper here!
     @Override
     public void onDestroy() {
-        billingClient.endConnection();
+        if (billingClient != null) billingClient.endConnection();
         super.onDestroy();
     }
 
@@ -265,6 +263,8 @@ public class BillingActivity extends BaseActivity implements BillingClientStateL
         thankyouDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         thankyouDialog.show();
 
+        ((TextView) thankyouDialog.findViewById(R.id.dialogHeadText)).setText(title);
+        ((TextView) thankyouDialog.findViewById(R.id.dialogSubText)).setText(body);
         TextView agreeView = thankyouDialog.findViewById(R.id.agree);
 
         agreeView.setOnClickListener(new View.OnClickListener() {
